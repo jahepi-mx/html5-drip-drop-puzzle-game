@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <style type="text/css">
+            @font-face { font-family: 'joystix'; src: url('assets/fonts/PixelMYZ.ttf'); }
+            body * { font-family: joystix; color: white;}
+            body { background-color: black; }
+            #container { margin: 0 auto; text-align: center }
+        </style>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="entities/entity.js"></script>
+        <script src="entities/tile.js"></script>
+        <script src="entities/cursor.js"></script>
+        <script src="entities/box.js"></script>
+        <script src="entities/checkpoint.js"></script>
+        <script src="levels/level.js"></script>
+        <script src="levels/level1.js"></script>
+        <script type="text/javascript">
+            
+        var context;
+        var canvas;
+        var startTime = 0;
+        var box;
+        var cursor;
+        var currLevel;
+        
+        function callback(time) {
+            var deltatime = (time - startTime) / 1000;
+            startTime = time;
+            update(deltatime);
+            render(context);
+            window.requestAnimationFrame(callback);
+        }
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            canvas.width = 500;
+            canvas.height = 350;
+            context = canvas.getContext("2d"); 
+            cursor = new Cursor();  
+            box = new Box(0, 0, 30, 30, 0);
+            currLevel = new Level1(box);
+            
+            canvas.addEventListener("mousedown", function(evt) {
+                var rect = canvas.getBoundingClientRect();
+                var x = evt.clientX - rect.left;
+                var y = evt.clientY - rect.top;
+                if (x >= box.left() && x <= box.right() && y >= box.top() && y <= box.bottom()) {
+                    cursor.isPressed = true;               
+                    cursor.update(x, y);
+                }
+            });
+            
+            canvas.addEventListener("mouseup", function(evt) {
+                cursor.isPressed = false;
+            });
+            
+            canvas.addEventListener("mousemove", function(evt) {
+                if (cursor.isPressed) {
+                    var rect = canvas.getBoundingClientRect();
+                    var x = evt.clientX - rect.left;
+                    var y = evt.clientY - rect.top;
+                    if (x >= box.left() && x <= box.right() && y >= box.top() && y <= box.bottom()) {
+                        cursor.update(x, y);
+                    }
+                }
+            });
+            window.requestAnimationFrame(callback);
+        }
+        
+        function update(deltatime) {
+            
+            if (cursor.isPressed) {
+                box.speedX = cursor.x - box.left() - box.w / 2;
+            } else {
+                box.speedX = 0;
+            }
+            
+            box.updateX(deltatime);
+            
+            for (var a = 0; a < currLevel.tiles.length; a++) {
+                if (currLevel.tiles[a] !== null) {
+                    if (box.collide(currLevel.tiles[a])) {
+                        box.x = box.oldX;
+                        currLevel.reset();
+                        cursor.isPressed = false;
+                        break;
+                    }
+                }
+            }
+            
+            if (cursor.isPressed) {
+                box.speedY = cursor.y - box.top() - box.h / 2;
+            } else {
+                box.speedY = 0;
+            }
+            
+            box.updateY(deltatime);
+            
+            for (var a = 0; a < currLevel.tiles.length; a++) {
+                if (currLevel.tiles[a] !== null) {
+                    if (box.collide(currLevel.tiles[a])) {
+                        box.y = box.oldY;
+                        currLevel.reset();
+                        cursor.isPressed = false;
+                        break;
+                    }
+                }
+            }
+            
+            for (var a = 0; a < currLevel.checkpoints.length; a++) {
+                if (!currLevel.checkpoints[a].collided 
+                        && currLevel.checkpoints[a].collide(box)) {                   
+                    if (currLevel.reachCheckpoint(currLevel.checkpoints[a])) {
+                        currLevel.checkpoints[a].collided = true;
+                    }
+                }
+            }
+        }
+        
+        function render(context) {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            for (var a = 0; a < currLevel.tiles.length; a++) {
+                if (currLevel.tiles[a] !== null) {
+                    currLevel.tiles[a].render(context);
+                }
+            }
+            
+            for (var a = 0; a < currLevel.checkpoints.length; a++) {
+                currLevel.checkpoints[a].render(context);
+            }
+            
+            box.render(context);
+        }
+        </script>
+    </head>
+    
+    <body onload="init()">
+        <div id="container">
+            <h1>Labyrinth Game</h1>
+            <canvas id="canvas" style="background-color: white"></canvas>
+            <span style="font-family: joystix; display: none">Hidden text just for loading font before canvas.</span>
+        </div>
+    </body>
+</html>
