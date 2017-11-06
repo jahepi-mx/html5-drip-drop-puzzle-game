@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Labyrinth Game</title>
         <meta charset="UTF-8">
         <style type="text/css">
             @font-face { font-family: 'joystix'; src: url('assets/fonts/PixelMYZ.ttf'); }
@@ -22,6 +22,8 @@ and open the template in the editor.
         <script src="entities/checkpoint.js"></script>
         <script src="levels/level.js"></script>
         <script src="levels/level1.js"></script>
+        <script src="utils/assets.js"></script>
+        <script src="utils/atlas.js"></script>
         <script type="text/javascript">
             
         var context;
@@ -38,16 +40,13 @@ and open the template in the editor.
             render(context);
             window.requestAnimationFrame(callback);
         }
-
-        function init() {
-            canvas = document.getElementById("canvas");
-            canvas.width = 500;
-            canvas.height = 350;
-            context = canvas.getContext("2d"); 
-            cursor = new Cursor();  
-            box = new Box(0, 0, 30, 30, 0);
-            currLevel = new Level1(box);
-            
+        
+        function onLoadAssets() {
+            var atlas = Atlas.getInstance();
+            atlas.loadAll(onLoadAtlas);
+        }
+        
+        function onLoadAtlas() {
             canvas.addEventListener("mousedown", function(evt) {
                 var rect = canvas.getBoundingClientRect();
                 var x = evt.clientX - rect.left;
@@ -73,6 +72,18 @@ and open the template in the editor.
                 }
             });
             window.requestAnimationFrame(callback);
+        }
+
+        function init() {           
+            canvas = document.getElementById("canvas");
+            canvas.width = 500;
+            canvas.height = 350;
+            context = canvas.getContext("2d"); 
+            cursor = new Cursor();  
+            box = new Box(0, 0, 30, 30, 0);
+            currLevel = new Level1(box);
+            var assets = Assets.getInstance();
+            assets.loadAll(onLoadAssets);
         }
         
         function update(deltatime) {
@@ -127,6 +138,7 @@ and open the template in the editor.
         
         function render(context) {
             context.clearRect(0, 0, canvas.width, canvas.height);
+            context.imageSmoothingEnabled = false;
             for (var a = 0; a < currLevel.tiles.length; a++) {
                 if (currLevel.tiles[a] !== null) {
                     currLevel.tiles[a].render(context);
