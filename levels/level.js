@@ -7,6 +7,7 @@ class Level {
         this.mapWidth = width;
         this.mapHeight = height;
         this.currCheckpoint = 1;
+        this.tileSize = 0;
         this.isFinish = false;
     }
     
