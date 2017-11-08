@@ -1,3 +1,6 @@
+let LEVEL_WIDTH = 0;
+let LEVEL_HEIGHT = 0;
+
 class Level {
     constructor(width, height, ice) {
         this.tiles = [];
@@ -9,14 +12,20 @@ class Level {
         this.currCheckpoint = 1;
         this.tileSize = 0;
         this.isFinish = false;
+        LEVEL_WIDTH = width;
+        LEVEL_HEIGHT = height;
     }
     
-    reset() {
-        
+    static getWidth() {
+        return LEVEL_WIDTH;
     }
     
-    reachCheckpoint(checkpoint) {
-        
+    static getHeight() {
+        return LEVEL_HEIGHT;
     }
+    
+    reset() {}
+    
+    reachCheckpoint(checkpoint) {}
 };
 

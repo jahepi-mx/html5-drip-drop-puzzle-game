@@ -40,13 +40,19 @@ class Ice extends Entity {
         this.oldX = this.x;
         this.x += this.speedX;
 
-        for (var a = 0; a < this.tiles.length; a++) {
-            if (this.tiles[a] !== null) {
-                if (this.collide(this.tiles[a])) {
-                    this.x = this.oldX;
-                    this.collided = true;
-                    cursor.isPressed = false;
-                    break;
+        var x = Math.floor(Math.round(this.x / Tile.getWidth()));
+        var y = Math.floor(Math.round(this.y / Tile.getHeight()));
+        
+        for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
+            for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
+                if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
+                    var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                    if (tile !== null && tile.collide(this)) {
+                        this.x = this.oldX;
+                        this.collided = true;
+                        cursor.isPressed = false;
+                        break;
+                    }
                 }
             }
         }
@@ -60,13 +66,19 @@ class Ice extends Entity {
         this.oldY = this.y;
         this.y += this.speedY;
 
-        for (var a = 0; a < this.tiles.length; a++) {
-            if (this.tiles[a] !== null) {
-                if (this.collide(this.tiles[a])) {
-                    this.y = this.oldY;
-                    this.collided = true;
-                    cursor.isPressed = false;
-                    break;
+        x = Math.floor(Math.round(this.x / Tile.getWidth()));
+        y = Math.floor(Math.round(this.y / Tile.getHeight()));
+        
+        for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
+            for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
+                if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
+                    var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                    if (tile !== null && tile.collide(this)) {
+                        this.y = this.oldY;
+                        this.collided = true;
+                        cursor.isPressed = false;
+                        break;
+                    }
                 }
             }
         }
