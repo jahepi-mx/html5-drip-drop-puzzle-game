@@ -1,7 +1,7 @@
 class Level1 extends Level {
-    constructor(box) {
+    constructor(ice) {
         
-        super(10, 7, box);
+        super(10, 7, ice);
         
         this.tileSize = 50;
         
@@ -15,8 +15,8 @@ class Level1 extends Level {
             1,1,1,1,1,1,1,1,1,1
         ];
         
-        this.box.x = 3 * this.tileSize + this.tileSize / 2 - this.box.w / 2;
-        this.box.y = 1 * this.tileSize + this.tileSize / 2 -  this.box.h / 2;
+        this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
+        this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
                 
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
@@ -27,6 +27,7 @@ class Level1 extends Level {
                 }
             }
         }
+        this.ice.tiles = this.tiles;
         this.checkpoints.push(new Checkpoint(1, 1, 30, 30, 1, "#fe00ab", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 1, 30, 30, 2, "#aa8877", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 5, 30, 30, 3, "#66efbb", this.tileSize));
@@ -37,8 +38,8 @@ class Level1 extends Level {
             this.checkpoints[a].reset();
         }
 
-        this.box.x = 3 * this.tileSize + this.tileSize / 2 - this.box.w / 2;
-        this.box.y = 1 * this.tileSize + this.tileSize / 2 -  this.box.h / 2;
+        this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
+        this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
         this.currCheckpoint = 1;
     }
     

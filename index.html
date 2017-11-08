@@ -18,7 +18,8 @@ and open the template in the editor.
         <script src="entities/entity.js"></script>
         <script src="entities/tile.js"></script>
         <script src="entities/cursor.js"></script>
-        <script src="entities/box.js"></script>
+        <script src="entities/ice.js"></script>
+        <script src="entities/drop.js"></script>
         <script src="entities/checkpoint.js"></script>
         <script src="levels/level.js"></script>
         <script src="levels/level1.js"></script>
@@ -29,9 +30,10 @@ and open the template in the editor.
         var context;
         var canvas;
         var startTime = 0;
-        var box;
+        var ice;
         var cursor;
         var currLevel;
+        var drops = [];
         
         function callback(time) {
             var deltatime = (time - startTime) / 1000;
@@ -51,7 +53,7 @@ and open the template in the editor.
                 var rect = canvas.getBoundingClientRect();
                 var x = evt.clientX - rect.left;
                 var y = evt.clientY - rect.top;
-                if (x >= box.left() && x <= box.right() && y >= box.top() && y <= box.bottom()) {
+                if (x >= ice.left() && x <= ice.right() && y >= ice.top() && y <= ice.bottom()) {
                     cursor.isPressed = true;               
                     cursor.update(x, y);
                 }
@@ -66,7 +68,7 @@ and open the template in the editor.
                     var rect = canvas.getBoundingClientRect();
                     var x = evt.clientX - rect.left;
                     var y = evt.clientY - rect.top;
-                    if (x >= box.left() && x <= box.right() && y >= box.top() && y <= box.bottom()) {
+                    if (x >= ice.left() && x <= ice.right() && y >= ice.top() && y <= ice.bottom()) {
                         cursor.update(x, y);
                     }
                 }
@@ -79,56 +81,39 @@ and open the template in the editor.
             canvas.width = 500;
             canvas.height = 350;
             context = canvas.getContext("2d"); 
-            cursor = new Cursor();  
-            box = new Box(0, 0, 30, 30, 0);
-            currLevel = new Level1(box);
+            cursor = Cursor.getInstance();  
+            ice = new Ice(0, 0, 30, 30, 0);
+            currLevel = new Level1(ice);
             var assets = Assets.getInstance();
             assets.loadAll(onLoadAssets);
         }
         
         function update(deltatime) {
             
-            if (cursor.isPressed) {
-                box.speedX = cursor.x - box.left() - box.w / 2;
-            } else {
-                box.speedX = 0;
+            ice.update(deltatime);
+            
+            if (ice.collided) {
+                currLevel.reset();
             }
             
-            box.updateX(deltatime);
-            
-            for (var a = 0; a < currLevel.tiles.length; a++) {
-                if (currLevel.tiles[a] !== null) {
-                    if (box.collide(currLevel.tiles[a])) {
-                        box.x = box.oldX;
-                        currLevel.reset();
-                        cursor.isPressed = false;
-                        break;
-                    }
-                }
+            if (ice.drop) {
+                var drop = new Drop(ice.left() + Math.random() * ice.w, ice.top(), 5, 5, 10, currLevel.tiles);
+                drops.push(drop);
+                ice.drop = false;
             }
             
-            if (cursor.isPressed) {
-                box.speedY = cursor.y - box.top() - box.h / 2;
-            } else {
-                box.speedY = 0;
-            }
-            
-            box.updateY(deltatime);
-            
-            for (var a = 0; a < currLevel.tiles.length; a++) {
-                if (currLevel.tiles[a] !== null) {
-                    if (box.collide(currLevel.tiles[a])) {
-                        box.y = box.oldY;
-                        currLevel.reset();
-                        cursor.isPressed = false;
-                        break;
-                    }
+            for (var a = 0; a < drops.length; a++) {
+                if (drops[a].isDisposable) {
+                    drops[a] = null;
+                    drops.splice(a, 1);
+                } else {
+                    drops[a].update(deltatime);
                 }
             }
             
             for (var a = 0; a < currLevel.checkpoints.length; a++) {
                 if (!currLevel.checkpoints[a].collided 
-                        && currLevel.checkpoints[a].collide(box)) {                   
+                        && currLevel.checkpoints[a].collide(ice)) {                   
                     if (currLevel.reachCheckpoint(currLevel.checkpoints[a])) {
                         currLevel.checkpoints[a].collided = true;
                     }
@@ -145,11 +130,15 @@ and open the template in the editor.
                 }
             }
             
+            for (var a = 0; a < drops.length; a++) {
+                drops[a].render(context);
+            }
+            
             for (var a = 0; a < currLevel.checkpoints.length; a++) {
                 currLevel.checkpoints[a].render(context);
             }
             
-            box.render(context);
+            ice.render(context);
         }
         </script>
     </head>

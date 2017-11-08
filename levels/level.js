@@ -1,9 +1,9 @@
 class Level {
-    constructor(width, height, box) {
+    constructor(width, height, ice) {
         this.tiles = [];
         this.checkpoints = [];
         this.map = [];
-        this.box = box;
+        this.ice = ice;
         this.mapWidth = width;
         this.mapHeight = height;
         this.currCheckpoint = 1;
