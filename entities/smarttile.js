@@ -10,18 +10,52 @@ class SmartTile extends Entity {
         this.path = [];
         this.time = 0;
         this.changeTime = 0;
+        this.currentVertex = y * Level.getWidth() + x;
         this.pathfinding();
-        console.log(this.path);
+        
+        if (this.path.length > 0) {
+            var vertex = this.path.pop();
+            this.currentVertex = vertex;
+            var x = Math.floor(vertex % Level.getWidth());
+            var y = Math.floor(vertex / Level.getWidth());
+            this.toX = Tile.getWidth() * x;
+            this.toY = Tile.getHeight() * y;  
+        }   
     }
     
     update(deltatime) {
         
         this.time += deltatime;
-        if (this.time >= 5) {
+        if (this.time >= 10) {
             this.time = 0;
             this.pathfinding();
+            if (this.path.length > 0) {
+                var vertex = this.path.pop();
+                this.currentVertex = vertex;
+                var x = Math.floor(vertex % Level.getWidth());
+                var y = Math.floor(vertex / Level.getWidth());
+                this.toX = Tile.getWidth() * x;
+                this.toY = Tile.getHeight() * y;
+            }
         }
+        
+        var diffX = Math.abs(this.x - this.toX);
+        var diffY = Math.abs(this.y - this.toY);
+        if (diffX <= 2 && diffY <= 2) {
+            if (this.path.length > 0) {
+                var vertex = this.path.pop();
+                this.currentVertex = vertex;
+                var x = Math.floor(vertex % Level.getWidth());
+                var y = Math.floor(vertex / Level.getWidth());
+                this.toX = Tile.getWidth() * x;
+                this.toY = Tile.getHeight() * y;
+            }
+        }
+        
+        this.x += (this.toX - this.x) * deltatime;
+        this.y += (this.toY - this.y) * deltatime;
 
+       /*
         this.changeTime += deltatime;
         if (this.changeTime >= 1) {
             this.changeTime = 0;
@@ -33,6 +67,7 @@ class SmartTile extends Entity {
                 this.y = Tile.getHeight() * y;
             }
         }
+        */
     }
     
     pathfinding() {
@@ -46,8 +81,8 @@ class SmartTile extends Entity {
         });
         var width = Level.getWidth();
         var height = Level.getHeight();
-        var x = Math.floor(this.x / Tile.getWidth());
-        var y = Math.floor(this.y / Tile.getHeight());
+        var x = Math.floor(this.currentVertex % Level.getWidth());
+        var y = Math.floor(this.currentVertex / Level.getWidth());
         this.visited[y * width + x] = 1;
         var toX = Math.floor(this.ice.x / Tile.getWidth());
         var toY = Math.floor(this.ice.y / Tile.getHeight());

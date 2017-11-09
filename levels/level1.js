@@ -15,8 +15,8 @@ class Level1 extends Level {
             1,1,1,1,1,1,1,1,1,1
         ];
         
-        this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
-        this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.x = 5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
+        this.ice.y = 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
                 
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
@@ -32,7 +32,7 @@ class Level1 extends Level {
         this.checkpoints.push(new Checkpoint(8, 1, 30, 30, 2, "#aa8877", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 5, 30, 30, 3, "#66efbb", this.tileSize));
         
-        var smartTile = new SmartTile(7, 5, this.tileSize, this.tileSize, this.ice, this.tiles);
+        var smartTile = new SmartTile(1, 4, this.tileSize, this.tileSize, this.ice, this.tiles);
         this.enemies.push(smartTile);
         
     }
