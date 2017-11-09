@@ -3,8 +3,9 @@ let TILE_HEIGHT = 0;
 
 class Tile extends Entity {
     
-    constructor(x, y, w, h) {
+    constructor(x, y, w, h, value) {
         super(x, y, w, h);
+        this.value = value;
         TILE_WIDTH = w;
         TILE_HEIGHT = h;
     }

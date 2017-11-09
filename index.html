@@ -17,6 +17,7 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="entities/entity.js"></script>
         <script src="entities/tile.js"></script>
+        <script src="entities/smarttile.js"></script>
         <script src="entities/cursor.js"></script>
         <script src="entities/ice.js"></script>
         <script src="entities/drop.js"></script>
@@ -25,6 +26,7 @@ and open the template in the editor.
         <script src="levels/level1.js"></script>
         <script src="utils/assets.js"></script>
         <script src="utils/atlas.js"></script>
+        <script src="utils/priorityqueue.js"></script>
         <script type="text/javascript">
             
         var context;
@@ -119,6 +121,10 @@ and open the template in the editor.
                     }
                 }
             }
+            
+            for (var a = 0; a < currLevel.enemies.length; a++) {
+                currLevel.enemies[a].update(deltatime);
+            }
         }
         
         function render(context) {
@@ -136,6 +142,10 @@ and open the template in the editor.
             
             for (var a = 0; a < currLevel.checkpoints.length; a++) {
                 currLevel.checkpoints[a].render(context);
+            }
+            
+            for (var a = 0; a < currLevel.enemies.length; a++) {
+                currLevel.enemies[a].render(context);
             }
             
             ice.render(context);

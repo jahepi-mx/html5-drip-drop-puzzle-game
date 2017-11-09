@@ -21,7 +21,7 @@ class Level1 extends Level {
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
                 if (this.map[y * this.mapWidth + x] === 1) {
-                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileSize, this.tileSize);
+                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileSize, this.tileSize, this.map[y * this.mapWidth + x]);
                 } else {
                     this.tiles[y * this.mapWidth + x] = null;
                 }
@@ -31,6 +31,10 @@ class Level1 extends Level {
         this.checkpoints.push(new Checkpoint(1, 1, 30, 30, 1, "#fe00ab", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 1, 30, 30, 2, "#aa8877", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 5, 30, 30, 3, "#66efbb", this.tileSize));
+        
+        var smartTile = new SmartTile(7, 5, this.tileSize, this.tileSize, this.ice, this.tiles);
+        this.enemies.push(smartTile);
+        
     }
     
     reset() {
