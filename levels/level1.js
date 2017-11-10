@@ -11,7 +11,7 @@ class Level1 extends Level {
             1,1,1,1,1,1,1,1,1,1,
             1,0,0,0,0,0,0,0,0,1,
             1,1,1,1,0,1,1,1,1,1,
-            1,1,1,1,0,1,1,1,1,1,
+            1,1,1,1,2,1,1,1,1,1,
             1,0,0,0,0,0,1,1,1,1,
             1,1,1,1,1,0,0,0,0,1,
             1,1,1,1,1,1,1,1,1,1
@@ -19,11 +19,15 @@ class Level1 extends Level {
         
         this.ice.x = 5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
         this.ice.y = 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
-                
+        
+        this.fadeTiles[3 * this.mapWidth + 4] = new FadeTile(4, 3, this.tileSize, this.tileSize, 2, 2, 3, 1);
+        
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
                 if (this.map[y * this.mapWidth + x] === 1) {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileSize, this.tileSize, this.map[y * this.mapWidth + x]);
+                } else if (this.map[y * this.mapWidth + x] === 2) {
+                    this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
                     this.tiles[y * this.mapWidth + x] = null;
                 }

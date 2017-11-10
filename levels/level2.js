@@ -24,6 +24,8 @@ class Level2 extends Level {
             for (var x = 0; x < this.mapWidth; x++) {
                 if (this.map[y * this.mapWidth + x] === 1) {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileSize, this.tileSize, this.map[y * this.mapWidth + x]);
+                } else if (this.map[y * this.mapWidth + x] === 2) {
+                    this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
                     this.tiles[y * this.mapWidth + x] = null;
                 }

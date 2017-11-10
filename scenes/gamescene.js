@@ -10,9 +10,12 @@ class GameScene extends Scene {
         this.currLevel.init(this.ice);
         this.drops = [];
         this.nextBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.1, text: "Next Level", alpha: 1, font: "35px joystix"};
+        this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
     }
     
     update(deltatime) {
+        
+        this.fpsLabel.text = Math.floor(1 / deltatime);
         
         if (this.currLevel.isFinish) {
             if (this.cursor.isPressed && this.cursor.x >= this.nextBtn.x - this.nextBtn.width / 2 && this.cursor.x <= this.nextBtn.x + this.nextBtn.width / 2 
@@ -56,6 +59,12 @@ class GameScene extends Scene {
         
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].update(deltatime);
+        }
+        
+        for (let tile of this.currLevel.fadeTiles) {
+            if (tile !== undefined) {
+                tile.update(deltatime);
+            }
         }
     }
     
@@ -115,5 +124,10 @@ class GameScene extends Scene {
                 }              
             }
         }
+        
+        context.font = this.fpsLabel.font;
+        context.fillStyle = this.fpsLabel.color;
+        context.textAlign = "center";
+        context.fillText(this.fpsLabel.text, this.fpsLabel.x , this.fpsLabel.y); 
     }
 }

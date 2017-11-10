@@ -6,6 +6,7 @@ class Tile extends Entity {
     constructor(x, y, w, h, value) {
         super(x, y, w, h);
         this.value = value;
+        this.visible = true;
         TILE_WIDTH = w;
         TILE_HEIGHT = h;
     }

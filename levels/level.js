@@ -4,6 +4,7 @@ let LEVEL_HEIGHT = 0;
 class Level {
     constructor(width, height) {
         this.tiles = [];
+        this.fadeTiles = [];
         this.enemies = [];
         this.checkpoints = [];
         this.map = [];

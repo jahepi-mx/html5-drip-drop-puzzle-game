@@ -43,7 +43,7 @@ class Drop extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.collide(this)) {
+                    if (tile !== null && tile.visible && tile.collide(this)) {
                         this.y = this.oldY;
                         this.speedY = this.bounceSpeedY;
                         this.bounceSpeedY *= 0.5;
@@ -68,7 +68,7 @@ class Drop extends Entity {
                 for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                     if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                         var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                        if (tile !== null && tile.collide(this)) {
+                        if (tile !== null && tile.visible && tile.collide(this)) {
                             this.x = this.oldX;
                             this.speedX = -this.speedX;
                             break;
