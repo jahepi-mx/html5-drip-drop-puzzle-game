@@ -52,8 +52,24 @@ class SmartTile extends Entity {
             }
         }
         
-        this.x += (this.toX - this.x) * deltatime;
-        this.y += (this.toY - this.y) * deltatime;
+        //this.x += (this.toX - this.x) * deltatime;
+        //this.y += (this.toY - this.y) * deltatime;
+        
+        diffX = this.x - this.toX;
+        diffY = this.y - this.toY;
+        var speed = 50;
+        if (diffX >= 2) {
+            this.x -= speed * deltatime;
+        }
+        if (diffX <= -2) {
+            this.x += speed * deltatime;
+        }
+        if (diffY >= 2) {
+            this.y -= speed * deltatime;
+        }
+        if (diffY <= -2) {
+            this.y += speed * deltatime;
+        }      
     }
     
     pathfinding() {
