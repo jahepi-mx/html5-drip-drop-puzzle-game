@@ -26,7 +26,7 @@ class SmartTile extends Entity {
     update(deltatime) {
         
         this.time += deltatime;
-        if (this.time >= 10) {
+        if (this.time >= 2) {
             this.time = 0;
             this.pathfinding();
             if (this.path.length > 0) {
@@ -54,20 +54,6 @@ class SmartTile extends Entity {
         
         this.x += (this.toX - this.x) * deltatime;
         this.y += (this.toY - this.y) * deltatime;
-
-       /*
-        this.changeTime += deltatime;
-        if (this.changeTime >= 1) {
-            this.changeTime = 0;
-            if (this.path.length > 0) {
-                var vertex = this.path.pop();
-                var x = Math.floor(vertex % Level.getWidth());
-                var y = Math.floor(vertex / Level.getWidth());
-                this.x = Tile.getWidth() * x;
-                this.y = Tile.getHeight() * y;
-            }
-        }
-        */
     }
     
     pathfinding() {
