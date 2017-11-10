@@ -30,7 +30,7 @@ class Level1 extends Level {
         this.ice.tiles = this.tiles;
         this.checkpoints.push(new Checkpoint(1, 1, 30, 30, 1, "#fe00ab", this.tileSize));
         this.checkpoints.push(new Checkpoint(8, 1, 30, 30, 2, "#aa8877", this.tileSize));
-        this.checkpoints.push(new Checkpoint(8, 5, 30, 30, 3, "#66efbb", this.tileSize));
+        this.checkpoints.push(new Checkpoint(4, 4, 30, 30, 3, "#66efbb", this.tileSize));
         
         var smartTile = new SmartTile(1, 4, this.tileSize, this.tileSize, this.ice, this.tiles);
         this.enemies.push(smartTile);

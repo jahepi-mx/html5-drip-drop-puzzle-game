@@ -32,7 +32,11 @@ class Ice extends Entity {
         this.collided = false;
         
         if (cursor.isPressed) {
-            this.speedX = cursor.x - this.left() - this.w / 2;
+            if (cursor.x >= this.left() && cursor.x <= this.right() && cursor.y >= this.top() && cursor.y <= this.bottom()) {
+                this.speedX = cursor.x - this.left() - this.w / 2;
+            } else {
+                this.speedX = 0;
+            }   
         } else {
             this.speedX = 0;
         }
@@ -58,7 +62,11 @@ class Ice extends Entity {
         }
 
         if (cursor.isPressed) {
-            this.speedY = cursor.y - this.top() - this.h / 2;
+            if (cursor.x >= this.left() && cursor.x <= this.right() && cursor.y >= this.top() && cursor.y <= this.bottom()) {
+                this.speedY = cursor.y - this.top() - this.h / 2;
+            } else {
+                this.speedY = 0;
+            } 
         } else {
             this.speedY = 0;
         }

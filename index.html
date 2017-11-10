@@ -15,6 +15,7 @@ and open the template in the editor.
             #container { margin: 0 auto; text-align: center }
         </style>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="config/config.js"></script>
         <script src="entities/entity.js"></script>
         <script src="entities/tile.js"></script>
         <script src="entities/smarttile.js"></script>
@@ -27,15 +28,16 @@ and open the template in the editor.
         <script src="utils/assets.js"></script>
         <script src="utils/atlas.js"></script>
         <script src="utils/priorityqueue.js"></script>
+        <script src="scenes/scene.js"></script>
+        <script src="scenes/gamescene.js"></script>
+        <script src="scenes/mainscene.js"></script>
         <script type="text/javascript">
             
         var context;
         var canvas;
         var startTime = 0;
-        var ice;
         var cursor;
-        var currLevel;
-        var drops = [];
+        var scene;
         
         function callback(time) {
             var deltatime = (time - startTime) / 1000;
@@ -55,10 +57,7 @@ and open the template in the editor.
                 var rect = canvas.getBoundingClientRect();
                 var x = evt.clientX - rect.left;
                 var y = evt.clientY - rect.top;
-                if (x >= ice.left() && x <= ice.right() && y >= ice.top() && y <= ice.bottom()) {
-                    cursor.isPressed = true;               
-                    cursor.update(x, y);
-                }
+                cursor.isPressed = true;
             });
             
             canvas.addEventListener("mouseup", function(evt) {
@@ -66,90 +65,43 @@ and open the template in the editor.
             });
             
             canvas.addEventListener("mousemove", function(evt) {
-                if (cursor.isPressed) {
-                    var rect = canvas.getBoundingClientRect();
-                    var x = evt.clientX - rect.left;
-                    var y = evt.clientY - rect.top;
-                    if (x >= ice.left() && x <= ice.right() && y >= ice.top() && y <= ice.bottom()) {
-                        cursor.update(x, y);
-                    }
-                }
+                var rect = canvas.getBoundingClientRect();
+                var x = evt.clientX - rect.left;
+                var y = evt.clientY - rect.top;
+                cursor.update(x, y);
             });
             window.requestAnimationFrame(callback);
         }
 
-        function init() {           
+        function init() {   
+            var config = Config.getInstance();
             canvas = document.getElementById("canvas");
-            canvas.width = 500;
-            canvas.height = 350;
+            canvas.width = config.mapWidth;
+            canvas.height = config.mapHeight;
             context = canvas.getContext("2d"); 
             cursor = Cursor.getInstance();  
-            ice = new Ice(0, 0, 30, 30, 0);
-            currLevel = new Level1(ice);
+            scene = new MainScene(onChangeSceneCb);
             var assets = Assets.getInstance();
             assets.loadAll(onLoadAssets);
         }
         
         function update(deltatime) {
-            
-            ice.update(deltatime);
-            
-            if (ice.collided) {
-                currLevel.reset();
-            }
-            
-            if (ice.drop) {
-                var drop = new Drop(ice.left() + Math.random() * ice.w, ice.top(), 5, 5, 10, currLevel.tiles);
-                drops.push(drop);
-                ice.drop = false;
-            }
-            
-            for (var a = 0; a < drops.length; a++) {
-                if (drops[a].isDisposable) {
-                    drops[a] = null;
-                    drops.splice(a, 1);
-                } else {
-                    drops[a].update(deltatime);
-                }
-            }
-            
-            for (var a = 0; a < currLevel.checkpoints.length; a++) {
-                if (!currLevel.checkpoints[a].collided 
-                        && currLevel.checkpoints[a].collide(ice)) {                   
-                    if (currLevel.reachCheckpoint(currLevel.checkpoints[a])) {
-                        currLevel.checkpoints[a].collided = true;
-                    }
-                }
-            }
-            
-            for (var a = 0; a < currLevel.enemies.length; a++) {
-                currLevel.enemies[a].update(deltatime);
-            }
+            scene.update(deltatime);     
         }
         
         function render(context) {
             context.clearRect(0, 0, canvas.width, canvas.height);
             context.imageSmoothingEnabled = false;
-            for (var a = 0; a < currLevel.tiles.length; a++) {
-                if (currLevel.tiles[a] !== null) {
-                    currLevel.tiles[a].render(context);
-                }
-            }
-            
-            for (var a = 0; a < drops.length; a++) {
-                drops[a].render(context);
-            }
-            
-            for (var a = 0; a < currLevel.checkpoints.length; a++) {
-                currLevel.checkpoints[a].render(context);
-            }
-            
-            for (var a = 0; a < currLevel.enemies.length; a++) {
-                currLevel.enemies[a].render(context);
-            }
-            
-            ice.render(context);
+            scene.render(context);
         }
+        
+        function onChangeSceneCb(scenename) {
+            if (scenename === "game") {
+                scene = new GameScene(onChangeSceneCb);
+            } else if (scenename === "main") {
+                scene = new MainScene(onChangeSceneCb);
+            }
+        };
         </script>
     </head>
     
