@@ -4,7 +4,7 @@ class MainScene extends Scene {
         super(onChangeSceneCallback);
         var config = Config.getInstance();
         this.cursor = Cursor.getInstance();
-        this.playBtn = {x: config.mapWidth / 2 - (config.mapWidth * 0.3 / 2), y: config.mapHeight - 50, width: config.mapWidth * 0.3, height: config.mapHeight * 0.1, text: "play game", alpha: 1, font: "35px joystix"};
+        this.playBtn = {x: config.mapWidth / 2, y: config.mapHeight - 50, width: config.mapWidth * 0.3, height: config.mapHeight * 0.2, text: "play game", alpha: 1, font: "35px joystix"};
 
         var topText = 30;
         this.texts = [
@@ -20,8 +20,8 @@ class MainScene extends Scene {
     }
     
     update(deltatime) {
-        if (this.cursor.isPressed && this.cursor.x <= this.playBtn.x + this.playBtn.width && this.cursor.x >= this.playBtn.x 
-                && this.cursor.y >= this.playBtn.y && this.cursor.y <= this.playBtn.y + this.playBtn.height) {
+        if (this.cursor.isPressed && this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
+                && this.cursor.y >= this.playBtn.y - this.playBtn.height / 2 && this.cursor.y <= this.playBtn.y + this.playBtn.height / 2) {
             this.onChangeSceneCallback("game");
         }
     } 
@@ -35,17 +35,17 @@ class MainScene extends Scene {
             context.fillText(this.texts[a].text, this.texts[a].x, this.texts[a].y);  
         }
         
-        if (this.cursor.x >= this.playBtn.x && this.cursor.x <= this.playBtn.x + this.playBtn.width 
-                && this.cursor.y >= this.playBtn.y && this.cursor.y <= this.playBtn.y + this.playBtn.height) {          
+        if (this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
+                && this.cursor.y >= this.playBtn.y - this.playBtn.height / 2 && this.cursor.y <= this.playBtn.y + this.playBtn.height / 2) {          
             context.font = this.playBtn.font;
             context.fillStyle = "rgba(255, 0, 0, " + this.playBtn.alpha + ")";
             context.textAlign = "center";
-            context.fillText(this.playBtn.text, this.playBtn.x + this.playBtn.width / 2, this.playBtn.y + this.playBtn.height / 2);          
+            context.fillText(this.playBtn.text, this.playBtn.x , this.playBtn.y);          
         } else  {
             context.font = this.playBtn.font;
             context.fillStyle = "rgba(255, 0, 255, " + this.playBtn.alpha + ")";
             context.textAlign = "center";
-            context.fillText(this.playBtn.text, this.playBtn.x + this.playBtn.width / 2, this.playBtn.y + this.playBtn.height / 2);
+            context.fillText(this.playBtn.text, this.playBtn.x, this.playBtn.y);
         }
     }
 };

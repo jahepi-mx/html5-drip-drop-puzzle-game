@@ -1,12 +1,29 @@
 class GameScene extends Scene {
-    constructor() {
-        super();
+    
+    constructor(onChangeSceneCallback) {
+        super(onChangeSceneCallback);
+        this.config = Config.getInstance();
+        this.cursor = Cursor.getInstance();
         this.ice = new Ice(0, 0, 30, 30, 0);
-        this.currLevel = new Level1(this.ice);
+        this.levelManager = new LevelManager();
+        this.currLevel = this.levelManager.next();
+        this.currLevel.init(this.ice);
         this.drops = [];
+        this.nextBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.1, text: "Next Level", alpha: 1, font: "35px joystix"};
     }
     
     update(deltatime) {
+        
+        if (this.currLevel.isFinish) {
+            if (this.cursor.isPressed && this.cursor.x >= this.nextBtn.x - this.nextBtn.width / 2 && this.cursor.x <= this.nextBtn.x + this.nextBtn.width / 2 
+                && this.cursor.y >= this.nextBtn.y - this.nextBtn.height / 2 && this.cursor.y <= this.nextBtn.y + this.nextBtn.height / 2) {
+                this.currLevel = this.levelManager.next();
+                this.currLevel.init(this.ice);
+                this.drops = [];
+            }
+            return;
+        }
+        
         this.ice.update(deltatime);
             
         if (this.ice.collided) {
@@ -43,6 +60,7 @@ class GameScene extends Scene {
     }
     
     render(context) {
+        
         for (var a = 0; a < this.currLevel.tiles.length; a++) {
             if (this.currLevel.tiles[a] !== null) {
                 this.currLevel.tiles[a].render(context);
@@ -62,5 +80,40 @@ class GameScene extends Scene {
         }
 
         this.ice.render(context);
+        
+        if (this.currLevel.isFinish) {
+            
+            if (this.levelManager.isFinish()) {
+                context.textAlign = "center";
+                context.font = "50px joystix";
+                context.strokeStyle = '#af550b';
+                context.lineWidth = 30;
+                context.strokeText("You made it through the end!", this.config.mapWidth / 2, this.config.mapHeight / 2);
+                context.fillStyle = '#e3af48';
+                context.fillText("You made it through the end!", this.config.mapWidth / 2, this.config.mapHeight / 2);
+            } else {
+                
+                context.textAlign = "center";
+                context.font = "50px joystix";
+                context.strokeStyle = '#af550b';
+                context.lineWidth = 30;
+                context.strokeText("completed", this.config.mapWidth / 2, this.config.mapHeight / 2);
+                context.fillStyle = '#e3af48';
+                context.fillText("completed", this.config.mapWidth / 2, this.config.mapHeight / 2);
+                
+                if (this.cursor.x >= this.nextBtn.x - this.nextBtn.width / 2 && this.cursor.x <= this.nextBtn.x + this.nextBtn.width / 2 
+                    && this.cursor.y >= this.nextBtn.y - this.nextBtn.height / 2 && this.cursor.y <= this.nextBtn.y + this.nextBtn.height / 2) {          
+                    context.font = this.nextBtn.font;
+                    context.fillStyle = "rgba(255, 0, 0, " + this.nextBtn.alpha + ")";
+                    context.textAlign = "center";
+                    context.fillText(this.nextBtn.text, this.nextBtn.x , this.nextBtn.y);          
+                } else  {
+                    context.font = this.nextBtn.font;
+                    context.fillStyle = "rgba(255, 0, 255, " + this.nextBtn.alpha + ")";
+                    context.textAlign = "center";
+                    context.fillText(this.nextBtn.text, this.nextBtn.x, this.nextBtn.y);
+                }              
+            }
+        }
     }
 }
