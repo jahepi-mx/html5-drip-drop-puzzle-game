@@ -2,7 +2,7 @@ class LevelManager {
     
     constructor() {
         this.index = 0;
-        this.levels = [new Level1(), new Level2()];
+        this.levels = [new Level2(), new Level1()];
     }
     
     next() {

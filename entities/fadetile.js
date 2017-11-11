@@ -1,7 +1,7 @@
 class FadeTile extends Tile {
     
-    constructor(x, y, w, h, value, fadeTime, stillTime, alpha) {
-        super(x, y, w, h, value);
+    constructor(x, y, w, h, fadeTime, stillTime, alpha) {
+        super(x, y, w, h, 2);
         this.fadeTime = fadeTime;
         this.stillTime = stillTime;
         this.stillTimeCount = 0;
