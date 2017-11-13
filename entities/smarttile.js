@@ -97,7 +97,7 @@ class SmartTile extends Entity {
                 y = Math.floor(vertex / width) + this.moves[a][1];
                 if (x >= 0 && x < width && y >= 0 && y < height 
                         && this.visited[y * width + x] === undefined 
-                        && this.tiles[y * width + x] === null) {
+                        && this.tiles[y * width + x].walkable) {
                     this.visited[y * width + x] = 1;
                     dist = Math.abs(toX - x) + Math.abs(toY - y);
                     pq.add(y * width + x, dist);

@@ -51,7 +51,7 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.visible && tile.collide(this)) {
+                    if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
                         this.x = this.oldX;
                         this.collided = true;
                         cursor.isPressed = false;
@@ -81,7 +81,7 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.visible && tile.collide(this)) {
+                    if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
                         this.collided = true;
                         cursor.isPressed = false;
