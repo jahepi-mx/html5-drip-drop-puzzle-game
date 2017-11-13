@@ -39,7 +39,8 @@ class Level2 extends Level {
         this.checkpoints.push(new Checkpoint(4, 4, 45, 45, 3, "#66efbb", this.tileSize));
         
         var smartTile = new SmartTile(1, 4, this.tileSize, this.tileSize, this.ice, this.tiles);
-        var movingTile = new MovingTile(3, 3, this.tileSize, this.tileSize, 3, 5);
+        var movingTile = new MovingTile(3, 3, this.tileSize, this.tileSize);
+        movingTile.addVertex(1 * Level.getWidth() + 3).addVertex(1 * Level.getWidth() + 5).addVertex(3 * Level.getWidth() + 5);
         this.enemies.push(smartTile);
         this.enemies.push(movingTile);
     }
