@@ -41,6 +41,13 @@ class Checkpoint extends Entity {
         context.fillText(this.id, this.x + this.w + 5, this.y + this.h / 2);
     }
     
+    collide(entity) {
+        return (
+            (entity.left() >= this.left() && entity.left() <= this.right()) || 
+            (entity.right() >= this.left() && entity.right() <= this.right())
+           ) && (entity.top() >= this.top() && entity.top() <= this.top() + this.h / 2);
+    }
+    
     reset() {
         this.collided = false;
     }
