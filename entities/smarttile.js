@@ -12,7 +12,9 @@ class SmartTile extends Entity {
         this.changeTime = 0;
         this.currentVertex = y * Level.getWidth() + x;
         this.animation = new Animation(4, 3);
-        this.pathfinding();
+        this.atlas = Atlas.getInstance();
+        this.assets = Assets.getInstance();
+        this.pathfinding(false);
         
         if (this.path.length > 0) {
             var vertex = this.path.pop();
@@ -31,7 +33,7 @@ class SmartTile extends Entity {
         this.time += deltatime;
         if (this.time >= 2) {
             this.time = 0;
-            this.pathfinding();
+            this.pathfinding(false);
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
@@ -39,6 +41,9 @@ class SmartTile extends Entity {
                 var y = Math.floor(vertex / Level.getWidth());
                 this.toX = Tile.getWidth() * x;
                 this.toY = Tile.getHeight() * y;
+            } else {
+                // Random destination;
+                this.pathfinding(true);
             }
         }
         
@@ -54,9 +59,6 @@ class SmartTile extends Entity {
                 this.toY = Tile.getHeight() * y;
             }
         }
-        
-        //this.x += (this.toX - this.x) * deltatime;
-        //this.y += (this.toY - this.y) * deltatime;
         
         diffX = this.x - this.toX;
         diffY = this.y - this.toY;
@@ -75,7 +77,7 @@ class SmartTile extends Entity {
         }      
     }
     
-    pathfinding() {
+    pathfinding(rand) {
         
         this.path = [];
         this.visited = [];
@@ -84,6 +86,7 @@ class SmartTile extends Entity {
         var pq = new PriorityQueue(function (a, b) {
             return a.priority > b.priority;
         });
+        
         var width = Level.getWidth();
         var height = Level.getHeight();
         var x = Math.floor(this.currentVertex % Level.getWidth());
@@ -91,6 +94,16 @@ class SmartTile extends Entity {
         this.visited[y * width + x] = 1;
         var toX = Math.floor(this.ice.x / Tile.getWidth());
         var toY = Math.floor(this.ice.y / Tile.getHeight());
+        
+        if (rand) {
+            var tmpToX = Math.floor(Math.random() * width);
+            var tmpToY = Math.floor(Math.random() * height);
+            if (this.tiles[toY * width + toX].walkable) {
+                toX = tmpToX;
+                toY = tmpToY;
+            }
+        }
+        
         var dist = Math.abs(toX - x) + Math.abs(toY - y);
         pq.add(y * width + x, dist);
         outer: while (!pq.isEmpty()) {
@@ -122,10 +135,8 @@ class SmartTile extends Entity {
     }
     
     render(context) {
-        var atlas = Atlas.getInstance();
-        var assets = Assets.getInstance();
         var frame = "saw" + (this.animation.getFrame() + 1);
-        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
     }
 };
 
