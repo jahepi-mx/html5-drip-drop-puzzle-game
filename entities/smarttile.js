@@ -11,6 +11,7 @@ class SmartTile extends Entity {
         this.time = 0;
         this.changeTime = 0;
         this.currentVertex = y * Level.getWidth() + x;
+        this.animation = new Animation(4, 3);
         this.pathfinding();
         
         if (this.path.length > 0) {
@@ -24,6 +25,8 @@ class SmartTile extends Entity {
     }
     
     update(deltatime) {
+        
+        this.animation.update(deltatime);
         
         this.time += deltatime;
         if (this.time >= 2) {
@@ -121,7 +124,8 @@ class SmartTile extends Entity {
     render(context) {
         var atlas = Atlas.getInstance();
         var assets = Assets.getInstance();
-        context.drawImage(assets.spritesAtlas, atlas.sprites["wall"].x, atlas.sprites["wall"].y, atlas.sprites["wall"].width, atlas.sprites["wall"].height, this.x, this.y, this.w + 1, this.h + 1);
+        var frame = "saw" + (this.animation.getFrame() + 1);
+        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
     }
 };
 

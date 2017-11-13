@@ -20,7 +20,7 @@ class Drop extends Entity {
     }
     
     render(context) {
-        context.fillStyle = "#ff0000";
+        context.fillStyle = "#a6d3fd";
         context.fillRect(this.x, this.y, this.w, this.h);
     }
 

@@ -57,6 +57,10 @@ class GameScene extends Scene {
             }
         }
         
+        for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
+            this.currLevel.checkpoints[a].update(deltatime);
+        }
+        
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].update(deltatime);
         }

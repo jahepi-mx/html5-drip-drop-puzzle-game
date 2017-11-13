@@ -1,7 +1,7 @@
 class MovingTile extends Tile {
     
     constructor(x, y, w, h, toX, toY) {
-        super(x, y, w, h, 0);
+        super(x, y, w, h, 0, true, "movingtile2");
         this.toX = toX * this.w;
         this.toY = toY * this.h;
         this.origX = this.x;

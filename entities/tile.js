@@ -25,12 +25,7 @@ class Tile extends Entity {
         var atlas = Atlas.getInstance();
         var assets = Assets.getInstance();
         var image = this.img;
-        if (this.value === 1) {
-            context.drawImage(assets.spritesAtlas, atlas.sprites[image].x, atlas.sprites[image].y, atlas.sprites[image].width, atlas.sprites[image].height, this.x, this.y, this.w + 1, this.h + 1);
-        } else {
-            context.fillStyle = "#ffff00";
-            context.fillRect(this.x, this.y, this.w + 1, this.h + 1);
-        }
+        context.drawImage(assets.spritesAtlas, atlas.sprites[image].x, atlas.sprites[image].y, atlas.sprites[image].width, atlas.sprites[image].height, this.x, this.y, this.w + 1, this.h + 1);
     }
 };
 

@@ -9,22 +9,36 @@ class Checkpoint extends Entity {
         this.id = id;
         this.color = color;
         this.collided = false;
+        this.fireAnimation = new Animation(4, 2);
+        this.offAnimation = new Animation(3, 2);
+    }
+    
+    update(deltatime) {
+        if  (this.collided) {
+            this.offAnimation.update(deltatime);
+        } else {
+            this.fireAnimation.update(deltatime);
+        }
     }
 
     render(context) {
-
+        var atlas = Atlas.getInstance();
+        var assets = Assets.getInstance();
+        
+        var frame = "";
+        
         if (this.collided) {
-            context.fillStyle = "#ff0000";
-            context.fillRect(this.x, this.y, this.w, this.h);
+            frame = "torchoff" + (this.offAnimation.getFrame() + 1);
         } else {
-            context.fillStyle = this.color;
-            context.fillRect(this.x, this.y, this.w, this.h);
+            frame = "torch" + (this.fireAnimation.getFrame() + 1);
         }
         
-        context.font = "50px joystix";
-        context.fillStyle = "#000000";
+        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+        
+        context.font = "30px joystix";
+        context.fillStyle = "#ffffff";
         context.textAlign = "center";
-        context.fillText(this.id, this.x + 20, this.y + 25);
+        context.fillText(this.id, this.x + this.w + 5, this.y + this.h / 2);
     }
     
     reset() {

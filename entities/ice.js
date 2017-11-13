@@ -14,8 +14,9 @@ class Ice extends Entity {
     }
 
     render(context) {
-        context.fillStyle = "#ff0000";
-        context.fillRect(this.x, this.y, this.w, this.h);
+        var atlas = Atlas.getInstance();
+        var assets = Assets.getInstance();
+        context.drawImage(assets.spritesAtlas, atlas.sprites["ice"].x, atlas.sprites["ice"].y, atlas.sprites["ice"].width, atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
     }
     
     update(deltatime) {

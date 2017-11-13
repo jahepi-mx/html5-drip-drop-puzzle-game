@@ -9,9 +9,30 @@ class FadeTile extends Tile {
         this.alpha = alpha;
         this.dir = 1;
         this.visible = this.alpha === 1;
+        this.animation = new Animation(6, 1);
+        this.animation.stopAtSequenceNumber(1, this.onStopDeadAnimation.bind(this));
+        this.isStill = false;
+        this.blinkTime = 0;
+        this.blinkTimeCount = 0;
+    }
+    
+    onStopDeadAnimation() {
+        this.isStill = true;
+        this.animation.reset();
+        this.blinkTime = Math.ceil(Math.random() * 3);
     }
     
     update(deltatime) {
+        
+        if (!this.isStill) {
+            this.animation.update(deltatime);
+        } else {          
+            this.blinkTimeCount += deltatime;
+            if (this.blinkTimeCount > this.blinkTime) {
+                this.isStill = false;
+                this.blinkTimeCount = 0;
+            }
+        }
         
         if (!this.start && this.stillTimeCount >= this.stillTime) {
             this.start = true;
@@ -48,9 +69,11 @@ class FadeTile extends Tile {
     render(context) {
         var atlas = Atlas.getInstance();
         var assets = Assets.getInstance();
+        context.drawImage(assets.spritesAtlas, atlas.sprites["bg2"].x, atlas.sprites["bg2"].y, atlas.sprites["bg2"].width, atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
         context.globalAlpha = this.alpha;
-        context.drawImage(assets.spritesAtlas, atlas.sprites["wall"].x, atlas.sprites["wall"].y, atlas.sprites["wall"].width, atlas.sprites["wall"].height, this.x, this.y, this.w + 1, this.h + 1);
-        context.globalAlpha = 1;
+        var frame = "invisible" + (this.animation.getFrame() + 1);
+        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.globalAlpha = 1;      
     }
 }
 
