@@ -51,6 +51,7 @@ class Level2 extends Level {
 
         this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
         this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.reset();
         this.currCheckpoint = 1;
     }
     

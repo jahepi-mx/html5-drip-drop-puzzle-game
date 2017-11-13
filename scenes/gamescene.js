@@ -29,14 +29,26 @@ class GameScene extends Scene {
         
         this.ice.update(deltatime);
             
-        if (this.ice.collided) {
+        if (this.ice.isDisposable) {
             this.currLevel.reset();
+            this.drops = [];
         }
 
         if (this.ice.drop) {
-            var drop = new Drop(this.ice.left() + Math.random() * this.ice.w, this.ice.top(), 5, 5, 10, this.currLevel.tiles);
+            var drop = new Drop(this.ice.left() + Math.random() * this.ice.w - 5 / 2, this.ice.top(), 5, 5, 10, this.currLevel.tiles);
             this.drops.push(drop);
             this.ice.drop = false;
+        }
+        
+        if (this.ice.explosiveDrop) {
+            for (var a = 0; a < 10; a++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.ice.left() + this.ice.w / 2 - dropSize / 2, this.ice.top() + this.ice.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), this.currLevel.tiles);
+                drop.collided = true;
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.ice.explosiveDrop = false;
         }
 
         for (var a = 0; a < this.drops.length; a++) {
@@ -63,6 +75,9 @@ class GameScene extends Scene {
         
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].update(deltatime);
+            if (!this.ice.isDead && this.currLevel.enemies[a].collide(this.ice)) {
+                this.ice.die();
+            }
         }
         
         for (let tile of this.currLevel.fadeTiles) {
@@ -79,11 +94,7 @@ class GameScene extends Scene {
                 this.currLevel.tiles[a].render(context);
             }
         }
-
-        for (var a = 0; a < this.drops.length; a++) {
-            this.drops[a].render(context);
-        }
-
+        
         for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
             this.currLevel.checkpoints[a].render(context);
         }
@@ -93,6 +104,10 @@ class GameScene extends Scene {
         }
 
         this.ice.render(context);
+        
+        for (var a = 0; a < this.drops.length; a++) {
+            this.drops[a].render(context);
+        }
         
         if (this.currLevel.isFinish) {
             

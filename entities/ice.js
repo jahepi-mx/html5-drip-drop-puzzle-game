@@ -7,34 +7,45 @@ class Ice extends Entity {
         this.speedX = speed;
         this.speedY = speed;
         this.drop = false;
+        this.explosiveDrop = false;
         this.tiles = [];
-        this.collided = false;
         this.dropTime = Math.random() * 2;
         this.dropTimeCount = 0;
+        this.deadTime = 3;
+        this.deadTimeCount = 0;
+        this.isDead = false;
+        this.isDisposable = false;
+        this.cursor = Cursor.getInstance();
     }
 
     render(context) {
         var atlas = Atlas.getInstance();
         var assets = Assets.getInstance();
-        context.drawImage(assets.spritesAtlas, atlas.sprites["ice"].x, atlas.sprites["ice"].y, atlas.sprites["ice"].width, atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
+        if (!this.isDead) {
+            context.drawImage(assets.spritesAtlas, atlas.sprites["ice"].x, atlas.sprites["ice"].y, atlas.sprites["ice"].width, atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
+        }
     }
     
     update(deltatime) {
         
         this.dropTimeCount += deltatime;
-        if (this.dropTimeCount > this.dropTime) {
+        if (!this.isDead && this.dropTimeCount > this.dropTime) {
             this.dropTime = Math.random() * 2;
             this.dropTimeCount = 0;
             this.drop = true;
         }
         
-        var cursor = Cursor.getInstance();
+        if (this.isDead) {
+            this.deadTimeCount += deltatime; 
+            if (this.deadTimeCount > this.deadTime) {
+                this.isDisposable = true;
+                this.deadTimeCount = 0;
+            }
+        }
         
-        this.collided = false;
-        
-        if (cursor.isPressed) {
-            if (cursor.x >= this.left() && cursor.x <= this.right() && cursor.y >= this.top() && cursor.y <= this.bottom()) {
-                this.speedX = cursor.x - this.left() - this.w / 2;
+        if (this.cursor.isPressed) {
+            if (this.cursor.x >= this.left() && this.cursor.x <= this.right() && this.cursor.y >= this.top() && this.cursor.y <= this.bottom()) {
+                this.speedX = this.cursor.x - this.left() - this.w / 2;
             } else {
                 this.speedX = 0;
             }   
@@ -52,19 +63,18 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
+                    if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.x = this.oldX;
-                        this.collided = true;
-                        cursor.isPressed = false;
+                        this.die();
                         break;
                     }
                 }
             }
         }
 
-        if (cursor.isPressed) {
-            if (cursor.x >= this.left() && cursor.x <= this.right() && cursor.y >= this.top() && cursor.y <= this.bottom()) {
-                this.speedY = cursor.y - this.top() - this.h / 2;
+        if (this.cursor.isPressed) {
+            if (this.cursor.x >= this.left() && this.cursor.x <= this.right() && this.cursor.y >= this.top() && this.cursor.y <= this.bottom()) {
+                this.speedY = this.cursor.y - this.top() - this.h / 2;
             } else {
                 this.speedY = 0;
             } 
@@ -82,14 +92,24 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
+                    if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
-                        this.collided = true;
-                        cursor.isPressed = false;
+                        this.die();
                         break;
                     }
                 }
             }
         }
+    }
+    
+    die() {
+        this.isDead = true;
+        this.explosiveDrop = true;
+        this.cursor.isPressed = false;
+    }
+    
+    reset() {
+        this.isDead = false;
+        this.isDisposable = false;
     }
 };

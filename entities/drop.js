@@ -8,7 +8,7 @@ class Drop extends Entity {
         this.h = h;
         this.oldX = 0;
         this.oldY = 0;
-        this.speedX = 100 * (Math.random() < 0.5 ? 1 : -1);
+        this.speedX = Math.ceil(Math.random() * 80 + 50)  * (Math.random() < 0.5 ? 1 : -1);
         this.speedY = speed;
         this.bounceSpeedY = 20;
         this.gravity = 50;
@@ -43,7 +43,7 @@ class Drop extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                     var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                    if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
+                    if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
                         this.speedY = this.bounceSpeedY;
                         this.bounceSpeedY *= 0.5;
@@ -68,7 +68,7 @@ class Drop extends Entity {
                 for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                     if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
                         var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
-                        if (tile !== null && tile.visible && !tile.walkable && tile.collide(this)) {
+                        if (tile.visible && !tile.walkable && tile.collide(this)) {
                             this.x = this.oldX;
                             this.speedX = -this.speedX;
                             break;
