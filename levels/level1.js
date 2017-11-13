@@ -1,6 +1,6 @@
 class Level1 extends Level {
     constructor() { 
-        super(10, 7); 
+        super(20, 15); 
     }
     
     init(ice) {
@@ -8,13 +8,21 @@ class Level1 extends Level {
         this.tileSize = 50;
         
         this.map = [
-            1,1,1,1,1,1,1,1,1,1,
-            1,0,0,0,0,0,0,0,0,1,
-            1,1,1,1,0,1,1,1,1,1,
-            1,1,1,1,2,1,1,1,1,1,
-            1,0,0,0,0,0,1,1,1,1,
-            1,1,1,1,1,0,0,0,0,1,
-            1,1,1,1,1,1,1,1,1,1
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
         this.ice.x = 5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
@@ -36,9 +44,9 @@ class Level1 extends Level {
             }
         }
         this.ice.tiles = this.tiles;
-        this.checkpoints.push(new Checkpoint(1, 1, 45, 45, 1, "#fe00ab", this.tileSize));
-        this.checkpoints.push(new Checkpoint(8, 1, 45, 45, 2, "#aa8877", this.tileSize));
-        this.checkpoints.push(new Checkpoint(4, 4, 45, 45, 3, "#66efbb", this.tileSize));
+        this.checkpoints.push(new Checkpoint(1, 1, 50, 50, 1, "#fe00ab", this.tileSize));
+        this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877", this.tileSize));
+        this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb", this.tileSize));
         
         var smartTile = new SmartTile(1, 4, this.tileSize, this.tileSize, this.ice, this.tiles);
         this.enemies.push(smartTile);

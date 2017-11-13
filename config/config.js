@@ -3,8 +3,8 @@ let configInstance = null;
 class Config {
             
     constructor() {
-        this.mapWidth = 500;
-        this.mapHeight = 350;
+        this.mapWidth = 1000;
+        this.mapHeight = 750;
         this.debug = false;
     }
     

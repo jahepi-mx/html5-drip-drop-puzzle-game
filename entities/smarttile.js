@@ -6,6 +6,7 @@ class SmartTile extends Entity {
         this.tiles = tiles;
         this.moves = [[1,0], [0,1], [-1,0], [0,-1]];
         this.visited = [];
+        this.visibleTiles = new Set();
         this.parents = [];
         this.path = [];
         this.time = 0;
@@ -98,13 +99,15 @@ class SmartTile extends Entity {
         var toX = Math.floor(this.ice.x / Tile.getWidth());
         var toY = Math.floor(this.ice.y / Tile.getHeight());
         
-        if (rand) {
-            var tmpToX = Math.floor(Math.random() * width);
-            var tmpToY = Math.floor(Math.random() * height);
-            if (this.tiles[toY * width + toX].walkable) {
-                toX = tmpToX;
-                toY = tmpToY;
-            }
+        if (rand && this.visibleTiles.size > 0) {
+            var randIndex = Math.floor(Math.random() * (this.visibleTiles.size - 1));
+            var currIndex = 0;
+            this.visibleTiles.forEach((vertex) => {
+                if (currIndex++ === randIndex) {
+                    toX = Math.floor(vertex % width);
+                    toY = Math.floor(vertex / width);
+                }
+            });
         }
         
         var dist = Math.abs(toX - x) + Math.abs(toY - y);
@@ -118,6 +121,9 @@ class SmartTile extends Entity {
                         && this.visited[y * width + x] === undefined 
                         && this.tiles[y * width + x].walkable) {
                     this.visited[y * width + x] = 1;
+                    if (!this.visibleTiles.has(y * width + x)) {
+                        this.visibleTiles.add(y * width + x);
+                    }
                     dist = Math.abs(toX - x) + Math.abs(toY - y);
                     this.pq.add(y * width + x, dist);
                     this.parents[y * width + x] = vertex;
