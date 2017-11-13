@@ -14,6 +14,11 @@ class SmartTile extends Entity {
         this.animation = new Animation(4, 3);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        
+        this.pq = new PriorityQueue(function (a, b) {
+            return a.priority > b.priority;
+        });
+        
         this.pathfinding(false);
         
         if (this.path.length > 0) {
@@ -83,9 +88,7 @@ class SmartTile extends Entity {
         this.visited = [];
         this.parents = [];
         
-        var pq = new PriorityQueue(function (a, b) {
-            return a.priority > b.priority;
-        });
+        this.pq.clear();
         
         var width = Level.getWidth();
         var height = Level.getHeight();
@@ -105,9 +108,9 @@ class SmartTile extends Entity {
         }
         
         var dist = Math.abs(toX - x) + Math.abs(toY - y);
-        pq.add(y * width + x, dist);
-        outer: while (!pq.isEmpty()) {
-            var vertex = pq.remove().object;
+        this.pq.add(y * width + x, dist);
+        outer: while (!this.pq.isEmpty()) {
+            var vertex = this.pq.remove().object;
             for (var a = 0; a < this.moves.length; a++) {
                 x = Math.floor(vertex % width) + this.moves[a][0];
                 y = Math.floor(vertex / width) + this.moves[a][1];
@@ -116,7 +119,7 @@ class SmartTile extends Entity {
                         && this.tiles[y * width + x].walkable) {
                     this.visited[y * width + x] = 1;
                     dist = Math.abs(toX - x) + Math.abs(toY - y);
-                    pq.add(y * width + x, dist);
+                    this.pq.add(y * width + x, dist);
                     this.parents[y * width + x] = vertex;
                     if (x === toX && y === toY) {
                         this.buildPath(y * width + x);
