@@ -4,6 +4,8 @@ class Ice extends Entity {
         super(x, y, w, h);
         this.oldX = 0;
         this.oldY = 0;
+        this.toX = 0;
+        this.toY = 0;
         this.speedX = speed;
         this.speedY = speed;
         this.drop = false;
@@ -15,7 +17,15 @@ class Ice extends Entity {
         this.deadTimeCount = 0;
         this.isDead = false;
         this.isDisposable = false;
+        this.isCursorOn = false;
         this.cursor = Cursor.getInstance();
+    }
+    
+    setXY(x, y) {
+        this.x = x;
+        this.y = y;
+        this.toX = x;
+        this.toY = y;
     }
 
     render(context) {
@@ -43,18 +53,25 @@ class Ice extends Entity {
             }
         }
         
+        if (this.isDead) return;
+        
+        if (!this.cursor.isPressed) {
+            this.isCursorOn = false;
+        }
+        
         if (this.cursor.isPressed) {
             if (this.cursor.x >= this.left() && this.cursor.x <= this.right() && this.cursor.y >= this.top() && this.cursor.y <= this.bottom()) {
-                this.speedX = this.cursor.x - this.left() - this.w / 2;
-            } else {
-                this.speedX = 0;
-            }   
-        } else {
-            this.speedX = 0;
+                this.isCursorOn = true;
+            }
         }
-
+        
+        if (this.isCursorOn) {
+            this.toX = this.cursor.x - this.w / 2;
+            this.toY = this.cursor.y - this.h / 2;
+        }
+        
         this.oldX = this.x;
-        this.x += this.speedX;
+        this.x += (this.toX - this.x) * 0.7;
 
         var x = Math.floor(Math.round(this.x / Tile.getWidth()));
         var y = Math.floor(Math.round(this.y / Tile.getHeight()));
@@ -72,18 +89,8 @@ class Ice extends Entity {
             }
         }
 
-        if (this.cursor.isPressed) {
-            if (this.cursor.x >= this.left() && this.cursor.x <= this.right() && this.cursor.y >= this.top() && this.cursor.y <= this.bottom()) {
-                this.speedY = this.cursor.y - this.top() - this.h / 2;
-            } else {
-                this.speedY = 0;
-            } 
-        } else {
-            this.speedY = 0;
-        }
-
         this.oldY = this.y;
-        this.y += this.speedY;
+        this.y += (this.toY - this.y) * 0.7; 
 
         x = Math.floor(Math.round(this.x / Tile.getWidth()));
         y = Math.floor(Math.round(this.y / Tile.getHeight()));

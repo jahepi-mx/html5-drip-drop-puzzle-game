@@ -4,7 +4,7 @@ class Config {
             
     constructor() {
         this.mapWidth = 1000;
-        this.mapHeight = 750;
+        this.mapHeight = 600;
         this.debug = false;
     }
     

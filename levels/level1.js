@@ -1,6 +1,6 @@
 class Level1 extends Level {
     constructor() { 
-        super(20, 15); 
+        super(20, 12); 
     }
     
     init(ice) {
@@ -19,14 +19,10 @@ class Level1 extends Level {
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
-        this.ice.x = 5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
-        this.ice.y = 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         
         this.fadeTiles[3 * this.mapWidth + 4] = new FadeTile(4, 3, this.tileSize, this.tileSize, 2, 3, 1);
         var tileId = Math.ceil(Math.random() * 6);
@@ -57,8 +53,7 @@ class Level1 extends Level {
             this.checkpoints[a].reset();
         }
 
-        this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
-        this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.ice.reset();
         this.currCheckpoint = 1;
     }

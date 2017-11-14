@@ -1,6 +1,6 @@
 class Level2 extends Level {
     constructor() { 
-        super(20, 15); 
+        super(20, 12); 
     }
     
     init(ice) {
@@ -19,14 +19,10 @@ class Level2 extends Level {
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
-        this.ice.x = 5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
-        this.ice.y = 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         var tileId = Math.ceil(Math.random() * 6);
         var bgTileId = Math.ceil(Math.random() * 4);
         
@@ -58,8 +54,7 @@ class Level2 extends Level {
             this.checkpoints[a].reset();
         }
 
-        this.ice.x = 3 * this.tileSize + this.tileSize / 2 - this.ice.w / 2;
-        this.ice.y = 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2;
+        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.ice.reset();
         this.currCheckpoint = 1;
     }
