@@ -9,6 +9,8 @@ class Tile extends Entity {
         this.visible = true;
         this.walkable = walkable;
         this.img = img;
+        this.atlas = Atlas.getInstance();
+        this.assets = Assets.getInstance();
         TILE_WIDTH = w;
         TILE_HEIGHT = h;
     }
@@ -21,11 +23,9 @@ class Tile extends Entity {
         return TILE_HEIGHT;
     }
     
-    render(context) {
-        var atlas = Atlas.getInstance();
-        var assets = Assets.getInstance();
+    render(context) {      
         var image = this.img;
-        context.drawImage(assets.spritesAtlas, atlas.sprites[image].x, atlas.sprites[image].y, atlas.sprites[image].width, atlas.sprites[image].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.x, this.y, this.w + 1, this.h + 1);
     }
 };
 

@@ -10,7 +10,7 @@ class Checkpoint extends Entity {
         this.color = color;
         this.collided = false;
         this.fireAnimation = new Animation(4, 2);
-        this.offAnimation = new Animation(3, 2);
+        this.offAnimation = new Animation(4, 2);
     }
     
     update(deltatime) {
