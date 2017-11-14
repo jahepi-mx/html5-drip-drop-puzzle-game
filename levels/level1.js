@@ -22,8 +22,9 @@ class Level1 extends Level {
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
-        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
-        
+        this.ice.reset();
+        this.ice.setXY(2 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
+
         this.fadeTiles[3 * this.mapWidth + 4] = new FadeTile(4, 3, this.tileSize, this.tileSize, 2, 3, 1);
         var tileId = Math.ceil(Math.random() * 6);
         var bgTileId = Math.ceil(Math.random() * 4);
@@ -52,9 +53,8 @@ class Level1 extends Level {
         for (var a = 0; a < this.checkpoints.length; a++) {
             this.checkpoints[a].reset();
         }
-
-        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.ice.reset();
+        this.ice.setXY(2 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 1 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.currCheckpoint = 1;
     }
     

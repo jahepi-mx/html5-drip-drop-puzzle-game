@@ -113,10 +113,15 @@ class Ice extends Entity {
         this.isDead = true;
         this.explosiveDrop = true;
         this.cursor.isPressed = false;
+        this.isCursorOn = false;
     }
     
     reset() {
         this.isDead = false;
         this.isDisposable = false;
+        this.deadTimeCount = 0;
+        this.isCursorOn = false;
+        this.cursor.isPressed = false;
+        this.explosiveDrop = false;
     }
 };

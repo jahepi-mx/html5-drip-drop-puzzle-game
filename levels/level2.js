@@ -22,6 +22,7 @@ class Level2 extends Level {
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
+        this.ice.reset();
         this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         var tileId = Math.ceil(Math.random() * 6);
         var bgTileId = Math.ceil(Math.random() * 4);
@@ -39,8 +40,8 @@ class Level2 extends Level {
         }
         this.ice.tiles = this.tiles;
         this.checkpoints.push(new Checkpoint(1, 1, 50, 50, 1, "#fe00ab", this.tileSize));
-        this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877", this.tileSize));
-        this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb", this.tileSize));
+        //this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877", this.tileSize));
+        //this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb", this.tileSize));
         
         var smartTile = new SmartTile(1, 4, this.tileSize, this.tileSize, this.ice, this.tiles);
         var movingTile = new MovingTile(3, 3, this.tileSize, this.tileSize);
@@ -53,9 +54,8 @@ class Level2 extends Level {
         for (var a = 0; a < this.checkpoints.length; a++) {
             this.checkpoints[a].reset();
         }
-
-        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.ice.reset();
+        this.ice.setXY(5 * this.tileSize + this.tileSize / 2 - this.ice.w / 2, 4 * this.tileSize + this.tileSize / 2 -  this.ice.h / 2);
         this.currCheckpoint = 1;
     }
     
