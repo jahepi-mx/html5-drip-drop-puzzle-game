@@ -18,7 +18,9 @@ class Ice extends Entity {
         this.isDead = false;
         this.isDisposable = false;
         this.isCursorOn = false;
+        this.ratios = [];
         this.cursor = Cursor.getInstance();
+        this.calculateMovingRatios();
     }
     
     setXY(x, y) {
@@ -36,7 +38,43 @@ class Ice extends Entity {
         }
     }
     
+    calculateMovingRatios() {
+        /*
+         At 60 fps the default moving ratio is 0.2, ej:
+        
+         x += (toX - x) * 0.2;
+        
+         According to this, if the distance to move is 100 pixels, 
+         we need about 20 frames to reach destination (1 pixel offset), it is about 20/60 fps.
+         
+         Example:
+         (ratio ^ x) * 100 = 1;
+        
+         Replace variables to solve equation:
+         =>   ((1 - 0.2) ^ x) * 100 = 1;
+         =>   x = Math.log(1 / 100) / Math.log(1 - 0.2); --> Why?, lets do a simpler example: 2^x = 8 --> x = Math.log(8) / Math.log(2)
+         =>   x = 20.63 
+        
+         So, it is about 1/3 of the framerate, so if our framerate is 30fps, 1/3 is 10fps, now our ratio is x:
+         =>   (x ^ 10) * 100 = 1 
+         =>   x ^ 10 = 1 / 100
+         =>   x = (1 / 10) ^ (1 / 10)
+         =>   x = 0.630
+         =>   x = 1 - 0.630
+         =>   x = 0.369 <- This is the ratio to use when the framerate is 30 fps
+        
+        Populate a hashtable from 1fps to 144fps with ratios to use.
+        Note: this is not a perfect ratio table, if we move more or less distance, the frames to reach destination
+        may vary, so this is just an aproximation.
+         */
+        for (var a = 1; a <= 144; a++) {
+            this.ratios[a] = 1 - Math.pow(1 / 100, 1 / (a * 0.33));
+        }
+    }
+    
     update(deltatime) {
+        
+        var fps = Math.floor(1 / deltatime);
         
         this.dropTimeCount += deltatime;
         if (!this.isDead && this.dropTimeCount > this.dropTime) {
@@ -71,7 +109,7 @@ class Ice extends Entity {
         }
         
         this.oldX = this.x;
-        this.x += (this.toX - this.x) * 0.2;
+        this.x += (this.toX - this.x) * this.ratios[fps];
 
         var x = Math.floor(Math.round(this.x / Tile.getWidth()));
         var y = Math.floor(Math.round(this.y / Tile.getHeight()));
@@ -90,7 +128,7 @@ class Ice extends Entity {
         }
 
         this.oldY = this.y;
-        this.y += (this.toY - this.y) * 0.2; 
+        this.y += (this.toY - this.y) * this.ratios[fps];
 
         x = Math.floor(Math.round(this.x / Tile.getWidth()));
         y = Math.floor(Math.round(this.y / Tile.getHeight()));

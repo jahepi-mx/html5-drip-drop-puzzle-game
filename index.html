@@ -53,16 +53,18 @@ and open the template in the editor.
         function callback(time) {
             var deltatime = (time - startTime) / 1000;
             startTime = time;
-            if (lockFramerate) {
-                lockCount += deltatime;
-                if (lockCount >= lock) {
-                    update(lockCount);
+            if (1 / deltatime >= 3) {
+                if (lockFramerate) {
+                    lockCount += deltatime;
+                    if (lockCount >= lock) {
+                        update(lockCount);
+                        render(context);
+                        lockCount = 0;
+                    }
+                } else {
+                    update(deltatime);
                     render(context);
-                    lockCount = 0;
                 }
-            } else {
-                update(deltatime);
-                render(context);
             }
             window.requestAnimationFrame(callback);
         }
