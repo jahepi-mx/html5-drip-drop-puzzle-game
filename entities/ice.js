@@ -71,7 +71,7 @@ class Ice extends Entity {
         }
         
         this.oldX = this.x;
-        this.x += (this.toX - this.x) * 0.7;
+        this.x += (this.toX - this.x) * 0.2;
 
         var x = Math.floor(Math.round(this.x / Tile.getWidth()));
         var y = Math.floor(Math.round(this.y / Tile.getHeight()));
@@ -90,7 +90,7 @@ class Ice extends Entity {
         }
 
         this.oldY = this.y;
-        this.y += (this.toY - this.y) * 0.7; 
+        this.y += (this.toY - this.y) * 0.2; 
 
         x = Math.floor(Math.round(this.x / Tile.getWidth()));
         y = Math.floor(Math.round(this.y / Tile.getHeight()));

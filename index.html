@@ -44,11 +44,26 @@ and open the template in the editor.
         var cursor;
         var scene;
         
+        // Lock frame rate for testing purposes
+        var lock = 1 / 30; // 20 fps
+        var lockCount = 0;
+        var lockFramerate = true;
+        
+        
         function callback(time) {
             var deltatime = (time - startTime) / 1000;
             startTime = time;
-            update(deltatime);
-            render(context);
+            if (lockFramerate) {
+                lockCount += deltatime;
+                if (lockCount >= lock) {
+                    update(lockCount);
+                    render(context);
+                    lockCount = 0;
+                }
+            } else {
+                update(deltatime);
+                render(context);
+            }
             window.requestAnimationFrame(callback);
         }
         
