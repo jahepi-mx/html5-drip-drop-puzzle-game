@@ -9,6 +9,10 @@ class MovingTile extends Tile {
         var xTmp = Math.floor(this.x / Tile.getWidth());
         var yTmp = Math.floor(this.y / Tile.getHeight());
         this.addVertex(yTmp * Level.getWidth() + xTmp);
+        this.sleepAnimation = new Animation(5, 2);
+        this.sleepAnimation.stopAtSequenceNumber(1, null);
+        this.wakeupAnimation = new Animation(5, 2);
+        this.wakeupAnimation.stopAtSequenceNumber(1, null);
         this.shift = true;
     }
     
@@ -36,15 +40,25 @@ class MovingTile extends Tile {
         if (diffX <= 2 && diffY <= 2) {
             this.shift = true;
         }
+        
+        if (diffX <= 10 && diffY <= 10) {
+            this.sleepAnimation.update(deltatime);
+            this.wakeupAnimation.reset();
+        } else {
+            this.wakeupAnimation.update(deltatime);
+            this.sleepAnimation.reset();
+        }
     }
     
     render(context) {
         var diffX = Math.abs(this.toX - this.x);
         var diffY = Math.abs(this.toY - this.y);
         if (diffX <= 10 && diffY <= 10) {
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["movingtile2"].x, this.atlas.sprites["movingtile2"].y, this.atlas.sprites["movingtile2"].width, this.atlas.sprites["movingtile2"].height, this.x, this.y, this.w + 1, this.h + 1);
+            var frame = "sleep" + (this.sleepAnimation.getFrame() + 1);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         } else {
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["movingtile1"].x, this.atlas.sprites["movingtile1"].y, this.atlas.sprites["movingtile1"].width, this.atlas.sprites["movingtile1"].height, this.x, this.y, this.w + 1, this.h + 1);
+            var frame = "wakeup" + (this.wakeupAnimation.getFrame() + 1);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         }
     }
 }

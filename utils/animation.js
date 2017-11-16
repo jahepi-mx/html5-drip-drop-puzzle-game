@@ -28,6 +28,7 @@ class Animation {
         if (this.sequences === this.stopAtSequence) {
             this.stopped = true;
             this.sequences = 0;
+            this.count = this.frames - 1;
             if (this.stopAtSequenceCallback !== null) {
                 this.stopAtSequenceCallback();
             }

@@ -8,9 +8,12 @@ class GameScene extends Scene {
         this.levelManager = new LevelManager();
         this.currLevel = this.levelManager.next();
         this.currLevel.init(this.ice);
+        this.atlas = Atlas.getInstance();
+        this.assets = Assets.getInstance();
         this.drops = [];
-        this.nextBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.1, text: "Next Level", alpha: 1, font: "35px joystix"};
+        this.time = 0;
         this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
+        this.timeLabel = {x: 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#ffffff"};
     }
     
     update(deltatime) {
@@ -18,14 +21,18 @@ class GameScene extends Scene {
         this.fpsLabel.text = Math.floor(1 / deltatime);
         
         if (this.currLevel.isFinish) {
-            if (this.cursor.isPressed && this.cursor.x >= this.nextBtn.x - this.nextBtn.width / 2 && this.cursor.x <= this.nextBtn.x + this.nextBtn.width / 2 
-                && this.cursor.y >= this.nextBtn.y - this.nextBtn.height / 2 && this.cursor.y <= this.nextBtn.y + this.nextBtn.height / 2) {
+            var width = 400 * 1.5;
+            var height = 223 * 1.5;
+            if (this.cursor.isPressed && this.cursor.x >= this.config.mapWidth / 2 - width / 2 && this.cursor.x <= this.config.mapWidth / 2 + width / 2
+                && this.cursor.y >= this.config.mapHeight / 2 - height / 2 && this.cursor.y <= this.config.mapHeight / 2 + height / 2) {
                 this.currLevel = this.levelManager.next();
                 this.currLevel.init(this.ice);
                 this.drops = [];
             }
             return;
         }
+        
+        this.time += deltatime;
         
         this.ice.update(deltatime);
             
@@ -85,6 +92,13 @@ class GameScene extends Scene {
                 tile.update(deltatime);
             }
         }
+        
+        var time = Math.floor(this.time);
+        var seconds = Math.floor(time % 60);
+        var minutes = Math.floor(time / 60);
+        var hours = Math.floor(minutes / 60);
+        var minutesRemain = Math.floor(minutes % 60);     
+        this.timeLabel.text = "time: " + (hours < 10 ? "0" + hours : hours) + ":" + (minutesRemain < 10 ? "0" + minutesRemain : minutesRemain) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     }
     
     render(context) {
@@ -111,42 +125,31 @@ class GameScene extends Scene {
         
         if (this.currLevel.isFinish) {
             
+            var width = 400 * 1.5;
+            var height = 223 * 1.5;
+            var image = "complete";    
             if (this.levelManager.isFinish()) {
-                context.textAlign = "center";
-                context.font = "50px joystix";
-                context.strokeStyle = '#af550b';
-                context.lineWidth = 30;
-                context.strokeText("You made it through the end!", this.config.mapWidth / 2, this.config.mapHeight / 2);
-                context.fillStyle = '#e3af48';
-                context.fillText("You made it through the end!", this.config.mapWidth / 2, this.config.mapHeight / 2);
-            } else {
-                
-                context.textAlign = "center";
-                context.font = "50px joystix";
-                context.strokeStyle = '#af550b';
-                context.lineWidth = 30;
-                context.strokeText("completed", this.config.mapWidth / 2, this.config.mapHeight / 2);
-                context.fillStyle = '#e3af48';
-                context.fillText("completed", this.config.mapWidth / 2, this.config.mapHeight / 2);
-                
-                if (this.cursor.x >= this.nextBtn.x - this.nextBtn.width / 2 && this.cursor.x <= this.nextBtn.x + this.nextBtn.width / 2 
-                    && this.cursor.y >= this.nextBtn.y - this.nextBtn.height / 2 && this.cursor.y <= this.nextBtn.y + this.nextBtn.height / 2) {          
-                    context.font = this.nextBtn.font;
-                    context.fillStyle = "rgba(255, 0, 0, " + this.nextBtn.alpha + ")";
-                    context.textAlign = "center";
-                    context.fillText(this.nextBtn.text, this.nextBtn.x , this.nextBtn.y);          
-                } else  {
-                    context.font = this.nextBtn.font;
-                    context.fillStyle = "rgba(255, 0, 255, " + this.nextBtn.alpha + ")";
-                    context.textAlign = "center";
-                    context.fillText(this.nextBtn.text, this.nextBtn.x, this.nextBtn.y);
-                }              
+                image = "finish";
             }
+            if (this.cursor.x >= this.config.mapWidth / 2 - width / 2 && this.cursor.x <= this.config.mapWidth / 2 + width / 2 
+                && this.cursor.y >= this.config.mapHeight / 2 - height / 2 && this.cursor.y <= this.config.mapHeight / 2 + height / 2) {          
+                image = image + "on";
+                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.config.mapWidth / 2 - width / 2, this.config.mapHeight / 2 - height / 2, width, height);
+            } else  {
+                image = image + "off";
+                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.config.mapWidth / 2 - width / 2, this.config.mapHeight / 2 - height / 2, width, height);
+            } 
         }
         
         context.font = this.fpsLabel.font;
         context.fillStyle = this.fpsLabel.color;
         context.textAlign = "center";
         context.fillText(this.fpsLabel.text, this.fpsLabel.x , this.fpsLabel.y); 
+        
+        context.font = this.timeLabel.font;
+        context.fillStyle = this.timeLabel.color;
+        context.textAlign = "left";
+        context.fillText(this.timeLabel.text, this.timeLabel.x , this.timeLabel.y); 
+  
     }
 }
