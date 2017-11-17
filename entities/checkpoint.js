@@ -11,6 +11,7 @@ class Checkpoint extends Entity {
         this.collided = false;
         this.fireAnimation = new Animation(4, 2);
         this.offAnimation = new Animation(4, 2);
+        this.explosiveDrop = false;
     }
     
     update(deltatime) {
@@ -50,5 +51,6 @@ class Checkpoint extends Entity {
     
     reset() {
         this.collided = false;
+        this.explosiveDrop = false;
     }
 };

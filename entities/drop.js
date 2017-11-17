@@ -1,6 +1,6 @@
 class Drop extends Entity {
     
-    constructor(x, y, w, h, speed, tiles) {
+    constructor(x, y, w, h, speed, color, tiles) {
         super(x, y, w, h);
         this.x = x;
         this.y = y;
@@ -17,10 +17,11 @@ class Drop extends Entity {
         this.collided = false;
         this.isDisposable = false;
         this.tiles = tiles;
+        this.color = color;
     }
     
     render(context) {
-        context.fillStyle = "#a6d3fd";
+        context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.w, this.h);
     }
 

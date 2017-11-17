@@ -20,6 +20,41 @@ class GameScene extends Scene {
         
         this.fpsLabel.text = Math.floor(1 / deltatime);
         
+        for (var a = 0; a < this.drops.length; a++) {
+            if (this.drops[a].isDisposable) {
+                this.drops[a] = null;
+                this.drops.splice(a, 1);
+            } else {
+                this.drops[a].update(deltatime);
+                
+                for (var b = 0; b < this.currLevel.checkpoints.length; b++) {
+                    if (!this.currLevel.checkpoints[b].collided 
+                            && this.currLevel.checkpoints[b].collide(this.drops[a])) {                   
+                        if (this.currLevel.reachCheckpoint(this.currLevel.checkpoints[b])) {
+                            this.currLevel.checkpoints[b].collided = true;
+                            this.currLevel.checkpoints[b].explosiveDrop = true;
+                        }
+                    }
+                }
+            }
+        }
+        
+        for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
+            this.currLevel.checkpoints[a].update(deltatime);
+            if (this.currLevel.checkpoints[a].explosiveDrop) {
+                var checkpoint = this.currLevel.checkpoints[a];
+                for (var b = 0; b < 10; b++) {
+                    var dropSize = Math.ceil(Math.random() * 3 + 5);
+                    var drop = new Drop(checkpoint.left() + checkpoint.w / 2 - dropSize / 2, checkpoint.top() + checkpoint.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100", this.currLevel.tiles);
+                    drop.collided = true;
+                    drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                    drop.speedY = -drop.speedY;
+                    this.drops.push(drop);
+                }
+                this.currLevel.checkpoints[a].explosiveDrop = false;                     
+            }
+        }
+        
         if (this.currLevel.isFinish) {
             var width = 400 * 1.5;
             var height = 223 * 1.5;
@@ -42,7 +77,7 @@ class GameScene extends Scene {
         }
 
         if (this.ice.drop) {
-            var drop = new Drop(this.ice.left() + Math.random() * this.ice.w - 5 / 2, this.ice.top(), 5, 5, 10, this.currLevel.tiles);
+            var drop = new Drop(this.ice.left() + Math.random() * this.ice.w - 5 / 2, this.ice.top(), 5, 5, 10, "#a6d3fd", this.currLevel.tiles);
             this.drops.push(drop);
             this.ice.drop = false;
         }
@@ -50,34 +85,12 @@ class GameScene extends Scene {
         if (this.ice.explosiveDrop) {
             for (var a = 0; a < 10; a++) {
                 var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.ice.left() + this.ice.w / 2 - dropSize / 2, this.ice.top() + this.ice.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), this.currLevel.tiles);
+                var drop = new Drop(this.ice.left() + this.ice.w / 2 - dropSize / 2, this.ice.top() + this.ice.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd", this.currLevel.tiles);
                 drop.collided = true;
                 drop.speedY = -drop.speedY;
                 this.drops.push(drop);
             }
             this.ice.explosiveDrop = false;
-        }
-
-        for (var a = 0; a < this.drops.length; a++) {
-            if (this.drops[a].isDisposable) {
-                this.drops[a] = null;
-                this.drops.splice(a, 1);
-            } else {
-                this.drops[a].update(deltatime);
-                
-                for (var b = 0; b < this.currLevel.checkpoints.length; b++) {
-                    if (!this.currLevel.checkpoints[b].collided 
-                            && this.currLevel.checkpoints[b].collide(this.drops[a])) {                   
-                        if (this.currLevel.reachCheckpoint(this.currLevel.checkpoints[b])) {
-                            this.currLevel.checkpoints[b].collided = true;
-                        }
-                    }
-                }
-            }
-        }
-        
-        for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
-            this.currLevel.checkpoints[a].update(deltatime);
         }
         
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
