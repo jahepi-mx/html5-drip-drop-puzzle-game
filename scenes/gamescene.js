@@ -14,6 +14,7 @@ class GameScene extends Scene {
         this.time = 0;
         this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
         this.timeLabel = {x: 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#ffffff"};
+        this.music = this.assets.playAudio(this.assets.game, true, 0.2);
     }
     
     update(deltatime) {

@@ -9,7 +9,8 @@ class MainScene extends Scene {
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
         this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.2, text: "play game", alpha: 1, font: "35px joystix"};
-
+        this.music = this.assets.playAudio(this.assets.main, true, 0.2);
+        
         var topText = 80;
         this.texts = [
             {x: this.config.mapWidth / 2, y: topText, text: "Labyrinth Challenge", alpha: 1, font: "65px joystix", r: 0, g: 0, b: 0},
@@ -31,6 +32,9 @@ class MainScene extends Scene {
         if (this.cursor.isPressed && this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
                 && this.cursor.y >= this.playBtn.y - this.playBtn.height / 2 && this.cursor.y <= this.playBtn.y + this.playBtn.height / 2) {
             this.onChangeSceneCallback("game");
+            if (this.music !== null) {
+                this.music.stop();
+            }
         }
     } 
     

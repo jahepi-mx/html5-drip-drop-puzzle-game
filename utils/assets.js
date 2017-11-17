@@ -9,8 +9,8 @@ class Assets {
         this.srcs = ["assets/sprites/sprites.png"];
         this.keys = ["spritesAtlas"];
         this.audio = {};
-        this.audio.srcs = [];
-        this.audio.keys = [];
+        this.audio.srcs = ["assets/audios/main.mp3", "assets/audios/game.mp3",];
+        this.audio.keys = ["main", "game"];
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         this.audioContext = new AudioContext();
     }
@@ -91,11 +91,15 @@ class Assets {
         xmlRequest.send();
     }
 
-    playAudio(buffer, loop) {
+    playAudio(buffer, loop, volume) {
         var source = this.audioContext.createBufferSource();
         source.buffer = buffer;
         source.loop = loop;
-        source.connect(this.audioContext.destination);
+        //source.connect(this.audioContext.destination);
+        var gainNode = this.audioContext.createGain();
+        source.connect(gainNode);
+        gainNode.connect(this.audioContext.destination);
+        gainNode.gain.value = volume;
         source.start(0);
         return source;
     }

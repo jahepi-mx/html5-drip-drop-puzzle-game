@@ -92,6 +92,7 @@ and open the template in the editor.
                 var y = evt.clientY - rect.top;
                 cursor.update(x, y);
             });
+            scene = new MainScene(onChangeSceneCb);
             window.requestAnimationFrame(callback);
         }
 
@@ -102,7 +103,6 @@ and open the template in the editor.
             canvas.height = config.mapHeight;
             context = canvas.getContext("2d"); 
             cursor = Cursor.getInstance();  
-            scene = new MainScene(onChangeSceneCb);
             var assets = Assets.getInstance();
             assets.loadAll(onLoadAssets);
         }
