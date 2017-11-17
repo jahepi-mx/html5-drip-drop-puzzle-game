@@ -80,7 +80,7 @@ class FinishPopup extends Popup {
                 }
             }
         };
-        xhr.open("POST", "http://games.jahepi.net/labyrinth/save.php", true);
+        xhr.open("POST", "http://games.jahepi.net/labyrinth/php/save.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("time=" + this.time + "&name=" + nickname);
     }
