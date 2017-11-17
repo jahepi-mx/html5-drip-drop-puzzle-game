@@ -32,7 +32,7 @@ class GameScene extends Scene {
     }
     
     onCloseFinishPopup() {
-        
+        this.onChangeSceneCallback("main");
     }
     
     update(deltatime) {
@@ -77,6 +77,7 @@ class GameScene extends Scene {
         if (this.currLevel.isFinish) {
             if (this.levelManager.isFinish()) {
                 this.finishPopup.update(deltatime);
+                this.finishPopup.time = this.time;
             } else {
                 this.completePopup.update(deltatime);
             } 
