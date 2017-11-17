@@ -13,8 +13,14 @@ class GameScene extends Scene {
         this.drops = [];
         this.time = 0;
         this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
+        this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
         this.timeLabel = {x: 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#ffffff"};
-        this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+        this.music = null;
+        this.soundCount = 0;
+        this.soundCountLimit = 1;
+        if (this.config.sound) {
+            this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+        }
     }
     
     update(deltatime) {
@@ -113,6 +119,21 @@ class GameScene extends Scene {
         var hours = Math.floor(minutes / 60);
         var minutesRemain = Math.floor(minutes % 60);     
         this.timeLabel.text = "time: " + (hours < 10 ? "0" + hours : hours) + ":" + (minutesRemain < 10 ? "0" + minutesRemain : minutesRemain) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        
+        this.soundCount += deltatime;       
+        if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
+                && this.cursor.y >= this.soundBtn.y && this.cursor.y <= this.soundBtn.y + this.soundBtn.height) {
+            if (this.soundCount >= this.soundCountLimit) {
+                if (this.config.sound) {
+                    this.config.sound = false;
+                    this.music.stop();
+                } else {
+                    this.config.sound = true;
+                    this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+                }
+                this.soundCount = 0;
+            }
+        }
     }
     
     render(context) {
@@ -163,7 +184,12 @@ class GameScene extends Scene {
         context.font = this.timeLabel.font;
         context.fillStyle = this.timeLabel.color;
         context.textAlign = "left";
-        context.fillText(this.timeLabel.text, this.timeLabel.x , this.timeLabel.y); 
-  
+        context.fillText(this.timeLabel.text, this.timeLabel.x , this.timeLabel.y);
+        
+        if (this.config.sound) {
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundon"].x, this.atlas.sprites["soundon"].y, this.atlas.sprites["soundon"].width, this.atlas.sprites["soundon"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
+        } else {
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
+        }
     }
 }

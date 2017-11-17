@@ -5,7 +5,7 @@ class Config {
     constructor() {
         this.mapWidth = 1000;
         this.mapHeight = 600;
-        this.audio = true;
+        this.sound = true;
         this.debug = false;
     }
     

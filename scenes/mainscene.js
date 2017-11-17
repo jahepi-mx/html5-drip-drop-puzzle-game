@@ -9,7 +9,10 @@ class MainScene extends Scene {
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
         this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.2, text: "play game", alpha: 1, font: "35px joystix"};
+        this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
         this.music = this.assets.playAudio(this.assets.main, true, 0.2);
+        this.soundCount = 0;
+        this.soundCountLimit = 1;
         
         var topText = 80;
         this.texts = [
@@ -34,6 +37,20 @@ class MainScene extends Scene {
             this.onChangeSceneCallback("game");
             if (this.music !== null) {
                 this.music.stop();
+            }
+        }
+        this.soundCount += deltatime;       
+        if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
+                && this.cursor.y >= this.soundBtn.y && this.cursor.y <= this.soundBtn.y + this.soundBtn.height) {
+            if (this.soundCount >= this.soundCountLimit) {
+                if (this.config.sound) {
+                    this.config.sound = false;
+                    this.music.stop();
+                } else {
+                    this.config.sound = true;
+                    this.music = this.assets.playAudio(this.assets.main, true, 0.2);
+                }
+                this.soundCount = 0;
             }
         }
     } 
@@ -62,6 +79,12 @@ class MainScene extends Scene {
             context.fillStyle = "rgba(255, 255, 255, " + this.playBtn.alpha + ")";
             context.textAlign = "center";
             context.fillText(this.playBtn.text, this.playBtn.x, this.playBtn.y);
+        }
+        
+        if (this.config.sound) {
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundon"].x, this.atlas.sprites["soundon"].y, this.atlas.sprites["soundon"].width, this.atlas.sprites["soundon"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
+        } else {
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
         }
     }
 };
