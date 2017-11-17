@@ -18,9 +18,21 @@ class GameScene extends Scene {
         this.music = null;
         this.soundCount = 0;
         this.soundCountLimit = 1;
+        this.completePopup = new Popup(this.onCloseCompletePopup.bind(this));
+        this.finishPopup = new FinishPopup(this.onCloseFinishPopup.bind(this));
         if (this.config.sound) {
             this.music = this.assets.playAudio(this.assets.game, true, 0.2);
         }
+    }
+    
+    onCloseCompletePopup() {
+        this.currLevel = this.levelManager.next();
+        this.currLevel.init(this.ice);
+        this.drops = [];
+    }
+    
+    onCloseFinishPopup() {
+        
     }
     
     update(deltatime) {
@@ -63,14 +75,11 @@ class GameScene extends Scene {
         }
         
         if (this.currLevel.isFinish) {
-            var width = 400 * 1.5;
-            var height = 223 * 1.5;
-            if (this.cursor.isPressed && this.cursor.x >= this.config.mapWidth / 2 - width / 2 && this.cursor.x <= this.config.mapWidth / 2 + width / 2
-                && this.cursor.y >= this.config.mapHeight / 2 - height / 2 && this.cursor.y <= this.config.mapHeight / 2 + height / 2) {
-                this.currLevel = this.levelManager.next();
-                this.currLevel.init(this.ice);
-                this.drops = [];
-            }
+            if (this.levelManager.isFinish()) {
+                this.finishPopup.update(deltatime);
+            } else {
+                this.completePopup.update(deltatime);
+            } 
             return;
         }
         
@@ -158,22 +167,12 @@ class GameScene extends Scene {
             this.drops[a].render(context);
         }
         
-        if (this.currLevel.isFinish) {
-            
-            var width = 400 * 1.5;
-            var height = 223 * 1.5;
-            var image = "complete";    
+        if (this.currLevel.isFinish) { 
             if (this.levelManager.isFinish()) {
-                image = "finish";
-            }
-            if (this.cursor.x >= this.config.mapWidth / 2 - width / 2 && this.cursor.x <= this.config.mapWidth / 2 + width / 2 
-                && this.cursor.y >= this.config.mapHeight / 2 - height / 2 && this.cursor.y <= this.config.mapHeight / 2 + height / 2) {          
-                image = image + "on";
-                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.config.mapWidth / 2 - width / 2, this.config.mapHeight / 2 - height / 2, width, height);
-            } else  {
-                image = image + "off";
-                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.config.mapWidth / 2 - width / 2, this.config.mapHeight / 2 - height / 2, width, height);
-            } 
+                this.finishPopup.render(context);
+            } else {
+                this.completePopup.render(context);
+            }      
         }
         
         context.font = this.fpsLabel.font;
