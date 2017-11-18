@@ -32,7 +32,7 @@ class GameScene extends Scene {
     }
     
     onCloseFinishPopup() {
-        this.onChangeSceneCallback("main");
+        this.onChangeSceneCallback("leaderboard");
     }
     
     update(deltatime) {

@@ -8,7 +8,8 @@ class MainScene extends Scene {
         this.atlas = Atlas.getInstance();
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
-        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: this.config.mapWidth * 0.3, height: this.config.mapHeight * 0.2, text: "play game", alpha: 1, font: "35px joystix"};
+        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 70, width: 100, height: 40, text: "play game", alpha: 1, font: "35px joystix"};
+        this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 30, width: 150, height: 40, text: "leaderboard", alpha: 1, font: "35px joystix"};
         this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
         this.music = this.assets.playAudio(this.assets.main, true, 0.2);
         this.soundCount = 0;
@@ -31,6 +32,15 @@ class MainScene extends Scene {
     }
     
     update(deltatime) {
+        
+        if (this.cursor.isPressed && this.cursor.x >= this.leaderboardBtn.x - this.leaderboardBtn.width / 2 && this.cursor.x <= this.leaderboardBtn.x + this.leaderboardBtn.width / 2 
+            && this.cursor.y >= this.leaderboardBtn.y - this.leaderboardBtn.height / 2 && this.cursor.y <= this.leaderboardBtn.y + this.leaderboardBtn.height / 2) {          
+            this.onChangeSceneCallback("leaderboard");
+            if (this.music !== null) {
+                this.music.stop();
+            }
+        }
+        
         this.blinkTimeCount += deltatime;
         if (this.cursor.isPressed && this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
                 && this.cursor.y >= this.playBtn.y - this.playBtn.height / 2 && this.cursor.y <= this.playBtn.y + this.playBtn.height / 2) {
@@ -80,6 +90,19 @@ class MainScene extends Scene {
             context.textAlign = "center";
             context.fillText(this.playBtn.text, this.playBtn.x, this.playBtn.y);
         }
+        
+        if (this.cursor.x >= this.leaderboardBtn.x - this.leaderboardBtn.width / 2 && this.cursor.x <= this.leaderboardBtn.x + this.leaderboardBtn.width / 2 
+            && this.cursor.y >= this.leaderboardBtn.y - this.leaderboardBtn.height / 2 && this.cursor.y <= this.leaderboardBtn.y + this.leaderboardBtn.height / 2) {          
+            context.font = this.leaderboardBtn.font;
+            context.fillStyle = 'white';
+            context.textAlign = "center";
+            context.fillText(this.leaderboardBtn.text, this.leaderboardBtn.x, this.leaderboardBtn.y);
+        } else  {
+            context.font = this.leaderboardBtn.font;
+            context.fillStyle = 'orange';
+            context.textAlign = "center";
+            context.fillText(this.leaderboardBtn.text, this.leaderboardBtn.x, this.leaderboardBtn.y);
+        } 
         
         if (this.config.sound) {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundon"].x, this.atlas.sprites["soundon"].y, this.atlas.sprites["soundon"].width, this.atlas.sprites["soundon"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
