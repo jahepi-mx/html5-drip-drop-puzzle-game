@@ -104,7 +104,13 @@ and open the template in the editor.
             canvas = document.getElementById("canvas");
             canvas.width = config.mapWidth;
             canvas.height = config.mapHeight;
-            context = canvas.getContext("2d"); 
+            context = canvas.getContext("2d");
+            
+            context.font = "40px joystix";
+            context.fillStyle = 'white';
+            context.textAlign = "center";
+            context.fillText("loading...", config.mapWidth / 2, config.mapHeight / 2);
+            
             cursor = Cursor.getInstance();  
             var assets = Assets.getInstance();
             assets.loadAll(onLoadAssets);
