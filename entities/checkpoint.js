@@ -12,6 +12,8 @@ class Checkpoint extends Entity {
         this.fireAnimation = new Animation(4, 2);
         this.offAnimation = new Animation(4, 2);
         this.explosiveDrop = false;
+        this.atlas = Atlas.getInstance();
+        this.assets = Assets.getInstance();
     }
     
     update(deltatime) {
@@ -20,21 +22,22 @@ class Checkpoint extends Entity {
         } else {
             this.fireAnimation.update(deltatime);
         }
+        
+        if (this.explosiveDrop) {
+            this.assets.playAudio(this.assets.torch, false, 0.5);
+        }
     }
 
     render(context) {
-        var atlas = Atlas.getInstance();
-        var assets = Assets.getInstance();
-        
         var frame = "";
-        
+
         if (this.collided) {
             frame = "torchoff" + (this.offAnimation.getFrame() + 1);
         } else {
             frame = "torch" + (this.fireAnimation.getFrame() + 1);
         }
         
-        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         
         context.font = "30px joystix";
         context.fillStyle = "#ffffff";

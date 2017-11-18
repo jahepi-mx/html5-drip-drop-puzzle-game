@@ -19,6 +19,8 @@ class Ice extends Entity {
         this.isDisposable = false;
         this.isCursorOn = false;
         this.ratios = [];
+        this.atlas = Atlas.getInstance();
+        this.assets = Assets.getInstance();
         this.cursor = Cursor.getInstance();
         this.calculateMovingRatios();
     }
@@ -31,10 +33,8 @@ class Ice extends Entity {
     }
 
     render(context) {
-        var atlas = Atlas.getInstance();
-        var assets = Assets.getInstance();
         if (!this.isDead) {
-            context.drawImage(assets.spritesAtlas, atlas.sprites["ice"].x, atlas.sprites["ice"].y, atlas.sprites["ice"].width, atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["ice"].x, this.atlas.sprites["ice"].y, this.atlas.sprites["ice"].width, this.atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
         }
     }
     
@@ -148,6 +148,7 @@ class Ice extends Entity {
     }
     
     die() {
+        this.assets.playAudio(this.assets.dead, false, 0.5);
         this.isDead = true;
         this.explosiveDrop = true;
         this.cursor.isPressed = false;
