@@ -7,6 +7,7 @@ class Config {
         this.mapHeight = 600;
         this.sound = true;
         this.debug = false;
+        this.url = "http://games.jahepi.net";
     }
     
     static getInstance() {

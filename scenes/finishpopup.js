@@ -68,7 +68,6 @@ class FinishPopup extends Popup {
         for (var a = 0; a < this.letters.length; a++) {
             nickname += this.letters[a].getLetter();
         }
-        console.log(nickname);
         var xhr = new XMLHttpRequest();
         var self = this;
         xhr.onreadystatechange = function() {
@@ -80,7 +79,7 @@ class FinishPopup extends Popup {
                 }
             }
         };
-        xhr.open("POST", "http://games.jahepi.net/labyrinth/php/save.php", true);
+        xhr.open("POST", this.config.url + "/labyrinth/php/save.php", true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr.send("time=" + this.time + "&name=" + nickname);
     }
@@ -90,7 +89,7 @@ class Button {
     
     constructor(width, height, x, y) {
         this.cursor = Cursor.getInstance();
-        this.letters = ["A", "B", "C", "D", "E", "F", "G", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        this.letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
         this.letterIndex = 0;
         this.width = width;
         this.height = height;

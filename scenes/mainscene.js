@@ -8,12 +8,17 @@ class MainScene extends Scene {
         this.atlas = Atlas.getInstance();
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
+        this.blink = 0;
         this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 70, width: 100, height: 40, text: "play game", alpha: 1, font: "35px joystix"};
         this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 30, width: 150, height: 40, text: "leaderboard", alpha: 1, font: "35px joystix"};
         this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
-        this.music = this.assets.playAudio(this.assets.main, true, 0.2);
         this.soundCount = 0;
         this.soundCountLimit = 1;
+        this.catchClickEvent = false;
+        this.music = null;
+        if (this.config.sound) {
+            this.music = this.assets.playAudio(this.assets.main, true, 0.2);
+        }
         
         var topText = 80;
         this.texts = [
@@ -33,23 +38,26 @@ class MainScene extends Scene {
     
     update(deltatime) {
         
-        if (this.cursor.isPressed && this.cursor.x >= this.leaderboardBtn.x - this.leaderboardBtn.width / 2 && this.cursor.x <= this.leaderboardBtn.x + this.leaderboardBtn.width / 2 
-            && this.cursor.y >= this.leaderboardBtn.y - this.leaderboardBtn.height / 2 && this.cursor.y <= this.leaderboardBtn.y + this.leaderboardBtn.height / 2) {          
-            this.onChangeSceneCallback("leaderboard");
-            if (this.music !== null) {
+        if (this.catchEventClick && this.cursor.isPressed && this.cursor.x >= this.leaderboardBtn.x - this.leaderboardBtn.width / 2 && this.cursor.x <= this.leaderboardBtn.x + this.leaderboardBtn.width / 2 
+            && this.cursor.y >= this.leaderboardBtn.y - this.leaderboardBtn.height / 2 && this.cursor.y <= this.leaderboardBtn.y + this.leaderboardBtn.height / 2) {                     
+            if (this.music !== null && this.config.sound) {
                 this.music.stop();
             }
+            this.onChangeSceneCallback("leaderboard");
         }
         
         this.blinkTimeCount += deltatime;
-        if (this.cursor.isPressed && this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
+        if (this.catchEventClick && this.cursor.isPressed && this.cursor.x >= this.playBtn.x - this.playBtn.width / 2 && this.cursor.x <= this.playBtn.x + this.playBtn.width / 2 
                 && this.cursor.y >= this.playBtn.y - this.playBtn.height / 2 && this.cursor.y <= this.playBtn.y + this.playBtn.height / 2) {
-            this.onChangeSceneCallback("game");
-            if (this.music !== null) {
+            if (this.music !== null&& this.config.sound) {
                 this.music.stop();
             }
+            this.onChangeSceneCallback("game");
         }
-        this.soundCount += deltatime;       
+        this.soundCount += deltatime;
+        if (this.soundCount >= this.soundCountLimit) {
+            this.catchEventClick = true;
+        }
         if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
                 && this.cursor.y >= this.soundBtn.y && this.cursor.y <= this.soundBtn.y + this.soundBtn.height) {
             if (this.soundCount >= this.soundCountLimit) {
@@ -76,15 +84,17 @@ class MainScene extends Scene {
             context.fillText(this.texts[a].text, this.texts[a].x, this.texts[a].y);  
         }
         
-        if (this.blinkTimeCount < this.blinkTime) {
+        if (this.blinkTimeCount >= this.blinkTime) {
+            this.blink ^= 1;
+            this.blinkTimeCount = 0;    
+        }
+        
+        if (this.blink === 1) {
             context.font = this.playBtn.font;
             context.fillStyle = "rgba(255, 0, 0, " + this.playBtn.alpha + ")";
             context.textAlign = "center";
-            context.fillText(this.playBtn.text, this.playBtn.x , this.playBtn.y); 
+            context.fillText(this.playBtn.text, this.playBtn.x , this.playBtn.y);
         } else {
-            if (this.blinkTimeCount > this.blinkTime * 2) {
-                this.blinkTimeCount = 0;
-            }
             context.font = this.playBtn.font;
             context.fillStyle = "rgba(255, 255, 255, " + this.playBtn.alpha + ")";
             context.textAlign = "center";

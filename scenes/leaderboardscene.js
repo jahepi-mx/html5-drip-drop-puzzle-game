@@ -11,24 +11,27 @@ class LeaderBoardScene extends Scene {
         this.leaderBoardData = [];
         this.soundCount = 0;
         this.soundCountLimit = 1;
+        this.catchEventClick = false;
         this.backBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 50, width: 100, height: 50, text: "Back", alpha: 1};
         this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
         this.music = null;
         if (this.config.sound) {
-            this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+            this.music = this.assets.playAudio(this.assets.main, true, 0.2);
         }
         this.loadJSON();
     }
     
     update(deltatime) {
         this.soundCount += deltatime;
-        
-        if (this.cursor.isPressed && this.cursor.x >= this.backBtn.x - this.backBtn.width / 2 && this.cursor.x <= this.backBtn.x + this.backBtn.width / 2 
+        if (this.soundCount >= this.soundCountLimit) {
+            this.catchEventClick = true;
+        }
+        if (this.catchEventClick && this.cursor.isPressed && this.cursor.x >= this.backBtn.x - this.backBtn.width / 2 && this.cursor.x <= this.backBtn.x + this.backBtn.width / 2 
             && this.cursor.y >= this.backBtn.y - this.backBtn.height / 2  && this.cursor.y <= this.backBtn.y + this.backBtn.height / 2) { 
-            this.onChangeSceneCallback("main");
-            if (this.music !== null) {
+            if (this.music !== null && this.config.sound) {
                 this.music.stop();
             }
+            this.onChangeSceneCallback("main");    
         }
         
         if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
@@ -119,7 +122,7 @@ class LeaderBoardScene extends Scene {
                 }
             }
         };
-        xhr.open("GET", "http://games.jahepi.net/labyrinth/php/get.php", true);
+        xhr.open("GET", this.config.url + "/labyrinth/php/get.php", true);
         xhr.send();
     }
 }

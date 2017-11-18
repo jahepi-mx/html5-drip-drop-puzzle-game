@@ -32,6 +32,9 @@ class GameScene extends Scene {
     }
     
     onCloseFinishPopup() {
+        if (this.music !== null && this.config.sound) {
+            this.music.stop();
+        }
         this.onChangeSceneCallback("leaderboard");
     }
     
@@ -71,6 +74,21 @@ class GameScene extends Scene {
                     this.drops.push(drop);
                 }
                 this.currLevel.checkpoints[a].explosiveDrop = false;                     
+            }
+        }
+        
+        this.soundCount += deltatime;       
+        if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
+                && this.cursor.y >= this.soundBtn.y && this.cursor.y <= this.soundBtn.y + this.soundBtn.height) {
+            if (this.soundCount >= this.soundCountLimit) {
+                if (this.config.sound) {
+                    this.config.sound = false;
+                    this.music.stop();
+                } else {
+                    this.config.sound = true;
+                    this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+                }
+                this.soundCount = 0;
             }
         }
         
@@ -129,21 +147,6 @@ class GameScene extends Scene {
         var hours = Math.floor(minutes / 60);
         var minutesRemain = Math.floor(minutes % 60);     
         this.timeLabel.text = "time: " + (hours < 10 ? "0" + hours : hours) + ":" + (minutesRemain < 10 ? "0" + minutesRemain : minutesRemain) + ":" + (seconds < 10 ? "0" + seconds : seconds);
-        
-        this.soundCount += deltatime;       
-        if (this.cursor.isPressed && this.cursor.x >= this.soundBtn.x && this.cursor.x <= this.soundBtn.x + this.soundBtn.width
-                && this.cursor.y >= this.soundBtn.y && this.cursor.y <= this.soundBtn.y + this.soundBtn.height) {
-            if (this.soundCount >= this.soundCountLimit) {
-                if (this.config.sound) {
-                    this.config.sound = false;
-                    this.music.stop();
-                } else {
-                    this.config.sound = true;
-                    this.music = this.assets.playAudio(this.assets.game, true, 0.2);
-                }
-                this.soundCount = 0;
-            }
-        }
     }
     
     render(context) {
