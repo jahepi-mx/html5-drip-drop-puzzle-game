@@ -14,6 +14,7 @@ class Checkpoint extends Entity {
         this.explosiveDrop = false;
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        this.config = Config.getInstance();
     }
     
     update(deltatime) {

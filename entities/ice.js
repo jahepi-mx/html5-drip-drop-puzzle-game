@@ -22,6 +22,7 @@ class Ice extends Entity {
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.cursor = Cursor.getInstance();
+        this.config = Config.getInstance();
         this.calculateMovingRatios();
     }
     
