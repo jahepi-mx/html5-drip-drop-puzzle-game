@@ -75,6 +75,10 @@ class FadeTile extends Tile {
         context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         context.globalAlpha = 1;      
     }
+    
+    reset() {
+        
+    }
 }
 
 

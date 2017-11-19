@@ -1,8 +1,12 @@
 class SmartTile extends Entity {
     
-    constructor(x, y, w, h, ice, tiles) {
+    constructor(x, y, w, h, ice, speed, tiles) {
         super(x, y, w, h);
         this.ice = ice;
+        this.origX = this.x;
+        this.origY = this.y;
+        this.toX = this.x;
+        this.toY = this.y;
         this.tiles = tiles;
         this.moves = [[1,0], [0,1], [-1,0], [0,-1]];
         this.visited = [];
@@ -15,6 +19,7 @@ class SmartTile extends Entity {
         this.animation = new Animation(24, 2);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        this.speed = speed;
         
         this.pq = new PriorityQueue(function (a, b) {
             return a.priority > b.priority;
@@ -55,7 +60,7 @@ class SmartTile extends Entity {
         
         var diffX = Math.abs(this.x - this.toX);
         var diffY = Math.abs(this.y - this.toY);
-        if (diffX <= 2 && diffY <= 2) {
+        if (diffX <= 8 && diffY <= 8) {
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
@@ -68,18 +73,18 @@ class SmartTile extends Entity {
         
         diffX = this.x - this.toX;
         diffY = this.y - this.toY;
-        var speed = 50;
-        if (diffX >= 2) {
-            this.x -= speed * deltatime;
+
+        if (diffX >= 8) {
+            this.x -= this.speed * deltatime;
         }
-        if (diffX <= -2) {
-            this.x += speed * deltatime;
+        if (diffX <= -8) {
+            this.x += this.speed * deltatime;
         }
-        if (diffY >= 2) {
-            this.y -= speed * deltatime;
+        if (diffY >= 8) {
+            this.y -= this.speed * deltatime;
         }
-        if (diffY <= -2) {
-            this.y += speed * deltatime;
+        if (diffY <= -8) {
+            this.y += this.speed * deltatime;
         }      
     }
     
@@ -146,6 +151,28 @@ class SmartTile extends Entity {
     render(context) {
         var frame = "saw" + (this.animation.getFrame() + 1);
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+    }
+    
+    reset() {
+        this.x = this.origX;
+        this.y = this.origY;
+        this.toX = this.x;
+        this.toY = this.y;
+        var x = Math.floor(this.x / this.w);
+        var y = Math.floor(this.y / this.h);
+        this.currentVertex = y * Level.getWidth() + x;
+        this.time = 0;
+        this.changeTime = 0;
+        this.visibleTiles.clear();
+        this.pathfinding(false);    
+        if (this.path.length > 0) {
+            var vertex = this.path.pop();
+            this.currentVertex = vertex;
+            x = Math.floor(vertex % Level.getWidth());
+            y = Math.floor(vertex / Level.getWidth());
+            this.toX = Tile.getWidth() * x;
+            this.toY = Tile.getHeight() * y;  
+        }
     }
 };
 

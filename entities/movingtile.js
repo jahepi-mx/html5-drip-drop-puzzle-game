@@ -61,6 +61,10 @@ class MovingTile extends Tile {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         }
     }
+    
+    reset() {
+        
+    }
 }
 
 
