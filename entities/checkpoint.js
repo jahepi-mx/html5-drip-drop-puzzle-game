@@ -1,10 +1,10 @@
 class Checkpoint extends Entity {
             
-    constructor(x, y, w, h, id, color, tileSize) {
+    constructor(x, y, w, h, id, color) {
         super(x, y, w, h);
         
-        this.x = x * tileSize + tileSize / 2 - this.w / 2;
-        this.y = y * tileSize + tileSize / 2 -  this.h / 2;
+        this.x = x * Tile.getWidth() + Tile.getWidth() / 2 - this.w / 2;
+        this.y = y * Tile.getHeight() + Tile.getHeight() / 2 -  this.h / 2;
         
         this.id = id;
         this.color = color;

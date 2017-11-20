@@ -12,10 +12,17 @@ class Level {
         this.mapWidth = width;
         this.mapHeight = height;
         this.currCheckpoint = 1;
-        this.tileSize = 0;
+        this.config = Config.getInstance();
+        this.tileWidth = this.config.mapWidth / this.mapWidth;
+        this.tileHeight = this.config.mapHeight / this.mapHeight;
         this.isFinish = false;
         LEVEL_WIDTH = width;
         LEVEL_HEIGHT = height;
+    }
+    
+    static setWithHeight(w, h) {
+        LEVEL_WIDTH = w;
+        LEVEL_HEIGHT = h;
     }
     
     static getWidth() {

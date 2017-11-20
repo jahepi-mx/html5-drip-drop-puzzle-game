@@ -10,7 +10,7 @@ class SmartTile extends Entity {
         this.tiles = tiles;
         this.moves = [[1,0], [0,1], [-1,0], [0,-1]];
         this.visited = [];
-        this.visibleTiles = new Set();
+        this.visibleTiles = new Map();
         this.parents = [];
         this.path = [];
         this.time = 0;
@@ -25,6 +25,7 @@ class SmartTile extends Entity {
             return a.priority > b.priority;
         });
         
+        this.dfs(x, y);
         this.pathfinding(false);
         
         if (this.path.length > 0) {
@@ -103,18 +104,18 @@ class SmartTile extends Entity {
         this.visited[y * width + x] = 1;
         var toX = Math.floor(this.ice.x / Tile.getWidth());
         var toY = Math.floor(this.ice.y / Tile.getHeight());
-        
         if (rand && this.visibleTiles.size > 0) {
             var randIndex = Math.floor(Math.random() * (this.visibleTiles.size - 1));
             var currIndex = 0;
-            this.visibleTiles.forEach((vertex) => {
+            for (var [vertex, active] of this.visibleTiles) {
                 if (currIndex++ === randIndex) {
                     toX = Math.floor(vertex % width);
                     toY = Math.floor(vertex / width);
+                    break;
                 }
-            });
+            }
         }
-        
+
         var dist = Math.abs(toX - x) + Math.abs(toY - y);
         this.pq.add(y * width + x, dist);
         outer: while (!this.pq.isEmpty()) {
@@ -126,9 +127,6 @@ class SmartTile extends Entity {
                         && this.visited[y * width + x] === undefined 
                         && this.tiles[y * width + x].walkable) {
                     this.visited[y * width + x] = 1;
-                    if (!this.visibleTiles.has(y * width + x)) {
-                        this.visibleTiles.add(y * width + x);
-                    }
                     dist = Math.abs(toX - x) + Math.abs(toY - y);
                     this.pq.add(y * width + x, dist);
                     this.parents[y * width + x] = vertex;
@@ -148,6 +146,19 @@ class SmartTile extends Entity {
         }
     }
     
+    dfs(x, y) {
+        this.visibleTiles.set(y * Level.getWidth() + x, 1);
+        for (var a = 0; a < this.moves.length; a++) {
+            var newX = x + this.moves[a][0];
+            var newY = y + this.moves[a][1];
+            if (newX >= 0 && newX < Level.getWidth() && newY >= 0 && newY < Level.getHeight()) {
+                if (!this.visibleTiles.has(newY * Level.getWidth() + newX) && this.tiles[newY * Level.getWidth() + newX].walkable) {
+                    this.dfs(newX, newY);
+                }
+            }
+        }
+    }
+    
     render(context) {
         var frame = "saw" + (this.animation.getFrame() + 1);
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
@@ -163,7 +174,6 @@ class SmartTile extends Entity {
         this.currentVertex = y * Level.getWidth() + x;
         this.time = 0;
         this.changeTime = 0;
-        this.visibleTiles.clear();
         this.pathfinding(false);    
         if (this.path.length > 0) {
             var vertex = this.path.pop();
