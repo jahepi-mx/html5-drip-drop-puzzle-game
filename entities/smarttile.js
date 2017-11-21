@@ -1,13 +1,14 @@
 class SmartTile extends Entity {
     
-    constructor(x, y, w, h, ice, speed, tiles) {
+    constructor(x, y, w, h, ice, speed) {
         super(x, y, w, h);
         this.ice = ice;
         this.origX = this.x;
         this.origY = this.y;
         this.toX = this.x;
         this.toY = this.y;
-        this.tiles = tiles;
+        this.level = LevelManager.getInstance().current();
+        this.tiles = this.level.tiles;
         this.moves = [[1,0], [0,1], [-1,0], [0,-1]];
         this.visited = [];
         this.visibleTiles = new Map();
@@ -15,12 +16,14 @@ class SmartTile extends Entity {
         this.path = [];
         this.time = 0;
         this.changeTime = 0;
-        this.level = LevelManager.getInstance().current();
         this.currentVertex = y * this.level.getWidth() + x;
         this.animation = new Animation(24, 2);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.speed = speed;
+        this.isDead = false;
+        this.explosiveDrop = false;
+        this.drops = this.level.drops;
         
         this.pq = new PriorityQueue(function (a, b) {
             return a.priority > b.priority;
@@ -40,6 +43,21 @@ class SmartTile extends Entity {
     }
     
     update(deltatime) {
+        
+        if (this.explosiveDrop) {
+            this.assets.playAudio(this.assets.torch, false, 0.5);
+            for (var b = 0; b < 10; b++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                drop.collided = true;
+                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;                     
+        }
+        
+        if (this.isDead) return;
         
         this.animation.update(deltatime);
         
@@ -161,11 +179,14 @@ class SmartTile extends Entity {
     }
     
     render(context) {
+        if (this.isDead) return;
         var frame = "saw" + (this.animation.getFrame() + 1);
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
     }
     
     reset() {
+        this.isDead = false;
+        this.explosiveDrop = false;
         this.x = this.origX;
         this.y = this.origY;
         this.toX = this.x;
@@ -184,6 +205,11 @@ class SmartTile extends Entity {
             this.toX = Tile.getWidth() * x;
             this.toY = Tile.getHeight() * y;  
         }
+    }
+    
+    die() {
+        this.isDead = true;
+        this.explosiveDrop = true;
     }
 };
 

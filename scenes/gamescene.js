@@ -14,7 +14,7 @@ class GameScene extends Scene {
         this.hand = new Hand(0, 0, 32, 32);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
-        this.drops = [];
+        this.drops = this.currLevel.drops;
         this.time = 0;
         this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
         this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
@@ -30,12 +30,14 @@ class GameScene extends Scene {
     }
     
     onCloseCompletePopup() {
+        this.currLevel.dispose();
         this.currLevel = this.levelManager.next();
         this.currLevel.init(this.ice);
-        this.drops = [];
+        this.drops = this.currLevel.drops;
     }
     
     onCloseFinishPopup() {
+        this.currLevel.dispose();
         if (this.music !== null && this.config.sound) {
             this.music.stop();
         }
@@ -67,18 +69,6 @@ class GameScene extends Scene {
         
         for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
             this.currLevel.checkpoints[a].update(deltatime);
-            if (this.currLevel.checkpoints[a].explosiveDrop) {
-                var checkpoint = this.currLevel.checkpoints[a];
-                for (var b = 0; b < 10; b++) {
-                    var dropSize = Math.ceil(Math.random() * 3 + 5);
-                    var drop = new Drop(checkpoint.left() + checkpoint.w / 2 - dropSize / 2, checkpoint.top() + checkpoint.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100", this.currLevel.tiles);
-                    drop.collided = true;
-                    drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
-                    drop.speedY = -drop.speedY;
-                    this.drops.push(drop);
-                }
-                this.currLevel.checkpoints[a].explosiveDrop = false;                     
-            }
         }
         
         this.soundCount += deltatime;       
@@ -112,30 +102,15 @@ class GameScene extends Scene {
             
         if (this.ice.isDisposable) {
             this.currLevel.reset();
-            this.drops = [];
+            //this.drops = this.currLevel.drops;
         }
 
-        if (this.ice.drop) {
-            var drop = new Drop(this.ice.left() + Math.random() * this.ice.w - 5 / 2, this.ice.top(), 5, 5, 10, "#a6d3fd", this.currLevel.tiles);
-            this.drops.push(drop);
-            this.ice.drop = false;
-        }
-        
-        if (this.ice.explosiveDrop) {
-            for (var a = 0; a < 10; a++) {
-                var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.ice.left() + this.ice.w / 2 - dropSize / 2, this.ice.top() + this.ice.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd", this.currLevel.tiles);
-                drop.collided = true;
-                drop.speedY = -drop.speedY;
-                this.drops.push(drop);
-            }
-            this.ice.explosiveDrop = false;
-        }
-        
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].update(deltatime);
-            if (!this.ice.isDead && this.currLevel.enemies[a].collide(this.ice)) {
+            if (!this.ice.isDead && !this.currLevel.enemies[a].isDead && this.currLevel.enemies[a].collide(this.ice) && !this.ice.godMode) {
                 this.ice.die();
+            } else if (!this.ice.isDead && !this.currLevel.enemies[a].isDead && this.currLevel.enemies[a].collide(this.ice) && this.ice.godMode) {
+                this.currLevel.enemies[a].die();
             }
         }
         

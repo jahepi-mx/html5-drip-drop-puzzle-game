@@ -43,14 +43,15 @@ class Level1 extends Level {
             }
         }
         this.ice.tiles = this.tiles;
+        this.ice.drops = this.drops;
         this.checkpoints.push(new Checkpoint(1, 1, 50, 50, 1, "#fe00ab"));
         this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877"));
         this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb"));
         this.checkpoints.push(new Checkpoint(15, 9, 50, 50, 4, "#66efbb"));
         
-        var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50, this.tiles);
-        var smartTile2 = new SmartTile(15, 9, this.tileWidth, this.tileHeight, this.ice, 100, this.tiles);
-        var smartTile3 = new SmartTile(8, 5, this.tileWidth, this.tileHeight, this.ice, 150, this.tiles);
+        var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50);
+        var smartTile2 = new SmartTile(15, 9, this.tileWidth, this.tileHeight, this.ice, 100);
+        var smartTile3 = new SmartTile(8, 5, this.tileWidth, this.tileHeight, this.ice, 150);
         this.enemies.push(smartTile);
         this.enemies.push(smartTile2);
         this.enemies.push(smartTile3);
@@ -65,7 +66,11 @@ class Level1 extends Level {
         for (var a = 0; a < this.enemies.length; a++) {
             this.enemies[a].reset();
         }
+        this.fadeTiles[7 * this.mapWidth + 3].reset();
+        this.fadeTiles[7 * this.mapWidth + 16].reset();
+        this.fadeTiles[7 * this.mapWidth + 12].reset();
         this.currCheckpoint = 1;
+        this.drops = [];
     }
     
     reachCheckpoint(checkpoint) {

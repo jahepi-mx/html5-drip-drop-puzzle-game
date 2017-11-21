@@ -7,13 +7,17 @@ class FadeTile extends Tile {
         this.stillTimeCount = 0;
         this.start = false;
         this.alpha = alpha;
+        this.origAlpha = alpha;
         this.dir = 1;
         this.visible = this.alpha === 1;
+        this.isDead = false;
         this.animation = new Animation(6, 1);
         this.animation.stopAtSequenceNumber(1, this.onStopDeadAnimation.bind(this));
         this.isStill = false;
+        this.explosiveDrop = false;
         this.blinkTime = 0;
         this.blinkTimeCount = 0;
+        this.drops = LevelManager.getInstance().current().drops;
     }
     
     onStopDeadAnimation() {
@@ -23,6 +27,21 @@ class FadeTile extends Tile {
     }
     
     update(deltatime) {
+        
+        if (this.explosiveDrop) {
+            this.assets.playAudio(this.assets.torch, false, 0.5);
+            for (var b = 0; b < 10; b++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                drop.collided = true;
+                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;                     
+        }
+        
+        if (this.isDead) return;
         
         if (!this.isStill) {
             this.animation.update(deltatime);
@@ -70,6 +89,7 @@ class FadeTile extends Tile {
         var atlas = Atlas.getInstance();
         var assets = Assets.getInstance();
         context.drawImage(assets.spritesAtlas, atlas.sprites["bg2"].x, atlas.sprites["bg2"].y, atlas.sprites["bg2"].width, atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
+        if (this.isDead) return;
         context.globalAlpha = this.alpha;
         var frame = "invisible" + (this.animation.getFrame() + 1);
         context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
@@ -77,7 +97,25 @@ class FadeTile extends Tile {
     }
     
     reset() {
-        
+        this.isDead = false;
+        this.explosiveDrop = false;
+        this.stillTimeCount = 0;
+        this.start = false;
+        this.isStill = false;
+        this.blinkTime = 0;
+        this.blinkTimeCount = 0;
+        this.dir = 1;
+        this.alpha = this.origAlpha;
+        this.visible = this.alpha === 1;
+    }
+    
+    die() {
+        this.explosiveDrop = true;
+        this.visible = false;
+        this.isDead = true;
+        this.isStill = false;
+        this.blinkTime = 0;
+        this.blinkTimeCount = 0;
     }
 }
 

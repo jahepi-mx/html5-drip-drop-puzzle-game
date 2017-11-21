@@ -1,6 +1,6 @@
 class Drop extends Entity {
     
-    constructor(x, y, w, h, speed, color, tiles) {
+    constructor(x, y, w, h, speed, color) {
         super(x, y, w, h);
         this.x = x;
         this.y = y;
@@ -16,11 +16,11 @@ class Drop extends Entity {
         this.lifetimeCount = 0;
         this.collided = false;
         this.isDisposable = false;
-        this.tiles = tiles;
         this.color = color;
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.level = LevelManager.getInstance().current();
+        this.tiles = this.level.tiles;
     }
     
     render(context) {

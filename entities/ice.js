@@ -23,6 +23,8 @@ class Ice extends Entity {
         this.assets = Assets.getInstance();
         this.cursor = Cursor.getInstance();
         this.config = Config.getInstance();
+        this.godMode = true;
+        this.drops = [];
         this.calculateMovingRatios();
     }
     
@@ -122,7 +124,11 @@ class Ice extends Entity {
                     var tile = this.tiles[tmpY * level.getWidth() + tmpX];
                     if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.x = this.oldX;
-                        this.die();
+                        if (this.godMode && tile instanceof FadeTile) {
+                            tile.die();
+                        } else {
+                            this.die();
+                        }
                         break;
                     }
                 }
@@ -141,11 +147,32 @@ class Ice extends Entity {
                     var tile = this.tiles[tmpY * level.getWidth() + tmpX];
                     if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
-                        this.die();
+                        if (this.godMode && tile instanceof FadeTile) {
+                            tile.die();
+                        } else {
+                            this.die();
+                        }
                         break;
                     }
                 }
             }
+        }
+        
+        if (this.explosiveDrop) {
+            for (var a = 0; a < 10; a++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd");
+                drop.collided = true;
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;
+        }
+        
+        if (this.drop) {
+            var drop = new Drop(this.left() + Math.random() * this.w - 5 / 2, this.top(), 5, 5, 10, "#a6d3fd");
+            this.drops.push(drop);
+            this.drop = false;
         }
     }
     

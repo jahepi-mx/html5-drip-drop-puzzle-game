@@ -39,12 +39,13 @@ class Level2 extends Level {
             }
         }
         this.ice.tiles = this.tiles;
+        this.ice.drops = this.drops;
         this.checkpoints.push(new Checkpoint(1, 1, 50, 50, 1, "#fe00ab"));
-        //this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877", this.tileWidth));
-        //this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb", this.tileWidth));
+        //this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877"));
+        //this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb"));
         
         
-        var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50, this.tiles);
+        var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50);
         var movingTile = new MovingTile(3, 3, this.tileWidth, this.tileHeight);
         movingTile.addVertex(1 * this.mapWidth + 3).addVertex(1 * this.mapWidth + 5).addVertex(3 * this.mapWidth + 5);
         this.enemies.push(smartTile);
@@ -61,6 +62,7 @@ class Level2 extends Level {
             this.enemies[a].reset();
         }
         this.currCheckpoint = 1;
+        this.drops = [];
     }
     
     reachCheckpoint(checkpoint) {

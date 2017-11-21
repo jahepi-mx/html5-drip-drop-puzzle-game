@@ -4,8 +4,14 @@ class MovingTile extends Tile {
         super(x, y, w, h, 0, true, "");
         this.toX = 0;
         this.toY = 0;
+        this.origX = this.x;
+        this.origY = this.y;
         this.vertexPath = [];
+        this.origVertexPath = [];
         this.level = LevelManager.getInstance().current();
+        this.drops = this.level.drops;
+        this.isDead = false;
+        this.explosiveDrop = false;
         
         var xTmp = Math.floor(this.x / Tile.getWidth());
         var yTmp = Math.floor(this.y / Tile.getHeight());
@@ -19,10 +25,26 @@ class MovingTile extends Tile {
     
     addVertex(vertex) {
         this.vertexPath.push(vertex);
+        this.origVertexPath.push(vertex);
         return this;
     }
     
     update(deltatime) {
+        
+        if (this.explosiveDrop) {
+            this.assets.playAudio(this.assets.torch, false, 0.5);
+            for (var b = 0; b < 10; b++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                drop.collided = true;
+                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;                     
+        }
+        
+        if (this.isDead) return;
         
         if (this.shift) {
             this.shift = false;
@@ -52,6 +74,7 @@ class MovingTile extends Tile {
     }
     
     render(context) {
+        if (this.isDead) return;
         var diffX = Math.abs(this.toX - this.x);
         var diffY = Math.abs(this.toY - this.y);
         if (diffX <= 10 && diffY <= 10) {
@@ -64,7 +87,19 @@ class MovingTile extends Tile {
     }
     
     reset() {
-        
+       this.isDead = false;
+       this.explosiveDrop = false;
+       this.shift = true;
+       this.toX = 0;
+       this.toY = 0;
+       this.x = this.origX;
+       this.y = this.origY;
+       this.vertexPath = this.origVertexPath.slice(0);
+    }
+    
+    die() {
+        this.isDead = true;
+        this.explosiveDrop = true;
     }
 }
 

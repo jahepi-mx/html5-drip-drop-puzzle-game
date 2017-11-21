@@ -15,6 +15,7 @@ class Checkpoint extends Entity {
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.config = Config.getInstance();
+        this.drops = LevelManager.getInstance().current().drops;
     }
     
     update(deltatime) {
@@ -26,6 +27,15 @@ class Checkpoint extends Entity {
         
         if (this.explosiveDrop) {
             this.assets.playAudio(this.assets.torch, false, 0.5);
+            for (var b = 0; b < 10; b++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                drop.collided = true;
+                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;                     
         }
     }
 

@@ -4,6 +4,7 @@ class Level {
         this.fadeTiles = [];
         this.enemies = [];
         this.checkpoints = [];
+        this.drops = [];
         this.map = [];
         this.ice = null;
         this.mapWidth = width;
@@ -26,6 +27,16 @@ class Level {
     init(ice) {};
     
     reset() {}
+    
+    dispose() {
+        this.tiles = [];
+        this.fadeTiles = [];
+        this.enemies = [];
+        this.checkpoints = [];
+        this.drops = [];
+        this.map = [];
+        this.ice = null;
+    }
     
     reachCheckpoint(checkpoint) {}
 };
