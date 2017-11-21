@@ -6,6 +6,7 @@ class MainScene extends Scene {
         this.cursor = Cursor.getInstance();
         this.assets = Assets.getInstance();
         this.atlas = Atlas.getInstance();
+        this.hand = new Hand(0, 0, 32, 32);
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
         this.blink = 0;
@@ -119,6 +120,8 @@ class MainScene extends Scene {
         } else {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
         }
+        
+        this.hand.render(context);
     }
 };
 

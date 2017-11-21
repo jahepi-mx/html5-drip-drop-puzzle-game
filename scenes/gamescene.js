@@ -11,6 +11,7 @@ class GameScene extends Scene {
         this.levelManager = LevelManager.getInstance();
         this.currLevel = this.levelManager.next();
         this.currLevel.init(this.ice);
+        this.hand = new Hand(0, 0, 32, 32);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.drops = [];
@@ -197,5 +198,7 @@ class GameScene extends Scene {
         } else {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
         }
+        
+        this.hand.render(context);
     }
 }

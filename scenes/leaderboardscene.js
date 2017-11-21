@@ -6,6 +6,7 @@ class LeaderBoardScene extends Scene {
         this.cursor = Cursor.getInstance();
         this.assets = Assets.getInstance();
         this.atlas = Atlas.getInstance();
+        this.hand = new Hand(0, 0, 32, 32);
         this.isLoading = true;
         this.errorLoading = false;
         this.leaderBoardData = [];
@@ -106,6 +107,8 @@ class LeaderBoardScene extends Scene {
         } else {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
         }
+        
+        this.hand.render(context);
     }
     
     loadJSON() {
