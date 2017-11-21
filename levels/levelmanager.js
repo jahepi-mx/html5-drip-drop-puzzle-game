@@ -8,6 +8,10 @@ class LevelManager {
         this.levels = [new Level1(), new Level2()];
     }
     
+    static created() {
+        return levelManagerInstance !== null;
+    }
+    
     static getInstance() {
         if (levelManagerInstance === null) {
             levelManagerInstance = new LevelManager();
@@ -27,5 +31,10 @@ class LevelManager {
         return this.index === this.levels.length;
     }
     
+    reset() {
+        this.index = 0;
+        //this.levels = [new Level2()];
+        this.levels = [new Level1(), new Level2()];
+    }
 }
 
