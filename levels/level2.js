@@ -5,8 +5,6 @@ class Level2 extends Level {
     
     init(ice) {
         
-        Level.setWithHeight(this.mapWidth, this.mapHeight);
-        
         this.ice = ice;
         
         this.map = [
@@ -45,9 +43,10 @@ class Level2 extends Level {
         //this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877", this.tileWidth));
         //this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb", this.tileWidth));
         
+        
         var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50, this.tiles);
         var movingTile = new MovingTile(3, 3, this.tileWidth, this.tileHeight);
-        movingTile.addVertex(1 * Level.getWidth() + 3).addVertex(1 * Level.getWidth() + 5).addVertex(3 * Level.getWidth() + 5);
+        movingTile.addVertex(1 * this.mapWidth + 3).addVertex(1 * this.mapWidth + 5).addVertex(3 * this.mapWidth + 5);
         this.enemies.push(smartTile);
         this.enemies.push(movingTile);
     }

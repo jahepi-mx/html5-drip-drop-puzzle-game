@@ -5,7 +5,7 @@ class GameScene extends Scene {
         this.config = Config.getInstance();
         this.cursor = Cursor.getInstance();
         this.ice = new Ice(0, 0, 30, 30, 0);
-        this.levelManager = new LevelManager();
+        this.levelManager = LevelManager.getInstance();
         this.currLevel = this.levelManager.next();
         this.currLevel.init(this.ice);
         this.atlas = Atlas.getInstance();

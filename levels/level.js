@@ -1,6 +1,3 @@
-let LEVEL_WIDTH = 0;
-let LEVEL_HEIGHT = 0;
-
 class Level {
     constructor(width, height) {
         this.tiles = [];
@@ -16,21 +13,14 @@ class Level {
         this.tileWidth = this.config.mapWidth / this.mapWidth;
         this.tileHeight = this.config.mapHeight / this.mapHeight;
         this.isFinish = false;
-        LEVEL_WIDTH = width;
-        LEVEL_HEIGHT = height;
     }
     
-    static setWithHeight(w, h) {
-        LEVEL_WIDTH = w;
-        LEVEL_HEIGHT = h;
+    getWidth() {
+        return this.mapWidth;
     }
     
-    static getWidth() {
-        return LEVEL_WIDTH;
-    }
-    
-    static getHeight() {
-        return LEVEL_HEIGHT;
+    getHeight() {
+        return this.mapHeight;
     }
     
     init(ice) {};

@@ -15,7 +15,8 @@ class SmartTile extends Entity {
         this.path = [];
         this.time = 0;
         this.changeTime = 0;
-        this.currentVertex = y * Level.getWidth() + x;
+        this.level = LevelManager.getInstance().current();
+        this.currentVertex = y * this.level.getWidth() + x;
         this.animation = new Animation(24, 2);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
@@ -31,8 +32,8 @@ class SmartTile extends Entity {
         if (this.path.length > 0) {
             var vertex = this.path.pop();
             this.currentVertex = vertex;
-            var x = Math.floor(vertex % Level.getWidth());
-            var y = Math.floor(vertex / Level.getWidth());
+            var x = Math.floor(vertex % this.level.getWidth());
+            var y = Math.floor(vertex / this.level.getWidth());
             this.toX = Tile.getWidth() * x;
             this.toY = Tile.getHeight() * y;  
         }   
@@ -49,8 +50,8 @@ class SmartTile extends Entity {
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
-                var x = Math.floor(vertex % Level.getWidth());
-                var y = Math.floor(vertex / Level.getWidth());
+                var x = Math.floor(vertex % this.level.getWidth());
+                var y = Math.floor(vertex / this.level.getWidth());
                 this.toX = Tile.getWidth() * x;
                 this.toY = Tile.getHeight() * y;
             } else {
@@ -65,8 +66,8 @@ class SmartTile extends Entity {
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
-                var x = Math.floor(vertex % Level.getWidth());
-                var y = Math.floor(vertex / Level.getWidth());
+                var x = Math.floor(vertex % this.level.getWidth());
+                var y = Math.floor(vertex / this.level.getWidth());
                 this.toX = Tile.getWidth() * x;
                 this.toY = Tile.getHeight() * y;
             }
@@ -97,10 +98,10 @@ class SmartTile extends Entity {
         
         this.pq.clear();
         
-        var width = Level.getWidth();
-        var height = Level.getHeight();
-        var x = Math.floor(this.currentVertex % Level.getWidth());
-        var y = Math.floor(this.currentVertex / Level.getWidth());
+        var width = this.level.getWidth();
+        var height = this.level.getHeight();
+        var x = Math.floor(this.currentVertex % width);
+        var y = Math.floor(this.currentVertex / width);
         this.visited[y * width + x] = 1;
         var toX = Math.floor(this.ice.x / Tile.getWidth());
         var toY = Math.floor(this.ice.y / Tile.getHeight());
@@ -147,12 +148,12 @@ class SmartTile extends Entity {
     }
     
     dfs(x, y) {
-        this.visibleTiles.set(y * Level.getWidth() + x, 1);
+        this.visibleTiles.set(y * this.level.getWidth() + x, 1);
         for (var a = 0; a < this.moves.length; a++) {
             var newX = x + this.moves[a][0];
             var newY = y + this.moves[a][1];
-            if (newX >= 0 && newX < Level.getWidth() && newY >= 0 && newY < Level.getHeight()) {
-                if (!this.visibleTiles.has(newY * Level.getWidth() + newX) && this.tiles[newY * Level.getWidth() + newX].walkable) {
+            if (newX >= 0 && newX < this.level.getWidth() && newY >= 0 && newY < this.level.getHeight()) {
+                if (!this.visibleTiles.has(newY * this.level.getWidth() + newX) && this.tiles[newY * this.level.getWidth() + newX].walkable) {
                     this.dfs(newX, newY);
                 }
             }
@@ -171,15 +172,15 @@ class SmartTile extends Entity {
         this.toY = this.y;
         var x = Math.floor(this.x / this.w);
         var y = Math.floor(this.y / this.h);
-        this.currentVertex = y * Level.getWidth() + x;
+        this.currentVertex = y * this.level.getWidth() + x;
         this.time = 0;
         this.changeTime = 0;
         this.pathfinding(false);    
         if (this.path.length > 0) {
             var vertex = this.path.pop();
             this.currentVertex = vertex;
-            x = Math.floor(vertex % Level.getWidth());
-            y = Math.floor(vertex / Level.getWidth());
+            x = Math.floor(vertex % this.level.getWidth());
+            y = Math.floor(vertex / this.level.getWidth());
             this.toX = Tile.getWidth() * x;
             this.toY = Tile.getHeight() * y;  
         }

@@ -20,6 +20,7 @@ class Drop extends Entity {
         this.color = color;
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        this.level = LevelManager.getInstance().current();
     }
     
     render(context) {
@@ -44,8 +45,8 @@ class Drop extends Entity {
         
         for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
-                if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
-                    var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                if (tmpX >= 0 && tmpX < this.level.getWidth() && tmpY >= 0 && tmpY < this.level.getHeight()) {
+                    var tile = this.tiles[tmpY * this.level.getWidth() + tmpX];
                     if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
                         this.speedY = this.bounceSpeedY;
@@ -72,8 +73,8 @@ class Drop extends Entity {
         
             for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
                 for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
-                    if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
-                        var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                    if (tmpX >= 0 && tmpX < this.level.getWidth() && tmpY >= 0 && tmpY < this.level.getHeight()) {
+                        var tile = this.tiles[tmpY * this.level.getWidth() + tmpX];
                         if (tile.visible && !tile.walkable && tile.collide(this)) {
                             this.x = this.oldX;
                             this.speedX = -this.speedX;

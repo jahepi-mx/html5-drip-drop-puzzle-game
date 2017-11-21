@@ -5,10 +5,11 @@ class MovingTile extends Tile {
         this.toX = 0;
         this.toY = 0;
         this.vertexPath = [];
+        this.level = LevelManager.getInstance().current();
         
         var xTmp = Math.floor(this.x / Tile.getWidth());
         var yTmp = Math.floor(this.y / Tile.getHeight());
-        this.addVertex(yTmp * Level.getWidth() + xTmp);
+        this.addVertex(yTmp * this.level.getWidth() + xTmp);
         this.sleepAnimation = new Animation(5, 2);
         this.sleepAnimation.stopAtSequenceNumber(1, null);
         this.wakeupAnimation = new Animation(5, 2);
@@ -26,8 +27,8 @@ class MovingTile extends Tile {
         if (this.shift) {
             this.shift = false;
             var vertex = this.vertexPath.shift();
-            this.toX = Math.floor(vertex % Level.getWidth()) * Tile.getWidth();
-            this.toY = Math.floor(vertex / Level.getWidth()) * Tile.getHeight();
+            this.toX = Math.floor(vertex % this.level.getWidth()) * Tile.getWidth();
+            this.toY = Math.floor(vertex / this.level.getWidth()) * Tile.getHeight();
             this.addVertex(vertex);
         }
         

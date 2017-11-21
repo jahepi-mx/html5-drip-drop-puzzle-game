@@ -5,8 +5,6 @@ class Level1 extends Level {
     
     init(ice) {
         
-        Level.setWithHeight(this.mapWidth, this.mapHeight);
-        
         this.ice = ice;
         
         this.map = [

@@ -76,6 +76,7 @@ class Ice extends Entity {
     update(deltatime) {
         
         var fps = Math.floor(1 / deltatime);
+        var level = LevelManager.getInstance().current();
         
         this.dropTimeCount += deltatime;
         if (!this.isDead && this.dropTimeCount > this.dropTime) {
@@ -117,8 +118,8 @@ class Ice extends Entity {
         
         for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
-                if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
-                    var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                if (tmpX >= 0 && tmpX < level.getWidth() && tmpY >= 0 && tmpY < level.getHeight()) {
+                    var tile = this.tiles[tmpY * level.getWidth() + tmpX];
                     if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.x = this.oldX;
                         this.die();
@@ -136,8 +137,8 @@ class Ice extends Entity {
         
         for (var tmpX = x - 2; tmpX <= x + 2; tmpX++) {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
-                if (tmpX >= 0 && tmpX < Level.getWidth() && tmpY >= 0 && tmpY < Level.getHeight()) {
-                    var tile = this.tiles[tmpY * Level.getWidth() + tmpX];
+                if (tmpX >= 0 && tmpX < level.getWidth() && tmpY >= 0 && tmpY < level.getHeight()) {
+                    var tile = this.tiles[tmpY * level.getWidth() + tmpX];
                     if (tile.visible && !tile.walkable && tile.collide(this)) {
                         this.y = this.oldY;
                         this.die();
