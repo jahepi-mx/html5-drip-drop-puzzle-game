@@ -133,6 +133,21 @@ class SmartTile extends Entity {
                     break;
                 }
             }
+        } else if (this.ice.godMode) {
+            // Behaviour to escape from ice when is on god mode.
+            var maxVertex = 0;
+            var maxDist = 0;
+            for (var [vertex, active] of this.visibleTiles) {
+                var tmpToX = Math.floor(vertex % width);
+                var tmpToY = Math.floor(vertex / width); 
+                var dist = Math.abs(tmpToX - this.ice.x) + Math.abs(tmpToY - this.ice.y);
+                if (dist >= maxDist) {
+                    dist = maxDist;
+                    maxVertex = vertex;
+                }
+            }
+            toX = Math.floor(maxVertex % width);
+            toY = Math.floor(maxVertex / width);
         }
 
         var dist = Math.abs(toX - x) + Math.abs(toY - y);

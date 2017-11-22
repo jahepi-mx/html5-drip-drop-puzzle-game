@@ -120,6 +120,14 @@ class GameScene extends Scene {
             }
         }
         
+        for (let item of this.currLevel.items) {
+            item.update(deltatime);
+            if (item.visible && item.collide(this.ice)) {
+                item.visible = false;
+                this.ice.activeGodMode();
+            }
+        }
+        
         var time = Math.floor(this.time);
         var seconds = Math.floor(time % 60);
         var minutes = Math.floor(time / 60);
@@ -139,9 +147,14 @@ class GameScene extends Scene {
         for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
             this.currLevel.checkpoints[a].render(context);
         }
+        
 
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].render(context);
+        }
+        
+        for (let item of this.currLevel.items) {
+            item.render(context);
         }
 
         this.ice.render(context);

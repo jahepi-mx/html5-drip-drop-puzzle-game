@@ -86,13 +86,11 @@ class FadeTile extends Tile {
     }
     
     render(context) {
-        var atlas = Atlas.getInstance();
-        var assets = Assets.getInstance();
-        context.drawImage(assets.spritesAtlas, atlas.sprites["bg2"].x, atlas.sprites["bg2"].y, atlas.sprites["bg2"].width, atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["bg2"].x, this.atlas.sprites["bg2"].y, this.atlas.sprites["bg2"].width, this.atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
         if (this.isDead) return;
         context.globalAlpha = this.alpha;
         var frame = "invisible" + (this.animation.getFrame() + 1);
-        context.drawImage(assets.spritesAtlas, atlas.sprites[frame].x, atlas.sprites[frame].y, atlas.sprites[frame].width, atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         context.globalAlpha = 1;      
     }
     

@@ -42,6 +42,9 @@ class Level1 extends Level {
                 }
             }
         }
+        
+        this.items.push(new Item(7, 1, this.tileWidth, this.tileHeight));
+        
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
         this.checkpoints.push(new Checkpoint(1, 1, 50, 50, 1, "#fe00ab"));
@@ -65,6 +68,9 @@ class Level1 extends Level {
         }
         for (var a = 0; a < this.enemies.length; a++) {
             this.enemies[a].reset();
+        }
+         for (var a = 0; a < this.items.length; a++) {
+            this.items[a].reset();
         }
         this.fadeTiles[7 * this.mapWidth + 3].reset();
         this.fadeTiles[7 * this.mapWidth + 16].reset();

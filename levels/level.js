@@ -4,6 +4,7 @@ class Level {
         this.fadeTiles = [];
         this.enemies = [];
         this.checkpoints = [];
+        this.items = [];
         this.drops = [];
         this.map = [];
         this.ice = null;
@@ -35,6 +36,7 @@ class Level {
         this.checkpoints = [];
         this.drops = [];
         this.map = [];
+        this.items = [];
         this.ice = null;
     }
     

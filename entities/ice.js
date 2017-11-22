@@ -23,8 +23,10 @@ class Ice extends Entity {
         this.assets = Assets.getInstance();
         this.cursor = Cursor.getInstance();
         this.config = Config.getInstance();
-        this.godMode = true;
+        this.godMode = false;
+        this.godModeCount = 0;
         this.drops = [];
+        this.animation = new Animation(12, 3);
         this.calculateMovingRatios();
     }
     
@@ -37,7 +39,12 @@ class Ice extends Entity {
 
     render(context) {
         if (!this.isDead) {
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["ice"].x, this.atlas.sprites["ice"].y, this.atlas.sprites["ice"].width, this.atlas.sprites["ice"].height, this.x, this.y, this.w + 1, this.h + 1);
+            if (this.godMode) {
+                var frame = "icegod" + (this.animation.getFrame() + 1);
+                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x - 5, this.y - 5, this.w + 10, this.h + 10);
+            } else {
+                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["ice"].x, this.atlas.sprites["ice"].y, this.atlas.sprites["ice"].width, this.atlas.sprites["ice"].height, this.x, this.y, this.w, this.h);
+            }
         }
     }
     
@@ -77,6 +84,14 @@ class Ice extends Entity {
     
     update(deltatime) {
         
+        if (this.godMode) {
+            this.animation.update(deltatime);
+            this.godModeCount -= deltatime;
+            if (this.godModeCount <= 0) {
+                this.godMode = false;
+            }
+        }
+        
         var fps = Math.floor(1 / deltatime);
         var level = LevelManager.getInstance().current();
         
@@ -93,6 +108,17 @@ class Ice extends Entity {
                 this.isDisposable = true;
                 this.deadTimeCount = 0;
             }
+        }
+        
+        if (this.explosiveDrop) {
+            for (var a = 0; a < 10; a++) {
+                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd");
+                drop.collided = true;
+                drop.speedY = -drop.speedY;
+                this.drops.push(drop);
+            }
+            this.explosiveDrop = false;
         }
         
         if (this.isDead) return;
@@ -157,23 +183,17 @@ class Ice extends Entity {
                 }
             }
         }
-        
-        if (this.explosiveDrop) {
-            for (var a = 0; a < 10; a++) {
-                var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd");
-                drop.collided = true;
-                drop.speedY = -drop.speedY;
-                this.drops.push(drop);
-            }
-            this.explosiveDrop = false;
-        }
-        
+
         if (this.drop) {
             var drop = new Drop(this.left() + Math.random() * this.w - 5 / 2, this.top(), 5, 5, 10, "#a6d3fd");
             this.drops.push(drop);
             this.drop = false;
         }
+    }
+    
+    activeGodMode() {
+        this.godMode = true;
+        this.godModeCount = 35;
     }
     
     die() {
@@ -191,5 +211,7 @@ class Ice extends Entity {
         this.isCursorOn = false;
         this.cursor.isPressed = false;
         this.explosiveDrop = false;
+        this.godMode = false;
+        this.godModeCount = 0;
     }
 };
