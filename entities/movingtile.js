@@ -16,9 +16,9 @@ class MovingTile extends Tile {
         var xTmp = Math.floor(this.x / Tile.getWidth());
         var yTmp = Math.floor(this.y / Tile.getHeight());
         this.addVertex(yTmp * this.level.getWidth() + xTmp);
-        this.sleepAnimation = new Animation(5, 2);
+        this.sleepAnimation = new Animation(7, 2);
         this.sleepAnimation.stopAtSequenceNumber(1, null);
-        this.wakeupAnimation = new Animation(5, 2);
+        this.wakeupAnimation = new Animation(7, 2);
         this.wakeupAnimation.stopAtSequenceNumber(1, null);
         this.shift = true;
     }
