@@ -23,7 +23,8 @@ class Tile extends Entity {
         return TILE_HEIGHT;
     }
     
-    render(context) {      
+    render(context) {
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["bg2"].x, this.atlas.sprites["bg2"].y, this.atlas.sprites["bg2"].width, this.atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
         var image = this.img;
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[image].x, this.atlas.sprites[image].y, this.atlas.sprites[image].width, this.atlas.sprites[image].height, this.x, this.y, this.w + 1, this.h + 1);
     }
