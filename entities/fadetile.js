@@ -11,7 +11,7 @@ class FadeTile extends Tile {
         this.dir = 1;
         this.visible = this.alpha === 1;
         this.isDead = false;
-        this.animation = new Animation(6, 1);
+        this.animation = new Animation(13, 1);
         this.animation.stopAtSequenceNumber(1, this.onStopDeadAnimation.bind(this));
         this.isStill = false;
         this.explosiveDrop = false;

@@ -1,33 +1,40 @@
 <TextureAtlas imagePath="sprites.png">
-	<SubTexture name="bg1.png" x="402" y="0" width="32" height="32"/>
-	<SubTexture name="bg2.png" x="436" y="340" width="32" height="32"/>
-	<SubTexture name="bg3.png" x="436" y="306" width="32" height="32"/>
-	<SubTexture name="bg4.png" x="436" y="272" width="32" height="32"/>
-	<SubTexture name="completeoff.png" x="0" y="0" width="400" height="223"/>
-	<SubTexture name="completeon.png" x="0" y="225" width="400" height="223"/>
-	<SubTexture name="finishoff.png" x="0" y="450" width="400" height="223"/>
+	<SubTexture name="bg1.png" x="402" y="68" width="32" height="32"/>
+	<SubTexture name="bg2.png" x="436" y="442" width="32" height="32"/>
+	<SubTexture name="bg3.png" x="436" y="408" width="32" height="32"/>
+	<SubTexture name="bg4.png" x="436" y="374" width="32" height="32"/>
+	<SubTexture name="completeoff.png" x="0" y="450" width="400" height="223"/>
+	<SubTexture name="completeon.png" x="0" y="0" width="400" height="223"/>
+	<SubTexture name="finishoff.png" x="0" y="225" width="400" height="223"/>
 	<SubTexture name="finishon.png" x="0" y="675" width="400" height="223"/>
-	<SubTexture name="handclose.png" x="436" y="102" width="32" height="32"/>
-	<SubTexture name="handopen.png" x="436" y="68" width="32" height="32"/>
-	<SubTexture name="ice.png" x="436" y="34" width="32" height="32"/>
-	<SubTexture name="icegod1.png" x="436" y="0" width="32" height="32"/>
-	<SubTexture name="icegod10.png" x="402" y="714" width="32" height="32"/>
-	<SubTexture name="icegod11.png" x="402" y="680" width="32" height="32"/>
-	<SubTexture name="icegod12.png" x="402" y="646" width="32" height="32"/>
-	<SubTexture name="icegod2.png" x="408" y="986" width="32" height="32"/>
-	<SubTexture name="icegod3.png" x="408" y="952" width="32" height="32"/>
-	<SubTexture name="icegod4.png" x="408" y="918" width="32" height="32"/>
-	<SubTexture name="icegod5.png" x="408" y="884" width="32" height="32"/>
-	<SubTexture name="icegod6.png" x="402" y="850" width="32" height="32"/>
-	<SubTexture name="icegod7.png" x="402" y="816" width="32" height="32"/>
-	<SubTexture name="icegod8.png" x="402" y="782" width="32" height="32"/>
-	<SubTexture name="icegod9.png" x="402" y="748" width="32" height="32"/>
-	<SubTexture name="invisible1.png" x="402" y="612" width="32" height="32"/>
-	<SubTexture name="invisible2.png" x="402" y="578" width="32" height="32"/>
-	<SubTexture name="invisible3.png" x="402" y="544" width="32" height="32"/>
-	<SubTexture name="invisible4.png" x="402" y="510" width="32" height="32"/>
+	<SubTexture name="handclose.png" x="436" y="204" width="32" height="32"/>
+	<SubTexture name="handopen.png" x="436" y="170" width="32" height="32"/>
+	<SubTexture name="ice.png" x="436" y="136" width="32" height="32"/>
+	<SubTexture name="icegod1.png" x="436" y="102" width="32" height="32"/>
+	<SubTexture name="icegod10.png" x="402" y="816" width="32" height="32"/>
+	<SubTexture name="icegod11.png" x="402" y="782" width="32" height="32"/>
+	<SubTexture name="icegod12.png" x="402" y="748" width="32" height="32"/>
+	<SubTexture name="icegod2.png" x="436" y="68" width="32" height="32"/>
+	<SubTexture name="icegod3.png" x="436" y="34" width="32" height="32"/>
+	<SubTexture name="icegod4.png" x="436" y="0" width="32" height="32"/>
+	<SubTexture name="icegod5.png" x="408" y="986" width="32" height="32"/>
+	<SubTexture name="icegod6.png" x="408" y="952" width="32" height="32"/>
+	<SubTexture name="icegod7.png" x="408" y="918" width="32" height="32"/>
+	<SubTexture name="icegod8.png" x="408" y="884" width="32" height="32"/>
+	<SubTexture name="icegod9.png" x="402" y="850" width="32" height="32"/>
+	<SubTexture name="invisible1.png" x="402" y="714" width="32" height="32"/>
+	<SubTexture name="invisible10.png" x="402" y="612" width="32" height="32"/>
+	<SubTexture name="invisible11.png" x="402" y="646" width="32" height="32"/>
+	<SubTexture name="invisible12.png" x="402" y="680" width="32" height="32"/>
+	<SubTexture name="invisible13.png" x="402" y="714" width="32" height="32"/>
+	<SubTexture name="invisible2.png" x="402" y="680" width="32" height="32"/>
+	<SubTexture name="invisible3.png" x="402" y="646" width="32" height="32"/>
+	<SubTexture name="invisible4.png" x="402" y="612" width="32" height="32"/>
 	<SubTexture name="invisible5.png" x="402" y="578" width="32" height="32"/>
-	<SubTexture name="invisible6.png" x="402" y="612" width="32" height="32"/>
+	<SubTexture name="invisible6.png" x="402" y="544" width="32" height="32"/>
+	<SubTexture name="invisible7.png" x="402" y="510" width="32" height="32"/>
+	<SubTexture name="invisible8.png" x="402" y="544" width="32" height="32"/>
+	<SubTexture name="invisible9.png" x="402" y="578" width="32" height="32"/>
 	<SubTexture name="item1.png" x="402" y="476" width="32" height="32"/>
 	<SubTexture name="item2.png" x="402" y="442" width="32" height="32"/>
 	<SubTexture name="item3.png" x="402" y="408" width="32" height="32"/>
@@ -54,12 +61,12 @@
 	<SubTexture name="saw21.png" x="204" y="968" width="32" height="32"/>
 	<SubTexture name="saw22.png" x="204" y="934" width="32" height="32"/>
 	<SubTexture name="saw23.png" x="204" y="900" width="32" height="32"/>
-	<SubTexture name="saw24.png" x="170" y="968" width="32" height="32"/>
-	<SubTexture name="saw3.png" x="402" y="68" width="32" height="32"/>
+	<SubTexture name="saw24.png" x="402" y="0" width="32" height="32"/>
+	<SubTexture name="saw3.png" x="436" y="476" width="32" height="32"/>
 	<SubTexture name="saw4.png" x="402" y="34" width="32" height="32"/>
-	<SubTexture name="saw5.png" x="436" y="374" width="32" height="32"/>
-	<SubTexture name="saw6.png" x="436" y="204" width="32" height="32"/>
-	<SubTexture name="saw7.png" x="436" y="238" width="32" height="32"/>
+	<SubTexture name="saw5.png" x="436" y="340" width="32" height="32"/>
+	<SubTexture name="saw6.png" x="436" y="306" width="32" height="32"/>
+	<SubTexture name="saw7.png" x="374" y="934" width="32" height="32"/>
 	<SubTexture name="saw8.png" x="374" y="900" width="32" height="32"/>
 	<SubTexture name="saw9.png" x="340" y="968" width="32" height="32"/>
 	<SubTexture name="sleep1.png" x="170" y="934" width="32" height="32"/>
@@ -70,19 +77,19 @@
 	<SubTexture name="soundoff.png" x="102" y="968" width="32" height="32"/>
 	<SubTexture name="soundon.png" x="102" y="934" width="32" height="32"/>
 	<SubTexture name="tile1.png" x="102" y="900" width="32" height="32"/>
-	<SubTexture name="tile2.png" x="68" y="968" width="32" height="32"/>
+	<SubTexture name="tile2.png" x="170" y="968" width="32" height="32"/>
 	<SubTexture name="tile3.png" x="68" y="934" width="32" height="32"/>
 	<SubTexture name="tile4.png" x="68" y="900" width="32" height="32"/>
 	<SubTexture name="tile5.png" x="34" y="968" width="32" height="32"/>
 	<SubTexture name="tile6.png" x="34" y="934" width="32" height="32"/>
-	<SubTexture name="torch1.png" x="34" y="900" width="32" height="32"/>
+	<SubTexture name="torch1.png" x="68" y="968" width="32" height="32"/>
 	<SubTexture name="torch2.png" x="0" y="968" width="32" height="32"/>
-	<SubTexture name="torch3.png" x="0" y="934" width="32" height="32"/>
-	<SubTexture name="torch4.png" x="0" y="900" width="32" height="32"/>
-	<SubTexture name="torchoff1.png" x="374" y="968" width="32" height="32"/>
-	<SubTexture name="torchoff2.png" x="374" y="934" width="32" height="32"/>
-	<SubTexture name="torchoff3.png" x="436" y="136" width="32" height="32"/>
-	<SubTexture name="torchoff4.png" x="436" y="170" width="32" height="32"/>
+	<SubTexture name="torch3.png" x="34" y="900" width="32" height="32"/>
+	<SubTexture name="torch4.png" x="0" y="934" width="32" height="32"/>
+	<SubTexture name="torchoff1.png" x="0" y="900" width="32" height="32"/>
+	<SubTexture name="torchoff2.png" x="436" y="238" width="32" height="32"/>
+	<SubTexture name="torchoff3.png" x="436" y="272" width="32" height="32"/>
+	<SubTexture name="torchoff4.png" x="374" y="968" width="32" height="32"/>
 	<SubTexture name="wakeup1.png" x="136" y="900" width="32" height="32"/>
 	<SubTexture name="wakeup2.png" x="136" y="934" width="32" height="32"/>
 	<SubTexture name="wakeup3.png" x="136" y="968" width="32" height="32"/>
