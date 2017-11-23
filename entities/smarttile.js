@@ -17,7 +17,7 @@ class SmartTile extends Entity {
         this.time = 0;
         this.changeTime = 0;
         this.currentVertex = y * this.level.getWidth() + x;
-        this.animation = new Animation(24, 2);
+        this.animation = new Animation(13, 1);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.speed = speed;

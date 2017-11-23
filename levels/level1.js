@@ -15,7 +15,7 @@ class Level1 extends Level {
             1,0,0,0,0,0,0,1,1,0,1,1,1,0,0,1,0,1,1,1,0,
             1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
             1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,
-            1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,2,1,1,1,1,
+            1,1,1,13,1,1,1,1,1,1,1,1,13,1,1,1,13,1,1,1,1,
             1,1,1,0,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,1,1,
             1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,1,1,1,
@@ -28,14 +28,12 @@ class Level1 extends Level {
         this.fadeTiles[7 * this.mapWidth + 3] = new FadeTile(3, 7, this.tileWidth, this.tileHeight, 2, 3, 1);
         this.fadeTiles[7 * this.mapWidth + 16] = new FadeTile(16, 7, this.tileWidth, this.tileHeight, 1, 1, 1);
         this.fadeTiles[7 * this.mapWidth + 12] = new FadeTile(12, 7, this.tileWidth, this.tileHeight, 1, 1, 1);
-        var tileId = Math.ceil(Math.random() * 6);
-        var bgTileId = Math.ceil(Math.random() * 4);
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
-                if (this.map[y * this.mapWidth + x] === 1) {
-                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tile" + tileId);
-                } else if (this.map[y * this.mapWidth + x] === 2) {
+                if (this.map[y * this.mapWidth + x] >= 1 && this.map[y * this.mapWidth + x] <= 12) {
+                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tile" + this.map[y * this.mapWidth + x]);
+                } else if (this.map[y * this.mapWidth + x] === 13) {
                     this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], true, "bg2");

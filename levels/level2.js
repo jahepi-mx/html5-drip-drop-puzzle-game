@@ -13,25 +13,23 @@ class Level2 extends Level {
             1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,0,0,0,0,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,1,7,8,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            7,7,7,7,7,1,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            7,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,7,7,7,7,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
         ];
         
         this.ice.reset();
         this.ice.setXY(5 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 4 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
-        var tileId = Math.ceil(Math.random() * 6);
-        var bgTileId = Math.ceil(Math.random() * 4);
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
-                if (this.map[y * this.mapWidth + x] === 1) {
-                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tile" + tileId);
-                } else if (this.map[y * this.mapWidth + x] === 2) {
+                if (this.map[y * this.mapWidth + x] >= 1 && this.map[y * this.mapWidth + x] <= 12) {
+                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tile" + this.map[y * this.mapWidth + x]);
+                } else if (this.map[y * this.mapWidth + x] === 13) {
                     this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], true, "bg2");
