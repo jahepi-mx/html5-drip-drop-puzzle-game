@@ -193,7 +193,7 @@ class Ice extends Entity {
     
     activeGodMode() {
         this.godMode = true;
-        this.godModeCount = 35;
+        this.godModeCount = 9;
     }
     
     die() {

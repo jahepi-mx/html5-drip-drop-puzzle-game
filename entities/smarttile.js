@@ -80,7 +80,7 @@ class SmartTile extends Entity {
         
         var diffX = Math.abs(this.x - this.toX);
         var diffY = Math.abs(this.y - this.toY);
-        if (diffX <= 8 && diffY <= 8) {
+        if (diffX <= 2 && diffY <= 2) {
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
@@ -91,21 +91,28 @@ class SmartTile extends Entity {
             }
         }
         
-        diffX = this.x - this.toX;
-        diffY = this.y - this.toY;
-
-        if (diffX >= 8) {
-            this.x -= this.speed * deltatime;
+        var divisor = 8;
+        var newSpeed = this.speed / divisor;
+        //console.log(newSpeed * deltatime);
+        
+        for (var a = 0; a < divisor; a++) {
+            
+            diffX = this.x - this.toX;
+            diffY = this.y - this.toY;
+        
+            if (diffX >= 1) {
+                this.x -= newSpeed * deltatime;
+            }
+            if (diffX <= -1) {
+                this.x += newSpeed * deltatime;
+            }
+            if (diffY >= 1) {
+                this.y -= newSpeed * deltatime;
+            }
+            if (diffY <= -1) {
+                this.y += newSpeed * deltatime;
+            } 
         }
-        if (diffX <= -8) {
-            this.x += this.speed * deltatime;
-        }
-        if (diffY >= 8) {
-            this.y -= this.speed * deltatime;
-        }
-        if (diffY <= -8) {
-            this.y += this.speed * deltatime;
-        }      
     }
     
     pathfinding(rand) {
