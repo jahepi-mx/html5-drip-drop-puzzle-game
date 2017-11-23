@@ -1,6 +1,7 @@
 class Level1 extends Level {
     constructor() { 
-        super(21, 12); 
+        super(21, 12);
+        this.helpPopup = new Popup(null, "complete");
     }
     
     init(ice) {
@@ -15,7 +16,7 @@ class Level1 extends Level {
             1,0,0,0,0,0,0,1,1,0,1,1,1,0,0,1,0,1,9,7,0,
             1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7,7,7,
             1,0,0,0,1,1,1,1,1,1,1,1,0,1,1,1,0,1,7,8,8,
-            9,1,1,13,1,1,1,1,1,1,1,1,13,1,1,1,13,1,7,8,7,
+            9,1,1,13,1,1,1,1,1,1,1,1,21,1,1,1,21,1,7,8,7,
             8,7,1,0,1,1,1,1,1,1,1,1,0,1,0,0,0,1,7,7,8,
             9,7,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,7,7,8,
             9,7,7,1,1,1,1,1,1,1,1,1,0,1,0,0,0,1,9,9,8,
@@ -31,9 +32,9 @@ class Level1 extends Level {
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
-                if (this.map[y * this.mapWidth + x] >= 1 && this.map[y * this.mapWidth + x] <= 12) {
+                if (this.map[y * this.mapWidth + x] >= 1 && this.map[y * this.mapWidth + x] <= 20) {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tile" + this.map[y * this.mapWidth + x]);
-                } else if (this.map[y * this.mapWidth + x] === 13) {
+                } else if (this.map[y * this.mapWidth + x] === 21) {
                     this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
                     this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], true, "bg2");

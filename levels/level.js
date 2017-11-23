@@ -15,6 +15,7 @@ class Level {
         this.tileWidth = this.config.mapWidth / this.mapWidth;
         this.tileHeight = this.config.mapHeight / this.mapHeight;
         this.isFinish = false;
+        this.helpPopup = null;
     }
     
     getWidth() {
@@ -38,8 +39,14 @@ class Level {
         this.map = [];
         this.items = [];
         this.ice = null;
+        this.currCheckpoint = 1;
+        this.isFinish = false;
     }
     
     reachCheckpoint(checkpoint) {}
+    
+    hasHelpPopup() {
+        return this.helpPopup !== null;
+    }
 };
 

@@ -22,8 +22,8 @@ class GameScene extends Scene {
         this.music = null;
         this.soundCount = 0;
         this.soundCountLimit = 1;
-        this.completePopup = new Popup(this.onCloseCompletePopup.bind(this));
-        this.finishPopup = new FinishPopup(this.onCloseFinishPopup.bind(this));
+        this.completePopup = new Popup(this.onCloseCompletePopup.bind(this), "complete");
+        this.finishPopup = new FinishPopup(this.onCloseFinishPopup.bind(this), "finish");
         if (this.config.sound) {
             this.music = this.assets.playAudio(this.assets.game, true, 0.2);
         }
@@ -47,6 +47,11 @@ class GameScene extends Scene {
     update(deltatime) {
         
         this.fpsLabel.text = Math.floor(1 / deltatime);
+        
+        if (this.currLevel.hasHelpPopup() && !this.currLevel.helpPopup.isClosed) {
+            this.currLevel.helpPopup.update(deltatime);
+            return;
+        }
         
         for (var a = 0; a < this.drops.length; a++) {
             if (this.drops[a].isDisposable) {
@@ -127,13 +132,6 @@ class GameScene extends Scene {
                 this.ice.activeGodMode();
             }
         }
-        
-        var time = Math.floor(this.time);
-        var seconds = Math.floor(time % 60);
-        var minutes = Math.floor(time / 60);
-        var hours = Math.floor(minutes / 60);
-        var minutesRemain = Math.floor(minutes % 60);     
-        this.timeLabel.text = "time: " + (hours < 10 ? "0" + hours : hours) + ":" + (minutesRemain < 10 ? "0" + minutesRemain : minutesRemain) + ":" + (seconds < 10 ? "0" + seconds : seconds);
     }
     
     render(context) {
@@ -188,6 +186,13 @@ class GameScene extends Scene {
             context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 210, this.timeLabel.y);
         }
         
+        var time = Math.floor(this.time);
+        var seconds = Math.floor(time % 60);
+        var minutes = Math.floor(time / 60);
+        var hours = Math.floor(minutes / 60);
+        var minutesRemain = Math.floor(minutes % 60);     
+        this.timeLabel.text = "time: " + (hours < 10 ? "0" + hours : hours) + ":" + (minutesRemain < 10 ? "0" + minutesRemain : minutesRemain) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+        
         context.font = this.timeLabel.font;
         context.fillStyle = this.timeLabel.color;
         context.textAlign = "left";
@@ -197,6 +202,10 @@ class GameScene extends Scene {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundon"].x, this.atlas.sprites["soundon"].y, this.atlas.sprites["soundon"].width, this.atlas.sprites["soundon"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
         } else {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundoff"].x, this.atlas.sprites["soundoff"].y, this.atlas.sprites["soundoff"].width, this.atlas.sprites["soundoff"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);
+        }
+        
+        if (this.currLevel.hasHelpPopup() && !this.currLevel.helpPopup.isClosed) {
+            this.currLevel.helpPopup.render(context);
         }
         
         this.hand.render(context);
