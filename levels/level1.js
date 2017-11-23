@@ -1,7 +1,7 @@
 class Level1 extends Level {
     constructor() { 
         super(21, 12);
-        this.helpPopup = new Popup(null, "complete");
+        this.helpPopup = new HelpPopup(null, "help");
     }
     
     init(ice) {
