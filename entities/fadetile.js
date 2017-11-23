@@ -18,6 +18,7 @@ class FadeTile extends Tile {
         this.blinkTime = 0;
         this.blinkTimeCount = 0;
         this.drops = LevelManager.getInstance().current().drops;
+        this.colors = ["#610e0e", "#e33535", "#3e0909", "#1a0404"];
     }
     
     onStopDeadAnimation() {
@@ -32,9 +33,10 @@ class FadeTile extends Tile {
             this.assets.playAudio(this.assets.torch, false, 0.5);
             for (var b = 0; b < 10; b++) {
                 var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                var colorIndex = Math.floor(Math.random() * 4);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), this.colors[colorIndex]);
                 drop.collided = true;
-                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedX = Math.ceil(Math.random() * 20 + 10)  * (Math.random() < 0.5 ? 1 : -1);
                 drop.speedY = -drop.speedY;
                 this.drops.push(drop);
             }
