@@ -1,7 +1,7 @@
 class FadeTile extends Tile {
     
-    constructor(x, y, w, h, fadeTime, stillTime, alpha) {
-        super(x, y, w, h, 2);
+    constructor(x, y, w, h, fadeTime, stillTime, alpha, backgroundImage) {
+        super(x, y, w, h, 2, false, null, backgroundImage);
         this.fadeTime = fadeTime;
         this.stillTime = stillTime;
         this.stillTimeCount = 0;
@@ -55,18 +55,16 @@ class FadeTile extends Tile {
             }
         }
         
-        if (!this.start && this.stillTimeCount >= this.stillTime) {
+        if (!this.start && this.stillTimeCount >= this.stillTime && this.stillTime > 0) {
             this.start = true;
             if (this.alpha >= 1) {
-                this.dir = -1;
-                this.visible = false;
+                this.dir = -1;               
             } else {
                 this.dir = 1;
-                this.visible = true;
             }
         }
         
-        if (!this.start) {
+        if (!this.start && this.fadeTime > 0) {
             this.stillTimeCount += deltatime;
         }
         
@@ -77,18 +75,24 @@ class FadeTile extends Tile {
             if (this.alpha < 0) {
                 this.alpha = 0;
                 this.start = false;
+                this.visible = false;
                 this.stillTimeCount = 0;
             }           
             if (this.alpha > 1) {
                 this.alpha = 1;
                 this.start = false;
+                this.visible = true;
                 this.stillTimeCount = 0;
             }
+        }
+        
+        if (this.alpha > 0 && this.alpha < 1) {
+            this.visible = false;
         }
     }
     
     render(context) {
-        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["bg2"].x, this.atlas.sprites["bg2"].y, this.atlas.sprites["bg2"].width, this.atlas.sprites["bg2"].height, this.x, this.y, this.w + 1, this.h + 1);
+        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage].x, this.atlas.sprites[this.backgroundImage].y, this.atlas.sprites[this.backgroundImage].width, this.atlas.sprites[this.backgroundImage].height, this.x, this.y, this.w + 1, this.h + 1);
         if (this.isDead) return;
         context.globalAlpha = this.alpha;
         var frame = "invisible" + (this.animation.getFrame() + 1);

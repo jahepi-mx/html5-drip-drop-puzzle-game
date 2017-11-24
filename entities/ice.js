@@ -154,6 +154,9 @@ class Ice extends Entity {
                             tile.die();
                         } else {
                             this.die();
+                            if (tile instanceof FadeTile) {
+                                tile.die();
+                            }
                         }
                         break;
                     }
@@ -176,6 +179,9 @@ class Ice extends Entity {
                         if (this.godMode && tile instanceof FadeTile) {
                             tile.die();
                         } else {
+                            if (tile instanceof FadeTile) {
+                                tile.die();
+                            }
                             this.die();
                         }
                         break;
