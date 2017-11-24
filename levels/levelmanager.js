@@ -4,7 +4,7 @@ class LevelManager {
     
     constructor() {
         this.index = 0;
-        this.levels = [new Level1(), new Level2(), new Level3(), new Level4(), new Level5()];
+        this.levels = [new Level6(), new Level1(), new Level2(), new Level3(), new Level4(), new Level5()];
     }
     
     static created() {

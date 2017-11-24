@@ -93,7 +93,7 @@ class SmartTile extends Entity {
             }
         }
         
-        var divisor = 8;
+        var divisor = 10;
         var newSpeed = this.speed / divisor;
         //console.log(newSpeed * deltatime);
         
