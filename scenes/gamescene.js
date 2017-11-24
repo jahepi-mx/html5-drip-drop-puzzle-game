@@ -175,15 +175,15 @@ class GameScene extends Scene {
         context.fillText(this.fpsLabel.text, this.fpsLabel.x , this.fpsLabel.y); 
         
         context.fillStyle = "#000";
-        context.fillRect(this.timeLabel.x - 5, this.timeLabel.y - 25, 200, 30);
+        context.fillRect(this.timeLabel.x - 5, this.timeLabel.y - 25, 325, 30);
         
         if (this.ice.godMode) {
             context.fillStyle = "#f00";
-            context.fillRect(this.timeLabel.x - 5 + 210, this.timeLabel.y - 25, 250, 30);           
+            context.fillRect(this.timeLabel.x - 5 + 335, this.timeLabel.y - 25, 250, 30);           
             context.font = this.timeLabel.font;
             context.fillStyle = this.timeLabel.color;
             context.textAlign = "left";
-            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 210, this.timeLabel.y);
+            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 335, this.timeLabel.y);
         }
         
         var time = Math.floor(this.time);
@@ -196,7 +196,7 @@ class GameScene extends Scene {
         context.font = this.timeLabel.font;
         context.fillStyle = this.timeLabel.color;
         context.textAlign = "left";
-        context.fillText(this.timeLabel.text, this.timeLabel.x, this.timeLabel.y);
+        context.fillText("Level " + this.levelManager.index + "/" + this.levelManager.length() + "  " + this.timeLabel.text, this.timeLabel.x, this.timeLabel.y);
         
         if (this.config.sound) {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["soundon"].x, this.atlas.sprites["soundon"].y, this.atlas.sprites["soundon"].width, this.atlas.sprites["soundon"].height, this.soundBtn.x, this.soundBtn.y, this.soundBtn.width, this.soundBtn.height);

@@ -83,7 +83,7 @@ class Ice extends Entity {
     }
     
     update(deltatime) {
-        
+        this.activeGodMode();
         if (this.godMode) {
             this.animation.update(deltatime);
             this.godModeCount -= deltatime;
@@ -148,7 +148,7 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < level.getWidth() && tmpY >= 0 && tmpY < level.getHeight()) {
                     var tile = this.tiles[tmpY * level.getWidth() + tmpX];
-                    if (tile.visible && !tile.walkable && tile.collide(this)) {
+                    if (tile.visible && !tile.walkable && this.collide(tile)) {
                         this.x = this.oldX;
                         if (this.godMode && tile instanceof FadeTile) {
                             tile.die();
@@ -174,7 +174,7 @@ class Ice extends Entity {
             for (var tmpY = y - 2; tmpY <= y + 2; tmpY++) {
                 if (tmpX >= 0 && tmpX < level.getWidth() && tmpY >= 0 && tmpY < level.getHeight()) {
                     var tile = this.tiles[tmpY * level.getWidth() + tmpX];
-                    if (tile.visible && !tile.walkable && tile.collide(this)) {
+                    if (tile.visible && !tile.walkable && this.collide(tile)) {
                         this.y = this.oldY;
                         if (this.godMode && tile instanceof FadeTile) {
                             tile.die();
@@ -219,5 +219,13 @@ class Ice extends Entity {
         this.explosiveDrop = false;
         this.godMode = false;
         this.godModeCount = 0;
+    }
+    
+    collide(entity) {
+        var width = entity.w / 2 + this.w / 2 - 5;
+        var height = entity.h / 2 + this.h / 2 - 5;
+        var distanceX = Math.abs((this.left() + this.w / 2) - (entity.left() + entity.w / 2));
+        var distanceY = Math.abs((this.top() + this.h / 2) - (entity.top() + entity.h / 2));
+        return distanceX < width && distanceY < height;
     }
 };
