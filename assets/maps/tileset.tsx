@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset" tilewidth="32" tileheight="32" tilecount="25" columns="0">
+<tileset name="tileset" tilewidth="32" tileheight="32" tilecount="45" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image width="32" height="32" source="../sprites/editables/separated_sprites/bg1.png"/>
@@ -75,5 +75,65 @@
  </tile>
  <tile id="24">
   <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles25.png"/>
+ </tile>
+ <tile id="25">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles26.png"/>
+ </tile>
+ <tile id="26">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles27.png"/>
+ </tile>
+ <tile id="27">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles28.png"/>
+ </tile>
+ <tile id="28">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles29.png"/>
+ </tile>
+ <tile id="29">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles30.png"/>
+ </tile>
+ <tile id="30">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles31.png"/>
+ </tile>
+ <tile id="31">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles32.png"/>
+ </tile>
+ <tile id="32">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles33.png"/>
+ </tile>
+ <tile id="33">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles34.png"/>
+ </tile>
+ <tile id="34">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles35.png"/>
+ </tile>
+ <tile id="35">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles36.png"/>
+ </tile>
+ <tile id="36">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles37.png"/>
+ </tile>
+ <tile id="37">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles38.png"/>
+ </tile>
+ <tile id="38">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles39.png"/>
+ </tile>
+ <tile id="39">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles40.png"/>
+ </tile>
+ <tile id="40">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles41.png"/>
+ </tile>
+ <tile id="41">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles42.png"/>
+ </tile>
+ <tile id="42">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles43.png"/>
+ </tile>
+ <tile id="43">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles44.png"/>
+ </tile>
+ <tile id="44">
+  <image width="32" height="32" source="../sprites/editables/separated_sprites/tiles45.png"/>
  </tile>
 </tileset>
