@@ -25,9 +25,9 @@ class Popup {
     render(context) {
         if (this.cursor.x >= this.config.mapWidth / 2 - 100 && this.cursor.x <= this.config.mapWidth / 2 + 100 
             && this.cursor.y >= this.config.mapHeight / 2 + 120 && this.cursor.y <= this.config.mapHeight / 2 + 160) {          
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "on"].x, this.atlas.sprites["completeon"].y, this.atlas.sprites["completeon"].width, this.atlas.sprites["completeon"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "on"].x, this.atlas.sprites[this.backgroundImage + "on"].y, this.atlas.sprites[this.backgroundImage + "on"].width, this.atlas.sprites[this.backgroundImage + "on"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);
         } else  {
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "off"].x, this.atlas.sprites["completeoff"].y, this.atlas.sprites["completeoff"].width, this.atlas.sprites["completeoff"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "off"].x, this.atlas.sprites[this.backgroundImage + "off"].y, this.atlas.sprites[this.backgroundImage + "off"].width, this.atlas.sprites[this.backgroundImage + "off"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);
         } 
     }
 }

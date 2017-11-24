@@ -83,7 +83,7 @@ class Ice extends Entity {
     }
     
     update(deltatime) {
-        this.activeGodMode();
+
         if (this.godMode) {
             this.animation.update(deltatime);
             this.godModeCount -= deltatime;
@@ -199,7 +199,7 @@ class Ice extends Entity {
     
     activeGodMode() {
         this.godMode = true;
-        this.godModeCount = 29;
+        this.godModeCount = 5;
     }
     
     die() {
