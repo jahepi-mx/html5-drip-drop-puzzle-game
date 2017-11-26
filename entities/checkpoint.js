@@ -50,6 +50,9 @@ class Checkpoint extends Entity {
         
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         
+        context.fillStyle = "#000";
+        context.fillRect(this.x + this.w - 5, this.y + 8, 20, 20);
+        
         context.font = "30px joystix";
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
