@@ -28,8 +28,6 @@ class Level2 extends Level {
 
         this.fadeTiles[6 * this.mapWidth + 10] = new FadeTile(10, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3");
         this.fadeTiles[8 * this.mapWidth + 12] = new FadeTile(12, 8, this.tileWidth, this.tileHeight, 0.5, 1, 1, "bg3");
-        //this.fadeTiles[7 * this.mapWidth + 16] = new FadeTile(16, 7, this.tileWidth, this.tileHeight, 1, 1, 1);
-        //this.fadeTiles[7 * this.mapWidth + 12] = new FadeTile(12, 7, this.tileWidth, this.tileHeight, 1, 1, 1);
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
@@ -43,24 +41,10 @@ class Level2 extends Level {
             }
         }
         
-        //this.items.push(new Item(7, 1, this.tileWidth, this.tileHeight));
-        
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(8, 8, 50, 50, 1, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(13, 8, 50, 50, 2, "#fe00ab"));
-        //this.checkpoints.push(new Checkpoint(8, 1, 50, 50, 2, "#aa8877"));
-        //this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 3, "#66efbb"));
-        //this.checkpoints.push(new Checkpoint(15, 9, 50, 50, 4, "#66efbb"));
-        
-        /*
-        var smartTile = new SmartTile(1, 4, this.tileWidth, this.tileHeight, this.ice, 50);
-        var smartTile2 = new SmartTile(15, 9, this.tileWidth, this.tileHeight, this.ice, 100);
-        var smartTile3 = new SmartTile(8, 5, this.tileWidth, this.tileHeight, this.ice, 150);
-        this.enemies.push(smartTile);
-        this.enemies.push(smartTile2);
-        this.enemies.push(smartTile3);
-        */
+        this.checkpoints.push(new Checkpoint(8, 8, 50, 50, 1));
+        this.checkpoints.push(new Checkpoint(13, 8, 50, 50, 2));
     }
     
     reset() {
@@ -77,8 +61,7 @@ class Level2 extends Level {
         }
         this.fadeTiles[6 * this.mapWidth + 10].reset();
         this.fadeTiles[8 * this.mapWidth + 12].reset();
-        //this.fadeTiles[7 * this.mapWidth + 16].reset();
-        //this.fadeTiles[7 * this.mapWidth + 12].reset();
+        
         this.currCheckpoint = 1;
         this.drops = [];
     }

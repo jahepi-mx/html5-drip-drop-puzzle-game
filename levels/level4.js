@@ -39,7 +39,7 @@ class Level4 extends Level {
         }
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(19, 5, 50, 50, 1, "#fe00ab"));
+        this.checkpoints.push(new Checkpoint(19, 5, 50, 50, 1));
        
         var movingTile = new MovingTile(6, 6, this.tileWidth, this.tileHeight, 5);
         movingTile.addVertex(4 * this.mapWidth + 6);

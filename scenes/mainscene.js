@@ -10,8 +10,8 @@ class MainScene extends Scene {
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
         this.blink = 0;
-        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 70, width: 100, height: 40, text: "play game", alpha: 1, font: "35px joystix"};
-        this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 30, width: 150, height: 40, text: "leaderboard", alpha: 1, font: "35px joystix"};
+        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 270, width: 100, height: 40, text: "play game", alpha: 1, font: "35px joystix"};
+        this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 220, width: 150, height: 40, text: "leaderboard", alpha: 1, font: "35px joystix"};
         this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
         this.soundCount = 0;
         this.soundCountLimit = 1;
@@ -20,24 +20,46 @@ class MainScene extends Scene {
         if (this.config.sound) {
             this.music = this.assets.playAudio(this.assets.main, true, 0.2);
         }
-        
-        var topText = 80;
-        this.texts = [
-            {x: this.config.mapWidth / 2, y: topText, text: "Labyrinth Challenge", alpha: 1, font: "65px joystix", r: 0, g: 0, b: 0},
-            {x: this.config.mapWidth / 2, y: topText + 60, text: "how to play", alpha: 1, font: "55px joystix", r: 216, g: 255, b: 0},
-            {x: this.config.mapWidth / 2, y: topText + 110, text: "Grab the ice cube with", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 145, text: "the mouse, there are torchs", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 180, text: "with a labeled number, put out", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 215, text: "the fire from the torchs", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 250, text: "using the ice drops, it has", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 285, text: "to be in order (from torch 1 to n),", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 320, text: "avoid the ice touching any", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 355, text: "walls or enemies to pass", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-            {x: this.config.mapWidth / 2, y: topText + 390, text: "to the next level.", alpha: 1, font: "40px joystix", r: 255, g: 255, b: 255},
-        ];
+       
+        this.map = [14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,
+             14,14,14,14,14,14,14,14,14,14,15,14,14,14,14,14,14,14,15,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,14,14,14,
+             14,14,15,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,14,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,15,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,15,14,14,14,14,
+             14,14,15,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,14,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,15,14,15,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,14,14,14,
+             14,14,14,14,14,14,1,1,1,1,1,1,1,1,1,14,14,14,14,14,14,
+             14,14,14,15,14,14,14,15,14,14,14,14,14,14,14,14,14,14,14,14,14,
+             14,14,14,14,14,14,14,14,14,14,14,14,14,15,14,14,14,14,14,15,14];
+
+        this.tiles = [];
+        var width = 21;
+        var height = 12;
+        var tileWidth = this.config.mapWidth / 21;
+        var tileHeight = this.config.mapHeight / 12;
+        for (var y = 0; y < height; y++) {
+            for (var x = 0; x < width; x++) {
+                if (this.map[y * width + x] >= 6 && this.map[y * width + x] <= 45) {
+                     this.tiles[y * width + x] = new Tile(x, y, tileWidth, tileHeight, this.map[y * width + x], false, "tiles" + this.map[y * width + x], "bg1");
+                 } else {
+                     this.tiles[y * width + x] = new Tile(x, y, tileWidth, tileHeight, this.map[y * width + x], true, "bg" + this.map[y * width + x], null);
+                 }
+            }
+        }
+        this.checkpoints = [];
+        this.checkpoints.push(new Checkpoint(7, 9, tileWidth, tileHeight, 1));
+        this.checkpoints.push(new Checkpoint(9, 9, tileWidth, tileHeight, 2));
+        this.checkpoints.push(new Checkpoint(11, 9, tileWidth, tileHeight, 3));
+        this.checkpoints.push(new Checkpoint(13, 9, tileWidth, tileHeight, 4));
     }
     
     update(deltatime) {
+        
+        for (var a = 0; a < this.checkpoints.length; a++) {
+            this.checkpoints[a].update(deltatime);
+        }
         
         if (this.catchEventClick && this.cursor.isPressed && this.cursor.x >= this.leaderboardBtn.x - this.leaderboardBtn.width / 2 && this.cursor.x <= this.leaderboardBtn.x + this.leaderboardBtn.width / 2 
             && this.cursor.y >= this.leaderboardBtn.y - this.leaderboardBtn.height / 2 && this.cursor.y <= this.leaderboardBtn.y + this.leaderboardBtn.height / 2) {                     
@@ -75,15 +97,18 @@ class MainScene extends Scene {
     } 
     
     render(context) {
-        
-        context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["main1"].x, this.atlas.sprites["main1"].y, this.atlas.sprites["main1"].width, this.atlas.sprites["main1"].height, this.config.mapWidth / 2 - this.config.mapHeight / 2, this.config.mapHeight / 2 - this.config.mapHeight / 2, this.config.mapHeight, this.config.mapHeight);
-        
-        for (var a = 0; a < this.texts.length; a++) {
-            context.font = this.texts[a].font;
-            context.fillStyle = "rgba(" + this.texts[a].r + ", " + this.texts[a].g +", " + this.texts[a].b + ", " + this.texts[a].alpha; + ")";
-            context.textAlign = "center";
-            context.fillText(this.texts[a].text, this.texts[a].x, this.texts[a].y);  
+        for (var a = 0; a < this.tiles.length; a++) {
+            this.tiles[a].render(context);
         }
+        
+        for (var a = 0; a < this.checkpoints.length; a++) {
+            this.checkpoints[a].render(context);
+        }
+        
+        context.font = "65px joystix";
+        context.fillStyle = "rgba(255, 255, 255, 255)";
+        context.textAlign = "center";
+        context.fillText("labyrinth", this.config.mapWidth / 2, 200);  
         
         if (this.blinkTimeCount >= this.blinkTime) {
             this.blink ^= 1;

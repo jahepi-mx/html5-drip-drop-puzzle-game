@@ -37,5 +37,9 @@ class LevelManager {
     reset() {
         this.index = 0;
     }
+    
+    isLevelInitialized() {
+        return this.index > 0;
+    }
 }
 

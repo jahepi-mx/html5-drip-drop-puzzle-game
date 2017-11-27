@@ -73,12 +73,12 @@ class Level8 extends Level {
         
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(1, 4, 50, 50, 1, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(3, 6, 50, 50, 2, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(1, 8, 50, 50, 3, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(3, 10, 50, 50, 4, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(12, 5, 50, 50, 5, "#fe00ab"));
-        this.checkpoints.push(new Checkpoint(18, 5, 50, 50, 6, "#fe00ab"));
+        this.checkpoints.push(new Checkpoint(1, 4, 50, 50, 1));
+        this.checkpoints.push(new Checkpoint(3, 6, 50, 50, 2));
+        this.checkpoints.push(new Checkpoint(1, 8, 50, 50, 3));
+        this.checkpoints.push(new Checkpoint(3, 10, 50, 50, 4));
+        this.checkpoints.push(new Checkpoint(12, 5, 50, 50, 5));
+        this.checkpoints.push(new Checkpoint(18, 5, 50, 50, 6));
         
         var smartTile = new SmartTile(12, 4, this.tileWidth, this.tileHeight, this.ice, 100);
         this.enemies.push(smartTile);

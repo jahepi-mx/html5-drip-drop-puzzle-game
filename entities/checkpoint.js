@@ -1,13 +1,12 @@
 class Checkpoint extends Entity {
             
-    constructor(x, y, w, h, id, color) {
+    constructor(x, y, w, h, id) {
         super(x, y, w, h);
         
         this.x = x * Tile.getWidth() + Tile.getWidth() / 2 - this.w / 2;
         this.y = y * Tile.getHeight() + Tile.getHeight() / 2 -  this.h / 2;
         
         this.id = id;
-        this.color = color;
         this.collided = false;
         this.fireAnimation = new Animation(4, 2);
         this.offAnimation = new Animation(4, 2);
@@ -15,7 +14,11 @@ class Checkpoint extends Entity {
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.config = Config.getInstance();
-        this.drops = LevelManager.getInstance().current().drops;
+        if (LevelManager.getInstance().isLevelInitialized()) {
+            this.drops = LevelManager.getInstance().current().drops;
+        } else {
+            this.drops = [];
+        }
     }
     
     update(deltatime) {
