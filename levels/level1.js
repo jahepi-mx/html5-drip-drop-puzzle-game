@@ -24,7 +24,7 @@ class Level1 extends Level {
         ];
         
         this.ice.reset();
-        this.ice.setXY(8 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 5 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
+        this.ice.setXY(7 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 5 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
@@ -40,14 +40,14 @@ class Level1 extends Level {
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
         this.checkpoints.push(new Checkpoint(8, 6, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(9, 6, 50, 50, 2));
-        this.checkpoints.push(new Checkpoint(11, 6, 50, 50, 3));
-        this.checkpoints.push(new Checkpoint(12, 6, 50, 50, 4));
+        this.checkpoints.push(new Checkpoint(9, 5, 50, 50, 2));
+        this.checkpoints.push(new Checkpoint(12, 6, 50, 50, 3));
+        this.checkpoints.push(new Checkpoint(13, 5, 50, 50, 4));
     }
     
     reset() {
         this.ice.reset();
-        this.ice.setXY(8 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 5 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
+        this.ice.setXY(7 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 5 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
         for (var a = 0; a < this.checkpoints.length; a++) {
             this.checkpoints[a].reset();
         }
