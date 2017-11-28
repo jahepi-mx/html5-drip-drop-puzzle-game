@@ -141,11 +141,6 @@ class GameScene extends Scene {
                 this.currLevel.tiles[a].render(context);
             }
         }
-        
-        for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
-            this.currLevel.checkpoints[a].render(context);
-        }
-        
 
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].render(context);
@@ -156,6 +151,10 @@ class GameScene extends Scene {
         }
 
         this.ice.render(context);
+        
+        for (var a = 0; a < this.currLevel.checkpoints.length; a++) {
+            this.currLevel.checkpoints[a].render(context);
+        }
         
         for (var a = 0; a < this.drops.length; a++) {
             this.drops[a].render(context);
