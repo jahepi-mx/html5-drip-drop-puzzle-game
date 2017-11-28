@@ -19,6 +19,7 @@ class Drop extends Entity {
         this.color = color;
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        this.config = Config.getInstance();
         this.level = LevelManager.getInstance().current();
         this.tiles = this.level.tiles;
     }
@@ -55,7 +56,7 @@ class Drop extends Entity {
                         this.speedX *= 0.3;
                         this.collided = true;                       
                         if (this.bounceSpeedY >= 5 && Math.abs(this.speedX) >= 2) {
-                            this.assets.playAudio(this.assets.drop, false, 0.2);
+                            this.assets.playAudio(this.assets.drop, false, this.config.soundEffectVolume * 0.5);
                         }
                         break;
                     }
@@ -79,7 +80,7 @@ class Drop extends Entity {
                             this.x = this.oldX;
                             this.speedX = -this.speedX;
                             if (this.bounceSpeedY >= 5 && Math.abs(this.speedX) >= 2) {
-                                this.assets.playAudio(this.assets.drop, false, 0.2);
+                                this.assets.playAudio(this.assets.drop, false, this.config.soundEffectVolume * 0.5);
                             }
                             break;
                         }

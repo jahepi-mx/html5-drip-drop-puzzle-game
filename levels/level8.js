@@ -80,13 +80,13 @@ class Level8 extends Level {
         this.checkpoints.push(new Checkpoint(12, 5, 50, 50, 5));
         this.checkpoints.push(new Checkpoint(18, 5, 50, 50, 6));
         
-        var smartTile = new SmartTile(12, 4, this.tileWidth, this.tileHeight, this.ice, 100);
+        var smartTile = new SmartTile(12, 4, this.tileWidth, this.tileHeight, this.ice, 220, 2);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(9, 9, this.tileWidth, this.tileHeight, this.ice, 120);
+        smartTile = new SmartTile(9, 9, this.tileWidth, this.tileHeight, this.ice, 180, 1);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(9, 1, this.tileWidth, this.tileHeight, this.ice, 80);
+        smartTile = new SmartTile(9, 1, this.tileWidth, this.tileHeight, this.ice, 150, 1);
         this.enemies.push(smartTile);
         
         this.items.push(new Item(1, 2, this.tileWidth, this.tileHeight));

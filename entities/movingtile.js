@@ -22,6 +22,7 @@ class MovingTile extends Tile {
         this.sleepAnimation.stopAtSequenceNumber(1, null);
         this.wakeupAnimation = new Animation(7, 2);
         this.wakeupAnimation.stopAtSequenceNumber(1, null);
+        this.config = Config.getInstance();
         this.shift = true;
     }
     
@@ -34,7 +35,7 @@ class MovingTile extends Tile {
     update(deltatime) {
         
         if (this.explosiveDrop) {
-            this.assets.playAudio(this.assets.torch, false, 0.5);
+            this.assets.playAudio(this.assets.torch, false, this.config.soundEffectVolume);
             for (var b = 0; b < 10; b++) {
                 var dropSize = Math.ceil(Math.random() * 3 + 5);
                 var colorIndex = Math.floor(Math.random() * 4);

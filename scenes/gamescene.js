@@ -25,7 +25,7 @@ class GameScene extends Scene {
         this.completePopup = new Popup(this.onCloseCompletePopup.bind(this), "complete");
         this.finishPopup = new FinishPopup(this.onCloseFinishPopup.bind(this), "finish");
         if (this.config.sound) {
-            this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+            this.music = this.assets.playAudio(this.assets.game, true, this.config.musicVolume);
         }
     }
     
@@ -85,7 +85,7 @@ class GameScene extends Scene {
                     this.music.stop();
                 } else {
                     this.config.sound = true;
-                    this.music = this.assets.playAudio(this.assets.game, true, 0.2);
+                    this.music = this.assets.playAudio(this.assets.game, true, this.config.musicVolume);
                 }
                 this.soundCount = 0;
             }

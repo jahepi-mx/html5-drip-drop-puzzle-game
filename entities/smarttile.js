@@ -1,6 +1,6 @@
 class SmartTile extends Entity {
     
-    constructor(x, y, w, h, ice, speed) {
+    constructor(x, y, w, h, ice, speed, pathUpdateTime) {
         super(x, y, w, h);
         this.ice = ice;
         this.origX = this.x;
@@ -11,7 +11,7 @@ class SmartTile extends Entity {
         this.tiles = this.level.tiles;
         this.moves = [[1,0], [0,1], [-1,0], [0,-1]];
         this.visited = [];
-        this.visibleTiles = new Map();
+        this.visibleTiles = new Set();
         this.parents = [];
         this.path = [];
         this.time = 0;
@@ -20,11 +20,13 @@ class SmartTile extends Entity {
         this.animation = new Animation(13, 1);
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
+        this.config = Config.getInstance();
         this.speed = speed;
         this.isDead = false;
         this.explosiveDrop = false;
         this.drops = this.level.drops;
         this.colors = ["#e38800", "#5a3600", "#392200", "#180e00"];
+        this.pathUpdateTime = pathUpdateTime;
         
         this.pq = new PriorityQueue(function (a, b) {
             return a.priority > b.priority;
@@ -46,7 +48,7 @@ class SmartTile extends Entity {
     update(deltatime) {
         
         if (this.explosiveDrop) {
-            this.assets.playAudio(this.assets.torch, false, 0.5);
+            this.assets.playAudio(this.assets.torch, false, this.config.soundEffectVolume);
             for (var b = 0; b < 10; b++) {
                 var dropSize = Math.ceil(Math.random() * 3 + 5);
                 var colorIndex = Math.floor(Math.random() * 4);
@@ -64,7 +66,7 @@ class SmartTile extends Entity {
         this.animation.update(deltatime);
         
         this.time += deltatime;
-        if (this.time >= 2) {
+        if (this.time >= this.pathUpdateTime) {
             this.time = 0;
             this.pathfinding(false);
             if (this.path.length > 0) {
@@ -135,7 +137,7 @@ class SmartTile extends Entity {
         if (rand && this.visibleTiles.size > 0) {
             var randIndex = Math.floor(Math.random() * (this.visibleTiles.size - 1));
             var currIndex = 0;
-            for (var [vertex, active] of this.visibleTiles) {
+            for (var vertex of this.visibleTiles) {
                 if (currIndex++ === randIndex) {
                     toX = Math.floor(vertex % width);
                     toY = Math.floor(vertex / width);
@@ -146,7 +148,7 @@ class SmartTile extends Entity {
             // Behaviour to escape from ice when is on god mode.
             var maxVertex = 0;
             var maxDist = 0;
-            for (var [vertex, active] of this.visibleTiles) {
+            for (var vertex of this.visibleTiles) {
                 var tmpToX = Math.floor(vertex % width);
                 var tmpToY = Math.floor(vertex / width); 
                 var dist = Math.abs(tmpToX - this.ice.x) + Math.abs(tmpToY - this.ice.y);
@@ -190,7 +192,7 @@ class SmartTile extends Entity {
     }
     
     dfs(x, y) {
-        this.visibleTiles.set(y * this.level.getWidth() + x, 1);
+        this.visibleTiles.add(y * this.level.getWidth() + x);
         for (var a = 0; a < this.moves.length; a++) {
             var newX = x + this.moves[a][0];
             var newY = y + this.moves[a][1];

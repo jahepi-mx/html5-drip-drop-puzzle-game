@@ -203,7 +203,7 @@ class Ice extends Entity {
     }
     
     die() {
-        this.assets.playAudio(this.assets.dead, false, 0.5);
+        this.assets.playAudio(this.assets.dead, false, this.config.soundEffectVolume);
         this.isDead = true;
         this.explosiveDrop = true;
         this.cursor.isPressed = false;

@@ -17,6 +17,7 @@ class FadeTile extends Tile {
         this.explosiveDrop = false;
         this.blinkTime = 0;
         this.blinkTimeCount = 0;
+        this.config = Config.getInstance();
         this.drops = LevelManager.getInstance().current().drops;
         this.colors = ["#610e0e", "#e33535", "#3e0909", "#1a0404"];
     }
@@ -30,7 +31,7 @@ class FadeTile extends Tile {
     update(deltatime) {
         
         if (this.explosiveDrop) {
-            this.assets.playAudio(this.assets.torch, false, 0.5);
+            this.assets.playAudio(this.assets.torch, false, this.config.soundEffectVolume);
             for (var b = 0; b < 10; b++) {
                 var dropSize = Math.ceil(Math.random() * 3 + 5);
                 var colorIndex = Math.floor(Math.random() * 4);
