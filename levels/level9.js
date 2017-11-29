@@ -34,32 +34,23 @@ class Level9 extends Level {
         this.fadeTiles[3 * this.mapWidth + 2] = new FadeTile(2, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
         this.fadeTiles[2 * this.mapWidth + 2] = new FadeTile(2, 2, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
         
-        this.fadeTiles[4 * this.mapWidth + 2] = new FadeTile(2, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
-        this.fadeTiles[4 * this.mapWidth + 3] = new FadeTile(3, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
-        this.fadeTiles[4 * this.mapWidth + 4] = new FadeTile(4, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.4);
-        this.fadeTiles[5 * this.mapWidth + 4] = new FadeTile(4, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.6);
-        this.fadeTiles[6 * this.mapWidth + 4] = new FadeTile(4, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.8);
-        this.fadeTiles[6 * this.mapWidth + 3] = new FadeTile(3, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2);
-        this.fadeTiles[6 * this.mapWidth + 2] = new FadeTile(2, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        this.fadeTiles[5 * this.mapWidth + 2] = new FadeTile(2, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
+        this.fadeTiles[4 * this.mapWidth + 2] = new FadeTile(2, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4);
+        this.fadeTiles[4 * this.mapWidth + 3] = new FadeTile(3, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.2);
+        this.fadeTiles[4 * this.mapWidth + 4] = new FadeTile(4, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.4);
+        this.fadeTiles[5 * this.mapWidth + 4] = new FadeTile(4, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.6);
+        this.fadeTiles[6 * this.mapWidth + 4] = new FadeTile(4, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.8);
+        this.fadeTiles[6 * this.mapWidth + 3] = new FadeTile(3, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5);
+        this.fadeTiles[6 * this.mapWidth + 2] = new FadeTile(2, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5.2);
+        this.fadeTiles[5 * this.mapWidth + 2] = new FadeTile(2, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5.4);
         
-        this.fadeTiles[7 * this.mapWidth + 2] = new FadeTile(2, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
-        this.fadeTiles[7 * this.mapWidth + 3] = new FadeTile(3, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
-        this.fadeTiles[7 * this.mapWidth + 4] = new FadeTile(4, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.4);
-        this.fadeTiles[8 * this.mapWidth + 4] = new FadeTile(4, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.6);
-        this.fadeTiles[9 * this.mapWidth + 4] = new FadeTile(4, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.8);
-        this.fadeTiles[9 * this.mapWidth + 3] = new FadeTile(3, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2);
-        this.fadeTiles[9 * this.mapWidth + 2] = new FadeTile(2, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        this.fadeTiles[8 * this.mapWidth + 2] = new FadeTile(2, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        
-        this.fadeTiles[1 * this.mapWidth + 16] = new FadeTile(16, 1, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
-        this.fadeTiles[1 * this.mapWidth + 17] = new FadeTile(17, 1, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
-        this.fadeTiles[1 * this.mapWidth + 18] = new FadeTile(18, 1, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.4);
-        this.fadeTiles[2 * this.mapWidth + 18] = new FadeTile(18, 2, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.6);
-        this.fadeTiles[3 * this.mapWidth + 18] = new FadeTile(18, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.8);
-        this.fadeTiles[3 * this.mapWidth + 17] = new FadeTile(17, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2);
-        this.fadeTiles[3 * this.mapWidth + 16] = new FadeTile(16, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        this.fadeTiles[2 * this.mapWidth + 16] = new FadeTile(16, 2, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
+        this.fadeTiles[7 * this.mapWidth + 2] = new FadeTile(2, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7);
+        this.fadeTiles[7 * this.mapWidth + 3] = new FadeTile(3, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.2);
+        this.fadeTiles[7 * this.mapWidth + 4] = new FadeTile(4, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.4);
+        this.fadeTiles[8 * this.mapWidth + 4] = new FadeTile(4, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.6);
+        this.fadeTiles[9 * this.mapWidth + 4] = new FadeTile(4, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.8);
+        this.fadeTiles[9 * this.mapWidth + 3] = new FadeTile(3, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8);
+        this.fadeTiles[9 * this.mapWidth + 2] = new FadeTile(2, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8.2);
+        this.fadeTiles[8 * this.mapWidth + 2] = new FadeTile(2, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8.4);
         
         this.fadeTiles[1 * this.mapWidth + 16] = new FadeTile(16, 1, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
         this.fadeTiles[1 * this.mapWidth + 17] = new FadeTile(17, 1, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
@@ -70,23 +61,23 @@ class Level9 extends Level {
         this.fadeTiles[3 * this.mapWidth + 16] = new FadeTile(16, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
         this.fadeTiles[2 * this.mapWidth + 16] = new FadeTile(16, 2, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
         
-        this.fadeTiles[4 * this.mapWidth + 16] = new FadeTile(16, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
-        this.fadeTiles[4 * this.mapWidth + 17] = new FadeTile(17, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
-        this.fadeTiles[4 * this.mapWidth + 18] = new FadeTile(18, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.4);
-        this.fadeTiles[5 * this.mapWidth + 18] = new FadeTile(18, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.6);
-        this.fadeTiles[6 * this.mapWidth + 18] = new FadeTile(18, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.8);
-        this.fadeTiles[6 * this.mapWidth + 17] = new FadeTile(17, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2);
-        this.fadeTiles[6 * this.mapWidth + 16] = new FadeTile(16, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        this.fadeTiles[5 * this.mapWidth + 16] = new FadeTile(16, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
+        this.fadeTiles[4 * this.mapWidth + 16] = new FadeTile(16, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4);
+        this.fadeTiles[4 * this.mapWidth + 17] = new FadeTile(17, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.2);
+        this.fadeTiles[4 * this.mapWidth + 18] = new FadeTile(18, 4, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.4);
+        this.fadeTiles[5 * this.mapWidth + 18] = new FadeTile(18, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.6);
+        this.fadeTiles[6 * this.mapWidth + 18] = new FadeTile(18, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 4.8);
+        this.fadeTiles[6 * this.mapWidth + 17] = new FadeTile(17, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5);
+        this.fadeTiles[6 * this.mapWidth + 16] = new FadeTile(16, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5.2);
+        this.fadeTiles[5 * this.mapWidth + 16] = new FadeTile(16, 5, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 5.4);
         
-        this.fadeTiles[7 * this.mapWidth + 16] = new FadeTile(16, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1);
-        this.fadeTiles[7 * this.mapWidth + 17] = new FadeTile(17, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.2);
-        this.fadeTiles[7 * this.mapWidth + 18] = new FadeTile(18, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.4);
-        this.fadeTiles[8 * this.mapWidth + 18] = new FadeTile(18, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.6);
-        this.fadeTiles[9 * this.mapWidth + 18] = new FadeTile(18, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 1.8);
-        this.fadeTiles[9 * this.mapWidth + 17] = new FadeTile(17, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2);
-        this.fadeTiles[9 * this.mapWidth + 16] = new FadeTile(16, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.2);
-        this.fadeTiles[8 * this.mapWidth + 16] = new FadeTile(16, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 2.4);
+        this.fadeTiles[7 * this.mapWidth + 16] = new FadeTile(16, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7);
+        this.fadeTiles[7 * this.mapWidth + 17] = new FadeTile(17, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.2);
+        this.fadeTiles[7 * this.mapWidth + 18] = new FadeTile(18, 7, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.4);
+        this.fadeTiles[8 * this.mapWidth + 18] = new FadeTile(18, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.6);
+        this.fadeTiles[9 * this.mapWidth + 18] = new FadeTile(18, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 7.8);
+        this.fadeTiles[9 * this.mapWidth + 17] = new FadeTile(17, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8);
+        this.fadeTiles[9 * this.mapWidth + 16] = new FadeTile(16, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8.2);
+        this.fadeTiles[8 * this.mapWidth + 16] = new FadeTile(16, 8, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 8.4);
         
         this.fadeTiles[3 * this.mapWidth + 7] = new FadeTile(7, 3, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 0);
         this.fadeTiles[9 * this.mapWidth + 7] = new FadeTile(7, 9, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 0);
@@ -96,7 +87,7 @@ class Level9 extends Level {
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {
                 if (this.map[y * this.mapWidth + x] >= 6 && this.map[y * this.mapWidth + x] <= 45) {
-                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tiles" + this.map[y * this.mapWidth + x], "bg1");
+                    this.tiles[y * this.mapWidth + x] = new Tile(x, y, this.tileWidth, this.tileHeight, this.map[y * this.mapWidth + x], false, "tiles" + this.map[y * this.mapWidth + x], "bg3");
                 } else if (this.map[y * this.mapWidth + x] === 5) {
                     this.tiles[y * this.mapWidth + x] = this.fadeTiles[y * this.mapWidth + x];
                 } else {
@@ -185,15 +176,6 @@ class Level9 extends Level {
         this.fadeTiles[9 * this.mapWidth + 3].reset();
         this.fadeTiles[9 * this.mapWidth + 2].reset();
         this.fadeTiles[8 * this.mapWidth + 2].reset();
-        
-        this.fadeTiles[1 * this.mapWidth + 16].reset();
-        this.fadeTiles[1 * this.mapWidth + 17].reset();
-        this.fadeTiles[1 * this.mapWidth + 18].reset();
-        this.fadeTiles[2 * this.mapWidth + 18].reset();
-        this.fadeTiles[3 * this.mapWidth + 18].reset();
-        this.fadeTiles[3 * this.mapWidth + 17].reset();
-        this.fadeTiles[3 * this.mapWidth + 16].reset();
-        this.fadeTiles[2 * this.mapWidth + 16].reset();
         
         this.fadeTiles[1 * this.mapWidth + 16].reset();
         this.fadeTiles[1 * this.mapWidth + 17].reset();
