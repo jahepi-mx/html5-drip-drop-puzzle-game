@@ -26,8 +26,8 @@ class Level2 extends Level {
         this.ice.reset();
         this.ice.setXY(8 * this.tileWidth + this.tileWidth / 2 - this.ice.w / 2, 5 * this.tileHeight + this.tileHeight / 2 -  this.ice.h / 2);
 
-        this.fadeTiles[6 * this.mapWidth + 10] = new FadeTile(10, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3");
-        this.fadeTiles[8 * this.mapWidth + 12] = new FadeTile(12, 8, this.tileWidth, this.tileHeight, 0.5, 1, 1, "bg3");
+        this.fadeTiles[6 * this.mapWidth + 10] = new FadeTile(10, 6, this.tileWidth, this.tileHeight, 1, 1, 1, "bg3", 0);
+        this.fadeTiles[8 * this.mapWidth + 12] = new FadeTile(12, 8, this.tileWidth, this.tileHeight, 0.5, 1, 1, "bg3", 0);
         
         for (var y = 0; y < this.mapHeight; y++) {
             for (var x = 0; x < this.mapWidth; x++) {

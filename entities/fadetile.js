@@ -1,10 +1,12 @@
 class FadeTile extends Tile {
     
-    constructor(x, y, w, h, fadeTime, stillTime, alpha, backgroundImage) {
+    constructor(x, y, w, h, fadeTime, stillTime, alpha, backgroundImage, startTime) {
         super(x, y, w, h, 2, false, null, backgroundImage);
         this.fadeTime = fadeTime;
         this.stillTime = stillTime;
         this.stillTimeCount = 0;
+        this.startTime = startTime;
+        this.startTimeCount = 0; 
         this.start = false;
         this.alpha = alpha;
         this.origAlpha = alpha;
@@ -12,7 +14,7 @@ class FadeTile extends Tile {
         this.visible = this.alpha === 1;
         this.isDead = false;
         this.animation = new Animation(13, 1);
-        this.animation.stopAtSequenceNumber(1, this.onStopDeadAnimation.bind(this));
+        this.animation.stopAtSequenceNumber(1, this.onStopBlinkAnimation.bind(this));
         this.isStill = false;
         this.explosiveDrop = false;
         this.blinkTime = 0;
@@ -22,7 +24,7 @@ class FadeTile extends Tile {
         this.colors = ["#610e0e", "#e33535", "#3e0909", "#1a0404"];
     }
     
-    onStopDeadAnimation() {
+    onStopBlinkAnimation() {
         this.isStill = true;
         this.animation.reset();
         this.blinkTime = Math.ceil(Math.random() * 3);
@@ -54,6 +56,11 @@ class FadeTile extends Tile {
                 this.isStill = false;
                 this.blinkTimeCount = 0;
             }
+        }
+        
+        this.startTimeCount += deltatime;
+        if (this.startTimeCount < this.startTime) {
+            return;
         }
         
         if (!this.start && this.stillTimeCount >= this.stillTime && this.stillTime > 0) {
@@ -105,6 +112,7 @@ class FadeTile extends Tile {
         this.isDead = false;
         this.explosiveDrop = false;
         this.stillTimeCount = 0;
+        this.startTimeCount = 0;
         this.start = false;
         this.isStill = false;
         this.blinkTime = 0;
