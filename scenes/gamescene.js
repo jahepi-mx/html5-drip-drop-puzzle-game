@@ -174,15 +174,15 @@ class GameScene extends Scene {
         context.fillText(this.fpsLabel.text, this.fpsLabel.x , this.fpsLabel.y); 
         
         context.fillStyle = "#000";
-        context.fillRect(this.timeLabel.x - 5, this.timeLabel.y - 25, 325, 30);
+        context.fillRect(this.timeLabel.x - 5, this.timeLabel.y - 25, 340, 30);
         
         if (this.ice.godMode) {
             context.fillStyle = "#f00";
-            context.fillRect(this.timeLabel.x - 5 + 335, this.timeLabel.y - 25, 250, 30);           
+            context.fillRect(this.timeLabel.x - 5 + 345, this.timeLabel.y - 25, 250, 30);           
             context.font = this.timeLabel.font;
             context.fillStyle = this.timeLabel.color;
             context.textAlign = "left";
-            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 335, this.timeLabel.y);
+            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 345, this.timeLabel.y);
         }
         
         var time = Math.floor(this.time);
