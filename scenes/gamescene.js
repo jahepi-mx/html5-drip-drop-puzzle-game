@@ -112,7 +112,7 @@ class GameScene extends Scene {
 
         for (var a = 0; a < this.currLevel.enemies.length; a++) {
             this.currLevel.enemies[a].update(deltatime);
-            if (!this.ice.isDead && !this.currLevel.enemies[a].isDead && this.currLevel.enemies[a].collide(this.ice) && !this.ice.godMode) {
+            if (!this.ice.isDead && !this.currLevel.enemies[a].isDead && this.ice.collide(this.currLevel.enemies[a]) && !this.ice.godMode) {
                 this.ice.die();
             } else if (!this.ice.isDead && !this.currLevel.enemies[a].isDead && this.currLevel.enemies[a].collide(this.ice) && this.ice.godMode) {
                 this.currLevel.enemies[a].die();

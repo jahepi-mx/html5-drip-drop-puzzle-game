@@ -120,6 +120,7 @@ class FadeTile extends Tile {
         this.dir = 1;
         this.alpha = this.origAlpha;
         this.visible = this.alpha === 1;
+        this.walkable = false;
     }
     
     die() {
@@ -129,6 +130,7 @@ class FadeTile extends Tile {
         this.isStill = false;
         this.blinkTime = 0;
         this.blinkTimeCount = 0;
+        this.walkable = true;
     }
 }
 
