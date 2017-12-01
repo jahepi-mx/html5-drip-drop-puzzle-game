@@ -11,7 +11,7 @@ class Ice extends Entity {
         this.drop = false;
         this.explosiveDrop = false;
         this.tiles = [];
-        this.dropTime = Math.random();
+        this.dropTime = Math.random() * 1.5;
         this.dropTimeCount = 0;
         this.deadTime = 3;
         this.deadTimeCount = 0;
@@ -97,7 +97,7 @@ class Ice extends Entity {
         
         this.dropTimeCount += deltatime;
         if (!this.isDead && this.dropTimeCount > this.dropTime) {
-            this.dropTime = Math.random() * 2;
+            this.dropTime = Math.random() * 1.5;
             this.dropTimeCount = 0;
             this.drop = true;
         }

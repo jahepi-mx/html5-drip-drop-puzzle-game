@@ -46,7 +46,9 @@ class GameScene extends Scene {
     
     update(deltatime) {
         
-        this.fpsLabel.text = Math.floor(1 / deltatime);
+        if (this.config.showFps) {
+            this.fpsLabel.text = Math.floor(1 / deltatime);
+        }
         
         if (this.currLevel.hasHelpPopup() && !this.currLevel.helpPopup.isClosed) {
             this.currLevel.helpPopup.update(deltatime);

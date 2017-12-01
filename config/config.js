@@ -9,6 +9,7 @@ class Config {
         this.musicVolume = 0.4;
         this.soundEffectVolume = 0.6;
         this.debug = false;
+        this.showFps = false;
         this.url = "http://games.jahepi.net";
     }
     

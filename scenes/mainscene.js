@@ -108,7 +108,7 @@ class MainScene extends Scene {
         context.font = "65px joystix";
         context.fillStyle = "rgba(255, 255, 255, 255)";
         context.textAlign = "center";
-        context.fillText("labyrinth", this.config.mapWidth / 2, 200);  
+        context.fillText("drip drop", this.config.mapWidth / 2, 200);  
         
         if (this.blinkTimeCount >= this.blinkTime) {
             this.blink ^= 1;
