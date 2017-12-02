@@ -44,7 +44,7 @@ class Level6 extends Level {
         this.checkpoints.push(new Checkpoint(10, 6, 50, 50, 2));
         this.checkpoints.push(new Checkpoint(18, 6, 50, 50, 3));
         
-        var smartTile = new SmartTile(9, 5, this.tileWidth, this.tileHeight, this.ice, 300, 0.5);
+        var smartTile = new SmartTile(9, 5, this.tileWidth, this.tileHeight, this.ice, 250, 0.5);
         this.enemies.push(smartTile);
     }
     

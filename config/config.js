@@ -10,7 +10,7 @@ class Config {
         this.soundEffectVolume = 0.6;
         this.debug = false;
         this.showFps = false;
-        this.url = "http://games.jahepi.net";
+        this.url = "https://games.jahepi.net";
     }
     
     static getInstance() {
