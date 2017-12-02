@@ -38,7 +38,6 @@ class Ice extends Entity {
     }
 
     render(context) {
-        console.log(this.x+","+this.y);
         if (!this.isDead) {
             if (this.godMode) {
                 var frame = "icegod" + (this.animation.getFrame() + 1);
