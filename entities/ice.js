@@ -38,6 +38,7 @@ class Ice extends Entity {
     }
 
     render(context) {
+        console.log(this.x+","+this.y);
         if (!this.isDead) {
             if (this.godMode) {
                 var frame = "icegod" + (this.animation.getFrame() + 1);
@@ -140,7 +141,10 @@ class Ice extends Entity {
         
         this.oldX = this.x;
         this.x += (this.toX - this.x) * this.ratios[fps];
-
+        if (isNaN(this.x)) {
+            this.x = this.oldX;
+        }
+        
         var x = Math.floor(Math.round(this.x / Tile.getWidth()));
         var y = Math.floor(Math.round(this.y / Tile.getHeight()));
         
@@ -166,6 +170,9 @@ class Ice extends Entity {
 
         this.oldY = this.y;
         this.y += (this.toY - this.y) * this.ratios[fps];
+        if (isNaN(this.y)) {
+            this.y = this.oldY;
+        }
 
         x = Math.floor(Math.round(this.x / Tile.getWidth()));
         y = Math.floor(Math.round(this.y / Tile.getHeight()));
