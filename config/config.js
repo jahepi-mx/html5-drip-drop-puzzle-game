@@ -3,11 +3,8 @@ let configInstance = null;
 class Config {
             
     constructor() {
-        var width = 1000;
-        var height = 600;
-        var ratio = width / height;
-        this.mapWidth = window.screen.availHeight * ratio;
-        this.mapHeight = window.screen.availHeight;
+        this.mapWidth = 1000;
+        this.mapHeight = 600;
         this.sound = true;
         this.musicVolume = 0.4;
         this.soundEffectVolume = 0.6;
