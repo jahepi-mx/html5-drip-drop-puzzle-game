@@ -40,11 +40,11 @@ class Level6 extends Level {
         
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(2, 6, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(10, 6, 50, 50, 2));
-        this.checkpoints.push(new Checkpoint(18, 6, 50, 50, 3));
+        this.checkpoints.push(new Checkpoint(2, 6, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
+        this.checkpoints.push(new Checkpoint(10, 6, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 2));
+        this.checkpoints.push(new Checkpoint(18, 6, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 3));
         
-        var smartTile = new SmartTile(9, 5, this.tileWidth, this.tileHeight, this.ice, 250, 0.5);
+        var smartTile = new SmartTile(9, 5, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(250), 0.5);
         this.enemies.push(smartTile);
     }
     

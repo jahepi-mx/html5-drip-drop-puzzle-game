@@ -101,40 +101,40 @@ class Level10 extends Level {
         
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(1, 4, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(5, 6, 50, 50, 2));
-        this.checkpoints.push(new Checkpoint(15, 5, 50, 50, 3));
-        this.checkpoints.push(new Checkpoint(13, 2, 50, 50, 4));
-        this.checkpoints.push(new Checkpoint(17, 2, 50, 50, 5));
-        this.checkpoints.push(new Checkpoint(13, 8, 50, 50, 6));
-        this.checkpoints.push(new Checkpoint(17, 8, 50, 50, 7));
+        this.checkpoints.push(new Checkpoint(1, 4, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
+        this.checkpoints.push(new Checkpoint(5, 6, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 2));
+        this.checkpoints.push(new Checkpoint(15, 5, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 3));
+        this.checkpoints.push(new Checkpoint(13, 2, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 4));
+        this.checkpoints.push(new Checkpoint(17, 2, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 5));
+        this.checkpoints.push(new Checkpoint(13, 8, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 6));
+        this.checkpoints.push(new Checkpoint(17, 8, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 7));
 
         
-        var smartTile = new SmartTile(19, 1, this.tileWidth, this.tileHeight, this.ice, 160, 0.5);
+        var smartTile = new SmartTile(19, 1, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(160), 0.5);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(18, 10, this.tileWidth, this.tileHeight, this.ice, 140, 0.5);
+        smartTile = new SmartTile(18, 10, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(140), 0.5);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(15, 5, this.tileWidth, this.tileHeight, this.ice, 120, 0.5);
+        smartTile = new SmartTile(15, 5, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(120), 0.5);
         this.enemies.push(smartTile);
         
         this.items.push(new Item(11, 1, this.tileWidth, this.tileHeight));
         this.items.push(new Item(19, 8, this.tileWidth, this.tileHeight));
 
-        var movingTile = new MovingTile(3, 1, this.tileWidth, this.tileHeight, 2);
+        var movingTile = new MovingTile(3, 1, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(2 * this.mapWidth + 3);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(5, 2, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(5, 2, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(1 * this.mapWidth + 5);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(7, 1, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(7, 1, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(2 * this.mapWidth + 7);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(9, 4, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(9, 4, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(4 * this.mapWidth + 5);
         movingTile.addVertex(6 * this.mapWidth + 5);
         movingTile.addVertex(4 * this.mapWidth + 5);

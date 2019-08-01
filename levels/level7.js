@@ -39,17 +39,17 @@ class Level7 extends Level {
         
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(4, 4, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(10, 6, 50, 50, 2));
-        this.checkpoints.push(new Checkpoint(15, 8, 50, 50, 3));
+        this.checkpoints.push(new Checkpoint(4, 4, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
+        this.checkpoints.push(new Checkpoint(10, 6, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 2));
+        this.checkpoints.push(new Checkpoint(15, 8, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 3));
         
-        var smartTile = new SmartTile(11, 6, this.tileWidth, this.tileHeight, this.ice, 200, 0.5);
+        var smartTile = new SmartTile(11, 6, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(200), 0.5);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(16, 3, this.tileWidth, this.tileHeight, this.ice, 150, 1);
+        smartTile = new SmartTile(16, 3, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(150), 1);
         this.enemies.push(smartTile);
         
-        smartTile = new SmartTile(19, 10, this.tileWidth, this.tileHeight, this.ice, 120, 0.5);
+        smartTile = new SmartTile(19, 10, this.tileWidth, this.tileHeight, this.ice, this.config.getWidthByResolution(120), 0.5);
         this.enemies.push(smartTile);
     }
     

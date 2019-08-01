@@ -6,15 +6,15 @@ class LeaderBoardScene extends Scene {
         this.cursor = Cursor.getInstance();
         this.assets = Assets.getInstance();
         this.atlas = Atlas.getInstance();
-        this.hand = new Hand(0, 0, 32, 32);
+        this.hand = new Hand(0, 0, this.config.getWidthByResolution(32), this.config.getHeightByResolution(32));
         this.isLoading = true;
         this.errorLoading = false;
         this.leaderBoardData = [];
         this.soundCount = 0;
         this.soundCountLimit = 1;
         this.catchEventClick = false;
-        this.backBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 120, width: 100, height: 50, text: "Back", alpha: 1};
-        this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
+        this.backBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - this.config.getHeightByResolution(120), width: this.config.getWidthByResolution(100), height: this.config.getHeightByResolution(50), text: "Back", alpha: 1};
+        this.soundBtn = {x: this.config.mapWidth - this.config.getWidthByResolution(80), y: this.config.getHeightByResolution(10), width: this.config.getWidthByResolution(32), height: this.config.getHeightByResolution(32)};
         this.music = null;
         if (this.config.sound) {
             this.music = this.assets.playAudio(this.assets.main, true, this.config.musicVolume);
@@ -36,8 +36,8 @@ class LeaderBoardScene extends Scene {
         this.tiles = [];
         var width = 21;
         var height = 12;
-        var tileWidth = this.config.mapWidth / 21;
-        var tileHeight = this.config.mapHeight / 12;
+        var tileWidth = this.config.mapWidth / width;
+        var tileHeight = this.config.mapHeight / height;
         for (var y = 0; y < height; y++) {
             for (var x = 0; x < width; x++) {
                 if (this.map[y * width + x] >= 6 && this.map[y * width + x] <= 45) {
@@ -101,7 +101,7 @@ class LeaderBoardScene extends Scene {
             this.checkpoints[a].render(context);
         }
         
-        context.font = "30px joystix";
+        context.font = parseInt(this.config.getWidthByResolution(30)) + "px joystix";
         context.fillStyle = "white";
         context.textAlign = "center";
 
@@ -113,14 +113,14 @@ class LeaderBoardScene extends Scene {
             } else {
                 if (this.leaderBoardData.length > 0) {
 
-                    context.font = "40px joystix";
-                    context.fillText("top 10", this.config.mapWidth / 2, 130);
-                    var yStart = 170;
+                    context.font = parseInt(this.config.getWidthByResolution(40)) + "px joystix";
+                    context.fillText("top 10", this.config.mapWidth / 2, this.config.getHeightByResolution(130));
+                    var yStart = this.config.getHeightByResolution(170);
                     for (var i = 0; i < this.leaderBoardData.length; i++) {
-                        context.font = "30px joystix";
+                        context.font = parseInt(this.config.getWidthByResolution(30)) + "px joystix";
                         context.fillStyle = 'red';
                         context.textAlign = "left";
-                        context.fillText(this.leaderBoardData[i].name, 400, yStart);
+                        context.fillText(this.leaderBoardData[i].name, this.config.getWidthByResolution(400), yStart);
 
                         var time = this.leaderBoardData[i].time;
                         var hours = Math.floor(time / 3600);
@@ -128,8 +128,8 @@ class LeaderBoardScene extends Scene {
                         var minutes = Math.floor(time / 60);
                         var seconds = Math.floor(time % 60);
                         context.fillStyle = 'white';
-                        context.fillText((hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds), this.config.mapWidth - 470, yStart);
-                        yStart += 30;
+                        context.fillText((hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds), this.config.mapWidth - this.config.getWidthByResolution(470), yStart);
+                        yStart += this.config.getHeightByResolution(30);
                     }                
                 } else {
                     context.fillText("no data found.", this.config.mapWidth / 2, this.config.mapHeight / 2);
@@ -139,12 +139,12 @@ class LeaderBoardScene extends Scene {
         
         if (this.cursor.x >= this.backBtn.x - this.backBtn.width / 2 && this.cursor.x <= this.backBtn.x + this.backBtn.width / 2 
             && this.cursor.y >= this.backBtn.y - this.backBtn.height / 2  && this.cursor.y <= this.backBtn.y + this.backBtn.height / 2) {          
-            context.font = "35px joystix";
+            context.font = parseInt(this.config.getWidthByResolution(35)) + "px joystix";
             context.fillStyle = 'white';
             context.textAlign = "center";
             context.fillText(this.backBtn.text, this.backBtn.x, this.backBtn.y);
         } else  {
-            context.font = "35px joystix";
+            context.font = parseInt(this.config.getWidthByResolution(35)) + "px joystix";
             context.fillStyle = '#ffa500';
             context.textAlign = "center";
             context.fillText(this.backBtn.text, this.backBtn.x, this.backBtn.y);
@@ -177,5 +177,3 @@ class LeaderBoardScene extends Scene {
         xhr.send();
     }
 }
-
-

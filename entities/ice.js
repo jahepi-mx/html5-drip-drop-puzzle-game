@@ -41,7 +41,7 @@ class Ice extends Entity {
         if (!this.isDead) {
             if (this.godMode) {
                 var frame = "icegod" + (this.animation.getFrame() + 1);
-                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x - 5, this.y - 5, this.w + 10, this.h + 10);
+                context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x - this.config.getWidthByResolution(5), this.y - this.config.getHeightByResolution(5), this.w + this.config.getWidthByResolution(10), this.h + this.config.getHeightByResolution(10));
             } else {
                 context.drawImage(this.assets.spritesAtlas, this.atlas.sprites["ice"].x, this.atlas.sprites["ice"].y, this.atlas.sprites["ice"].width, this.atlas.sprites["ice"].height, this.x, this.y, this.w, this.h);
             }
@@ -112,8 +112,8 @@ class Ice extends Entity {
         
         if (this.explosiveDrop) {
             for (var a = 0; a < 10; a++) {
-                var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 5), "#a6d3fd");
+                var dropSize = Math.ceil(Math.random() * this.config.getWidthByResolution(3) + this.config.getWidthByResolution(5));
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * this.config.getHeightByResolution(10) + this.config.getHeightByResolution(5)), "#a6d3fd");
                 drop.collided = true;
                 drop.speedY = -drop.speedY;
                 this.drops.push(drop);
@@ -197,7 +197,7 @@ class Ice extends Entity {
         }
 
         if (this.drop) {
-            var drop = new Drop(this.left() + Math.random() * this.w - 5 / 2, this.top(), 5, 5, 10, "#a6d3fd");
+            var drop = new Drop(this.left() + Math.random() * this.w - this.config.getWidthByResolution(5) / 2, this.top(), this.config.getWidthByResolution(5), this.config.getHeightByResolution(5), this.config.getHeightByResolution(10), "#a6d3fd");
             this.drops.push(drop);
             this.drop = false;
         }
@@ -228,8 +228,8 @@ class Ice extends Entity {
     }
     
     collide(entity) {
-        var width = entity.w / 2 + this.w / 2 - 5;
-        var height = entity.h / 2 + this.h / 2 - 5;
+        var width = entity.w / 2 + this.w / 2 - this.config.getWidthByResolution(5);
+        var height = entity.h / 2 + this.h / 2 - this.config.getHeightByResolution(5);
         var distanceX = Math.abs((this.left() + this.w / 2) - (entity.left() + entity.w / 2));
         var distanceY = Math.abs((this.top() + this.h / 2) - (entity.top() + entity.h / 2));
         return distanceX < width && distanceY < height;

@@ -3,8 +3,11 @@ let configInstance = null;
 class Config {
             
     constructor() {
-        this.mapWidth = 1000;
-        this.mapHeight = 600;
+        this.width = 1000;
+        this.height = 600;
+        this.screenRatio = this.width / this.height;
+        this.mapWidth = window.screen.availHeight * this.screenRatio;
+        this.mapHeight = window.screen.availHeight;
         this.sound = true;
         this.musicVolume = 0.4;
         this.soundEffectVolume = 0.6;
@@ -18,5 +21,13 @@ class Config {
             configInstance = new Config();
         }
         return configInstance;
+    }
+
+    getWidthByResolution(w) {
+        return w / this.width * this.mapWidth;
+    }
+
+    getHeightByResolution(h) {
+        return h / this.height * this.mapHeight;
     }
 };

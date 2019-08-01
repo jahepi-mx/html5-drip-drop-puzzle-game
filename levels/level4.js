@@ -39,13 +39,13 @@ class Level4 extends Level {
         }
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(19, 5, 50, 50, 1));
+        this.checkpoints.push(new Checkpoint(19, 5, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
        
-        var movingTile = new MovingTile(6, 6, this.tileWidth, this.tileHeight, 5);
+        var movingTile = new MovingTile(6, 6, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(5));
         movingTile.addVertex(4 * this.mapWidth + 6);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(8, 5, this.tileWidth, this.tileHeight, 8);
+        movingTile = new MovingTile(8, 5, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(8));
         movingTile.addVertex(5 * this.mapWidth + 16);
         this.enemies.push(movingTile);
     }

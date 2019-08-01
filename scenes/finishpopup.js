@@ -3,17 +3,17 @@ class FinishPopup extends Popup {
         super(closeCallback, backgroundImage);
         
         var y = this.config.mapHeight / 2 - this.height / 2;
-        y += 165;
-        var letterWidth = 60;
+        y += this.config.getHeightByResolution(165);
+        var letterWidth = this.config.getWidthByResolution(60);
         var nLetters = 5;
-        var marginLeft = 60;
+        var marginLeft = this.config.getWidthByResolution(60);
         var left = this.width - (letterWidth *  nLetters) - (marginLeft * 2);
         var spaceBetween = left / (nLetters - 1);
         
         this.letters = [];
         this.isSaving = false;
         this.time = 0;
-        this.timeLabel = {x: this.config.mapWidth / 2, y: this.config.mapHeight / 2 - 13, text: "", alpha: 1, font: "30px joystix", color: "#ffffff"};
+        this.timeLabel = {x: this.config.mapWidth / 2, y: this.config.mapHeight / 2 - this.config.getHeightByResolution(13), text: "", alpha: 1, font: "30px joystix", color: "#ffffff"};
         var startX = this.config.mapWidth / 2 - this.width / 2 + marginLeft;
         for (var a = 0; a < nLetters; a++) {
             var letter = new Button(letterWidth, letterWidth * 1.3, startX, y);
@@ -24,8 +24,8 @@ class FinishPopup extends Popup {
     
     update(deltatime) {
         
-        if (!this.isSaving && this.cursor.isPressed && this.cursor.x >= this.config.mapWidth / 2 - 100 && this.cursor.x <= this.config.mapWidth / 2 + 100 
-            && this.cursor.y >= this.config.mapHeight / 2 + 120 && this.cursor.y <= this.config.mapHeight / 2 + 160) {          
+        if (!this.isSaving && this.cursor.isPressed && this.cursor.x >= this.config.mapWidth / 2 - this.config.getWidthByResolution(100) && this.cursor.x <= this.config.mapWidth / 2 + this.config.getWidthByResolution(100) 
+            && this.cursor.y >= this.config.mapHeight / 2 + this.config.getHeightByResolution(120) && this.cursor.y <= this.config.mapHeight / 2 + this.config.getHeightByResolution(160)) {          
             this.saveTime();
         }
         
@@ -35,8 +35,8 @@ class FinishPopup extends Popup {
     }
     
     render(context) {
-        if (this.cursor.x >= this.config.mapWidth / 2 - 100 && this.cursor.x <= this.config.mapWidth / 2 + 100 
-            && this.cursor.y >= this.config.mapHeight / 2 + 120 && this.cursor.y <= this.config.mapHeight / 2 + 160) {          
+        if (this.cursor.x >= this.config.mapWidth / 2 - this.config.getWidthByResolution(100) && this.cursor.x <= this.config.mapWidth / 2 + this.config.getWidthByResolution(100) 
+            && this.cursor.y >= this.config.mapHeight / 2 + this.config.getHeightByResolution(120) && this.cursor.y <= this.config.mapHeight / 2 + this.config.getHeightByResolution(160)) {          
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "on"].x, this.atlas.sprites["finishon"].y, this.atlas.sprites["finishon"].width, this.atlas.sprites["finishon"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);
         } else  {
             context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.backgroundImage + "off"].x, this.atlas.sprites["finishoff"].y, this.atlas.sprites["finishoff"].width, this.atlas.sprites["finishoff"].height, this.config.mapWidth / 2 - this.width / 2, this.config.mapHeight / 2 - this.height / 2, this.width, this.height);

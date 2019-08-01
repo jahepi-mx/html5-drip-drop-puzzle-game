@@ -4,21 +4,21 @@ class GameScene extends Scene {
         super(onChangeSceneCallback);
         this.config = Config.getInstance();
         this.cursor = Cursor.getInstance();
-        this.ice = new Ice(0, 0, 30, 30, 0);
+        this.ice = new Ice(0, 0, this.config.getWidthByResolution(30), this.config.getHeightByResolution(30), 0);
         if (LevelManager.created()) {
             LevelManager.getInstance().reset();
         }
         this.levelManager = LevelManager.getInstance();
         this.currLevel = this.levelManager.next();
         this.currLevel.init(this.ice);
-        this.hand = new Hand(0, 0, 32, 32);
+        this.hand = new Hand(0, 0, this.config.getWidthByResolution(32), this.config.getHeightByResolution(32));
         this.atlas = Atlas.getInstance();
         this.assets = Assets.getInstance();
         this.drops = this.currLevel.drops;
         this.time = 0;
-        this.fpsLabel = {x: this.config.mapWidth - 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#7cfc00"};
-        this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
-        this.timeLabel = {x: 20, y: 30, text: "", alpha: 1, font: "40px joystix", color: "#ffffff"};
+        this.fpsLabel = {x: this.config.mapWidth - this.config.getWidthByResolution(20), y: this.config.getHeightByResolution(30), text: "", alpha: 1, font: parseInt(this.config.getWidthByResolution(40)) + "px joystix", color: "#7cfc00"};
+        this.soundBtn = {x: this.config.mapWidth - this.config.getWidthByResolution(80), y: this.config.getHeightByResolution(10), width: this.config.getWidthByResolution(32), height: this.config.getWidthByResolution(32)};
+        this.timeLabel = {x: this.config.getWidthByResolution(20), y: this.config.getHeightByResolution(30), text: "", alpha: 1, font: parseInt(this.config.getWidthByResolution(40)) + "px joystix", color: "#ffffff"};
         this.music = null;
         this.soundCount = 0;
         this.soundCountLimit = 1;
@@ -176,15 +176,15 @@ class GameScene extends Scene {
         context.fillText(this.fpsLabel.text, this.fpsLabel.x , this.fpsLabel.y); 
         
         context.fillStyle = "#000";
-        context.fillRect(this.timeLabel.x - 5, this.timeLabel.y - 25, 340, 30);
+        context.fillRect(this.timeLabel.x - this.config.getWidthByResolution(5), this.timeLabel.y - this.config.getHeightByResolution(25), this.config.getWidthByResolution(340), this.config.getHeightByResolution(30));
         
         if (this.ice.godMode) {
             context.fillStyle = "#f00";
-            context.fillRect(this.timeLabel.x - 5 + 345, this.timeLabel.y - 25, 250, 30);           
+            context.fillRect(this.timeLabel.x + this.config.getWidthByResolution(-5 + 345), this.timeLabel.y - this.config.getHeightByResolution(25), this.config.getWidthByResolution(250), this.config.getHeightByResolution(30));           
             context.font = this.timeLabel.font;
             context.fillStyle = this.timeLabel.color;
             context.textAlign = "left";
-            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + 345, this.timeLabel.y);
+            context.fillText("Item countdown: " + Math.floor(this.ice.godModeCount), this.timeLabel.x + this.config.getWidthByResolution(345), this.timeLabel.y);
         }
         
         var time = Math.floor(this.time);

@@ -6,13 +6,13 @@ class MainScene extends Scene {
         this.cursor = Cursor.getInstance();
         this.assets = Assets.getInstance();
         this.atlas = Atlas.getInstance();
-        this.hand = new Hand(0, 0, 32, 32);
+        this.hand = new Hand(0, 0, this.config.getWidthByResolution(32), this.config.getHeightByResolution(32));
         this.blinkTime = 0.1;
         this.blinkTimeCount = 0;
         this.blink = 0;
-        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 270, width: 100, height: 40, text: "play game", alpha: 1, font: "35px joystix"};
-        this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - 220, width: 150, height: 40, text: "leaderboard", alpha: 1, font: "35px joystix"};
-        this.soundBtn = {x: this.config.mapWidth - 80, y:  10, width: 32, height: 32};
+        this.playBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - this.config.getHeightByResolution(270), width: this.config.getWidthByResolution(100), height: this.config.getHeightByResolution(40), text: "play game", alpha: 1, font: parseInt(this.config.getWidthByResolution(35)) + "px joystix"};
+        this.leaderboardBtn = {x: this.config.mapWidth / 2, y: this.config.mapHeight - this.config.getHeightByResolution(220), width: this.config.getWidthByResolution(150), height: this.config.getHeightByResolution(40), text: "leaderboard", alpha: 1, font: parseInt(this.config.getWidthByResolution(35)) + "px joystix"};
+        this.soundBtn = {x: this.config.mapWidth - this.config.getWidthByResolution(80), y: this.config.getHeightByResolution(10), width: this.config.getWidthByResolution(32), height: this.config.getHeightByResolution(32)};
         this.soundCount = 0;
         this.soundCountLimit = 1;
         this.catchClickEvent = false;
@@ -37,8 +37,8 @@ class MainScene extends Scene {
         this.tiles = [];
         var width = 21;
         var height = 12;
-        var tileWidth = this.config.mapWidth / 21;
-        var tileHeight = this.config.mapHeight / 12;
+        var tileWidth = this.config.mapWidth / width;
+        var tileHeight = this.config.mapHeight / height;
         for (var y = 0; y < height; y++) {
             for (var x = 0; x < width; x++) {
                 if (this.map[y * width + x] >= 6 && this.map[y * width + x] <= 45) {
@@ -105,7 +105,7 @@ class MainScene extends Scene {
             this.checkpoints[a].render(context);
         }
         
-        context.font = "65px joystix";
+        context.font = parseInt(this.config.getWidthByResolution(65)) + "px joystix";
         context.fillStyle = "rgba(255, 255, 255, 255)";
         context.textAlign = "center";
         context.fillText("drip drop", this.config.mapWidth / 2, 200);  

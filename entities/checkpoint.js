@@ -2,7 +2,6 @@ class Checkpoint extends Entity {
             
     constructor(x, y, w, h, id) {
         super(x, y, w, h);
-        
         this.x = x * Tile.getWidth() + Tile.getWidth() / 2 - this.w / 2;
         this.y = y * Tile.getHeight() + Tile.getHeight() / 2 -  this.h / 2;
         
@@ -31,10 +30,10 @@ class Checkpoint extends Entity {
         if (this.explosiveDrop) {
             this.assets.playAudio(this.assets.torch, false, this.config.soundEffectVolume);
             for (var b = 0; b < 10; b++) {
-                var dropSize = Math.ceil(Math.random() * 3 + 5);
-                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), "#ff8100");
+                var dropSize = Math.ceil(Math.random() * this.config.getWidthByResolution(3) + this.config.getWidthByResolution(5));
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * this.config.getHeightByResolution(10) + this.config.getHeightByResolution(35)), "#ff8100");
                 drop.collided = true;
-                drop.speedX = Math.ceil(Math.random() * 5 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedX = Math.ceil(Math.random() * this.config.getWidthByResolution(5) + this.config.getWidthByResolution(10))  * (Math.random() < 0.5 ? 1 : -1);
                 drop.speedY = -drop.speedY;
                 this.drops.push(drop);
             }
@@ -54,12 +53,12 @@ class Checkpoint extends Entity {
         context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[frame].x, this.atlas.sprites[frame].y, this.atlas.sprites[frame].width, this.atlas.sprites[frame].height, this.x, this.y, this.w + 1, this.h + 1);
         
         context.fillStyle = "#000";
-        context.fillRect(this.x + this.w - 5, this.y + 8, 20, 20);
+        context.fillRect(this.x + this.w - 5, this.y + 8, this.config.getWidthByResolution(20), this.config.getHeightByResolution(20));
         
-        context.font = "30px joystix";
+        context.font = parseInt(this.config.getWidthByResolution(30)) + "px joystix";
         context.fillStyle = "#ffffff";
         context.textAlign = "center";
-        context.fillText(this.id, this.x + this.w + 5, this.y + this.h / 2);
+        context.fillText(this.id, this.x + this.w + this.config.getWidthByResolution(5), this.y + this.h / 2);
     }
     
     collide(entity) {

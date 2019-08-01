@@ -5,6 +5,7 @@ class Entity {
         this.y = y * h;
         this.w = w;
         this.h = h;
+        this.config = Config.getInstance();
     }
 
     left() {

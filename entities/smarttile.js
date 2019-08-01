@@ -50,11 +50,11 @@ class SmartTile extends Entity {
         if (this.explosiveDrop) {
             this.assets.playAudio(this.assets.torch, false, this.config.soundEffectVolume);
             for (var b = 0; b < 10; b++) {
-                var dropSize = Math.ceil(Math.random() * 3 + 5);
+                var dropSize = Math.ceil(Math.random() * this.config.getWidthByResolution(3) + this.config.getWidthByResolution(5));
                 var colorIndex = Math.floor(Math.random() * 4);
-                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * 10 + 35), this.colors[colorIndex]);
+                var drop = new Drop(this.left() + this.w / 2 - dropSize / 2, this.top() + this.h / 2 - dropSize / 2 , dropSize, dropSize, Math.ceil(Math.random() * this.config.getHeightByResolution(10) + this.config.getHeightByResolution(35)), this.colors[colorIndex]);
                 drop.collided = true;
-                drop.speedX = Math.ceil(Math.random() * 20 + 10)  * (Math.random() < 0.5 ? 1 : -1);
+                drop.speedX = Math.ceil(Math.random() * this.config.getWidthByResolution(20) + this.config.getWidthByResolution(10))  * (Math.random() < 0.5 ? 1 : -1);
                 drop.speedY = -drop.speedY;
                 this.drops.push(drop);
             }
@@ -84,7 +84,7 @@ class SmartTile extends Entity {
         
         var diffX = Math.abs(this.x - this.toX);
         var diffY = Math.abs(this.y - this.toY);
-        if (diffX <= 2 && diffY <= 2) {
+        if (diffX <= this.config.getWidthByResolution(2) && diffY <= this.config.getHeightByResolution(2)) {
             if (this.path.length > 0) {
                 var vertex = this.path.pop();
                 this.currentVertex = vertex;
@@ -145,7 +145,7 @@ class SmartTile extends Entity {
                 }
             }
         } else if (this.ice.godMode) {
-            // Behaviour to escape from ice when is on god mode.
+            // Behaviour to escape from ice when is in god mode.
             var maxVertex = 0;
             var maxDist = 0;
             for (var vertex of this.visibleTiles) {

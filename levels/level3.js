@@ -79,8 +79,8 @@ class Level3 extends Level {
         
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(16, 4, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(16, 8, 50, 50, 2));
+        this.checkpoints.push(new Checkpoint(16, 4, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
+        this.checkpoints.push(new Checkpoint(16, 8, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 2));
     }
     
     reset() {

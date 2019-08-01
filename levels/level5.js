@@ -38,49 +38,49 @@ class Level5 extends Level {
         }
         this.ice.tiles = this.tiles;
         this.ice.drops = this.drops;
-        this.checkpoints.push(new Checkpoint(6, 3, 50, 50, 1));
-        this.checkpoints.push(new Checkpoint(15, 4, 50, 50, 2));
-        this.checkpoints.push(new Checkpoint(15, 9, 50, 50, 3));
+        this.checkpoints.push(new Checkpoint(6, 3, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 1));
+        this.checkpoints.push(new Checkpoint(15, 4, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 2));
+        this.checkpoints.push(new Checkpoint(15, 9, this.config.getWidthByResolution(50), this.config.getHeightByResolution(50), 3));
        
-        var movingTile = new MovingTile(3, 1, this.tileWidth, this.tileHeight, 5);
+        var movingTile = new MovingTile(3, 1, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(5));
         movingTile.addVertex(3 * this.mapWidth + 3);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(9, 4, this.tileWidth, this.tileHeight, 5);
+        movingTile = new MovingTile(9, 4, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(5));
         movingTile.addVertex(2 * this.mapWidth + 9);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(5, 2, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(5, 2, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(2 * this.mapWidth + 7);
         movingTile.addVertex(4 * this.mapWidth + 7);
         movingTile.addVertex(4 * this.mapWidth + 5);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(11, 3, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(11, 3, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(6 * this.mapWidth + 11);
         movingTile.addVertex(6 * this.mapWidth + 16);
         movingTile.addVertex(6 * this.mapWidth + 11);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(14, 2, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(14, 2, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(2 * this.mapWidth + 16);
         movingTile.addVertex(5 * this.mapWidth + 16);
         movingTile.addVertex(5 * this.mapWidth + 14);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(16, 5, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(16, 5, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(2 * this.mapWidth + 16);
         movingTile.addVertex(2 * this.mapWidth + 14);
         movingTile.addVertex(5 * this.mapWidth + 14);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(14, 7, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(14, 7, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(10 * this.mapWidth + 14);
         movingTile.addVertex(10 * this.mapWidth + 16);
         movingTile.addVertex(7 * this.mapWidth + 16);
         this.enemies.push(movingTile);
         
-        movingTile = new MovingTile(16, 10, this.tileWidth, this.tileHeight, 2);
+        movingTile = new MovingTile(16, 10, this.tileWidth, this.tileHeight, this.config.getWidthByResolution(2));
         movingTile.addVertex(10 * this.mapWidth + 14);
         movingTile.addVertex(7 * this.mapWidth + 14);
         movingTile.addVertex(7 * this.mapWidth + 16);

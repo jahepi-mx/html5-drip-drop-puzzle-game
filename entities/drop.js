@@ -8,10 +8,10 @@ class Drop extends Entity {
         this.h = h;
         this.oldX = 0;
         this.oldY = 0;
-        this.speedX = Math.ceil(Math.random() * 80 + 50)  * (Math.random() < 0.5 ? 1 : -1);
+        this.speedX = Math.ceil(Math.random() * this.config.getWidthByResolution(80) + this.config.getWidthByResolution(50))  * (Math.random() < 0.5 ? 1 : -1);
         this.speedY = speed;
-        this.bounceSpeedY = 20;
-        this.gravity = 50;
+        this.bounceSpeedY = this.config.getHeightByResolution(20);
+        this.gravity = this.config.getHeightByResolution(50);
         this.lifetime = 10;
         this.lifetimeCount = 0;
         this.collided = false;
@@ -55,7 +55,7 @@ class Drop extends Entity {
                         this.speedY = -this.speedY;
                         this.speedX *= 0.3;
                         this.collided = true;                       
-                        if (this.bounceSpeedY >= 5 && Math.abs(this.speedX) >= 2) {
+                        if (this.bounceSpeedY >= this.config.getHeightByResolution(5) && Math.abs(this.speedX) >= this.config.getWidthByResolution(2)) {
                             this.assets.playAudio(this.assets.drop, false, this.config.soundEffectVolume * 0.5);
                         }
                         break;
@@ -79,7 +79,7 @@ class Drop extends Entity {
                         if (tile.visible && !tile.walkable && tile.collide(this)) {
                             this.x = this.oldX;
                             this.speedX = -this.speedX;
-                            if (this.bounceSpeedY >= 5 && Math.abs(this.speedX) >= 2) {
+                            if (this.bounceSpeedY >= this.config.getHeightByResolution(5) && Math.abs(this.speedX) >= this.config.getWidthByResolution(2)) {
                                 this.assets.playAudio(this.assets.drop, false, this.config.soundEffectVolume * 0.5);
                             }
                             break;
