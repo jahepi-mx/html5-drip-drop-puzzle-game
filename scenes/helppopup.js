@@ -7,7 +7,7 @@ class HelpPopup extends Popup {
     render(context) {
         super.render(context);
         if (this.image !== null) {
-            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.image].x, this.atlas.sprites[this.image].y, this.atlas.sprites[this.image].width, this.atlas.sprites[this.image].height, 255, 170, this.atlas.sprites[this.image].width, this.atlas.sprites[this.image].height);
+            context.drawImage(this.assets.spritesAtlas, this.atlas.sprites[this.image].x, this.atlas.sprites[this.image].y, this.atlas.sprites[this.image].width, this.atlas.sprites[this.image].height, this.config.mapWidth / 2 - this.atlas.sprites[this.image].width / 2, this.config.mapHeight / 2  - this.atlas.sprites[this.image].height / 2, this.atlas.sprites[this.image].width, this.atlas.sprites[this.image].height);
         }
     }
 }
