@@ -13,7 +13,7 @@ class FinishPopup extends Popup {
         this.letters = [];
         this.isSaving = false;
         this.time = 0;
-        this.timeLabel = {x: this.config.mapWidth / 2, y: this.config.mapHeight / 2 - this.config.getHeightByResolution(13), text: "", alpha: 1, font: "30px joystix", color: "#ffffff"};
+        this.timeLabel = {x: this.config.mapWidth / 2, y: this.config.mapHeight / 2 - this.config.getHeightByResolution(13), text: "", alpha: 1, font: parseInt(this.config.getWidthByResolution(30)) + "px joystix", color: "#ffffff"};
         var startX = this.config.mapWidth / 2 - this.width / 2 + marginLeft;
         for (var a = 0; a < nLetters; a++) {
             var letter = new Button(letterWidth, letterWidth * 1.3, startX, y);
