@@ -9,7 +9,7 @@ The objective of the game is to extinguish the torch flames using the drips and 
 ## Features
 
 - 10 Levels, from easy to hard.
-- Leaderboard, top 10 from times.
+- Leaderboard, top 10 best times.
 
 ## Setup
 
